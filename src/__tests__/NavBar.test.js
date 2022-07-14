@@ -3,6 +3,8 @@ import '@testing-library/jest-dom';
 
 import NavBar from '../components/NavBar.jsx';
 
-test('Navbar should render correctly', () => {
+test('A clickable link should render', () => {
   render(<NavBar />);
+  const link = screen.getByRole('Tab');
+  expect(link).toBeEnabled();
 });
