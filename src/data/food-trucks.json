@@ -1,6 +1,6 @@
 [
   {
-    "truck_id": "101",
+    "truck_id": 100,
     "name": "Twisted Ice Cream",
     "category": "Dessert / Sweet",
     "bio": "Good Stuff",
@@ -10,7 +10,7 @@
     "email": "twistedsoftserve@gmail.com"
   },
   {
-    "truck_id": "102",
+    "truck_id": 101,
     "name": "Hot Dog City",
     "category": "Hot Dogs",
     "bio": "Good Stuff",
@@ -20,7 +20,7 @@
     "email": "hotdogs@gmail.com"
   },
   {
-    "truck_id": "103",
+    "truck_id": 102,
     "name": "Bob's Burgers",
     "category": "Burgers",
     "bio": "Good Stuff",
