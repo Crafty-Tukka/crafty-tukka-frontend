@@ -55,12 +55,22 @@ module.exports = {
       }
     ]
   },
+  // new settings to allow .jsx imports
   settings: {
-    'import/extensions': ['.js'],
     'import/resolver': {
       node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
         moduleDirectory: ['node_modules', 'src/']
       }
     }
   }
+  // old settings restricting imports to .js only
+  // settings: {
+  //   'import/extensions': ['.js'],
+  //   'import/resolver': {
+  //     node: {
+  //       moduleDirectory: ['node_modules', 'src/']
+  //     }
+  //   }
+  // }
 };
