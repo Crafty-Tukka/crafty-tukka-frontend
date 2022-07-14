@@ -1,11 +1,11 @@
 import React from 'react';
 
-function NavBar() {
+function Venue() {
   return (
     <div>
-      <h1>NavBar</h1>
+      <h1>Venue</h1>
     </div>
   );
 }
 
-export default NavBar;
+export default Venue;
