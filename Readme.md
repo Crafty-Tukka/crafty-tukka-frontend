@@ -1,6 +1,7 @@
 # Getting Started with Create React App
 
 Staging branch created
+Test branch created
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) using the template of **Latte and Code**.
 
