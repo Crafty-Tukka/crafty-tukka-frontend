@@ -1,0 +1,32 @@
+[
+  {
+    "truck_id": "101",
+    "name": "Twisted Ice Cream",
+    "category": "Dessert / Sweet",
+    "bio": "Good Stuff",
+    "website": "www.twisted.com",
+    "facebook_url": "https://www.facebook.com/twistedsoftserve",
+    "mobile": 61422333444,
+    "email": "twistedsoftserve@gmail.com"
+  },
+  {
+    "truck_id": "102",
+    "name": "Hot Dog City",
+    "category": "Hot Dogs",
+    "bio": "Good Stuff",
+    "website": "www.hotdogs.com",
+    "facebook_url": "https://www.facebook.com/hotdogs",
+    "mobile": 61422333445,
+    "email": "hotdogs@gmail.com"
+  },
+  {
+    "truck_id": "103",
+    "name": "Bob's Burgers",
+    "category": "Burgers",
+    "bio": "Good Stuff",
+    "website": "www.burgers.com",
+    "facebook_url": "https://www.facebook.com/burgers",
+    "mobile": 61422333446,
+    "email": "burgers@gmail.com"
+  }
+]
