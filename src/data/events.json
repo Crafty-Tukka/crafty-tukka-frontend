@@ -1,5 +1,6 @@
 [
   {
+    "name": "Twisted Ice Cream",
     "description": "Twisted Ice Cream - Fri 19 Aug",
     "truck_id": 100,
     "venue_id": 1000,
@@ -8,6 +9,7 @@
     "confirmed_status": "confirmed"
   },
   {
+    "name": "Hot Dog City",
     "description": "Hot Dog City - Sat 20 Aug",
     "truck_id": 101,
     "venue_id": 1001,
@@ -16,6 +18,7 @@
     "confirmed_status": "confirmed"
   },
   {
+    "name": "Bob's Burgers",
     "description": "Bob's Burgers - Sat 20 Aug",
     "truck_id": 102,
     "venue_id": 1002,
