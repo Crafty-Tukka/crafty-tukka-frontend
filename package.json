@@ -6,6 +6,7 @@
     "@babel/core": "7.17.*",
     "@babel/eslint-parser": "7.17.*",
     "@babel/preset-react": "7.16.*",
+    "dotenv": "^16.0.1",
     "eslint": "8.13.*",
     "eslint-config-prettier": "8.5.*",
     "eslint-config-react-app": "7.0.*",
