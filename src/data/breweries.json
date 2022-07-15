@@ -1,6 +1,6 @@
 [
   {
-    "venue_id": 1000,
+    "id": 1000,
     "name": "Ballistic Beer",
     "email": "email@ballisticbeer.com",
     "mobile": 61411222333,
@@ -20,7 +20,7 @@
     "google_maps": "https://www.google.com/maps/place/Ballistic+Beer+Co/@-27.548333,153.0315574,15z/data=!4m5!3m4!1s0x0:0x6c36675c8fd00b00!8m2!3d-27.548333!4d153.0315574"
   },
   {
-    "venue_id": 1001,
+    "id": 1001,
     "name": "Helios Brewing",
     "email": "email@helios.com",
     "mobile": 61411222334,
@@ -40,7 +40,7 @@
     "google_maps": "https://www.google.com/maps/place/Helios+Brewing+Company/@-27.5296816,153.0088927,17z/data=!3m1!4b1!4m5!3m4!1s0x6b91500bb76005f1:0x68017e7594fb0f9a!8m2!3d-27.5296816!4d153.0110814"
   },
   {
-    "venue_id": 1002,
+    "id": 1002,
     "name": "Archer Brewing",
     "email": "email@archer.com",
     "mobile": 61411222334,

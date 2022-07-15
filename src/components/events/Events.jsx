@@ -2,6 +2,7 @@ import {useMemo, useCallback, useRef} from 'react';
 import {GoogleMap} from '@react-google-maps/api';
 import './EventStyle.css';
 import {useGlobalState} from 'utils/stateContext';
+import Card from 'components/Card';
 
 function Events() {
   const {store} = useGlobalState();
@@ -18,6 +19,8 @@ function Events() {
   );
   const mapRef = useRef(GoogleMap);
   const onLoad = useCallback((map) => (mapRef.current = map), []);
+  const eventImg =
+    'https://cdn.shopify.com/s/files/1/0619/1700/3994/files/Ballistic-Beer-Our-Story-About-Us-1.jpg?crop=top&height=275&v=1650431502&width=275';
 
   return (
     <div className="container">
@@ -25,12 +28,18 @@ function Events() {
         <h1>Event List</h1>
         {confirmedEvents.map((event) => {
           return event.confirmed_status === 'confirmed' ? (
-            <>
+            // <>
+            //   <h3>Name: {event.name}</h3>
+            //   <p>Description: {event.description}</p>
+            //   <h5>Start Time: {event.start}</h5>
+            //   <h5>Finish Time: {event.finish}</h5>
+            // </>
+            <Card key={event.id} imgPath={eventImg} item={event} routePath={'event'}>
               <h3>Name: {event.name}</h3>
               <p>Description: {event.description}</p>
               <h5>Start Time: {event.start}</h5>
               <h5>Finish Time: {event.finish}</h5>
-            </>
+            </Card>
           ) : null;
         })}
       </div>
