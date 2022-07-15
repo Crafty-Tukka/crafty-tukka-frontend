@@ -59,9 +59,9 @@ function App() {
             {/* FoodTruck page will host search logic to locate food truck based on id. then it will render detail component using props.children as discussed with glen. */}
             <Route path=":foodtruckid" element={<FoodTruck />} />
           </Route>
-          <Route path="signin" element={<Signin />} />
-          <Route path="signup" element={<Signup />} />
-          <Route path="editprofile" element={<EditProfile />} />
+          <Route path="auth/signin" element={<Signin />} />
+          <Route path="auth/signup" element={<Signup />} />
+          <Route path="auth/editprofile" element={<EditProfile />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
