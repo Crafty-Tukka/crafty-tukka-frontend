@@ -1,4 +1,5 @@
 import React, {useReducer} from 'react';
+import {useLoadScript} from '@react-google-maps/api';
 import {BrowserRouter as Router, Navigate, Route, Routes} from 'react-router-dom';
 import NavBar from 'components/NavBar';
 import NotFound from 'components/NotFound';
@@ -30,7 +31,12 @@ function App() {
 
   const [store, dispatch] = useReducer(reducer, initialState);
   const {venues, loggedInUser} = store;
+  const {isLoaded} = useLoadScript({
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+    libraries: ['places']
+  });
 
+  if (!isLoaded) return <div>Loading...</div>;
   console.log(venues);
 
   return (
