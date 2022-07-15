@@ -25,6 +25,7 @@ a {
   padding: 1rem;
   background: #14161a;
   color: #fff;
+  overflow-y: scroll;
 }
 
 .controls input {
