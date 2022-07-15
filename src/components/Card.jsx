@@ -1,11 +1,13 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
-function PreviewCard() {
+function Card({imgPath, item, routePath, children}) {
   return (
-    <div>
-      <h1>PreviewCard</h1>
-    </div>
+    <Link to={`/${routePath}/${item.id}`} style={{textDecoration: 'none'}}>
+      <img src={imgPath} alt="" />
+      {children}
+    </Link>
   );
 }
 
-export default PreviewCard;
+export default Card;
