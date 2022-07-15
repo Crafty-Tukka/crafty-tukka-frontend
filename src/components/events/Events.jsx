@@ -34,7 +34,7 @@ function Events() {
             //   <h5>Start Time: {event.start}</h5>
             //   <h5>Finish Time: {event.finish}</h5>
             // </>
-            <Card key={event.id} imgPath={eventImg} item={event} routePath={'event'}>
+            <Card key={event.id} imgPath={eventImg} item={event} routePath={'events'}>
               <h3>Name: {event.name}</h3>
               <p>Description: {event.description}</p>
               <h5>Start Time: {event.start}</h5>
