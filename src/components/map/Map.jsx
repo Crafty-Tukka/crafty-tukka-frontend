@@ -28,7 +28,6 @@ function Map() {
   return (
     <div className="container">
       <div className="controls">
-        <h1>Events</h1>
         <Events />
       </div>
       <div className="map">
