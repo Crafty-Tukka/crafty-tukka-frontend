@@ -1,4 +1,4 @@
-import {useMemo, useCallback, useRef} from 'react';
+import {useMemo, useCallback, useRef, useState, useEffect} from 'react';
 import {GoogleMap, Marker} from '@react-google-maps/api';
 import Events from 'components/events/Events';
 import './MapStyle.css';
@@ -13,11 +13,14 @@ function Map() {
     }),
     []
   );
+  const [markers, setMarkers] = useState([]);
 
-  const markers = [];
-  venues.map((venue) => markers.push(venue.position));
+  useEffect(() => {
+    setMarkers(venues);
+  }, []);
 
-  console.log(markers);
+  //   const markers = [];
+  //   venues.map((venue) => markers.push(venue.position));
 
   const mapRef = useRef(GoogleMap);
   const onLoad = useCallback((map) => (mapRef.current = map), []);
@@ -37,7 +40,7 @@ function Map() {
           onLoad={onLoad}
         >
           {markers.map((marker) => (
-            <Marker key={marker} position={marker} />
+            <Marker key={marker.id} position={marker.position} />
           ))}
         </GoogleMap>
       </div>
