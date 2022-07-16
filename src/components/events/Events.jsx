@@ -2,7 +2,9 @@ import {useMemo, useCallback, useRef} from 'react';
 import {GoogleMap} from '@react-google-maps/api';
 import './EventStyle.css';
 import {useGlobalState} from 'utils/stateContext';
-import Card from 'components/Card';
+import List from 'components/List';
+import {Typography} from '@mui/material';
+import PreviewCard from 'components/PreviewCard';
 
 function Events() {
   const {store} = useGlobalState();
@@ -25,23 +27,26 @@ function Events() {
   return (
     <div className="container">
       <div className="controls">
-        <h1>Event List</h1>
-        {confirmedEvents.map((event) => {
-          return event.confirmed_status === 'confirmed' ? (
-            // <>
-            //   <h3>Name: {event.name}</h3>
-            //   <p>Description: {event.description}</p>
-            //   <h5>Start Time: {event.start}</h5>
-            //   <h5>Finish Time: {event.finish}</h5>
-            // </>
-            <Card key={event.id} imgPath={eventImg} item={event} routePath={'events'}>
-              <h3>Name: {event.name}</h3>
-              <p>Description: {event.description}</p>
-              <h5>Start Time: {event.start}</h5>
-              <h5>Finish Time: {event.finish}</h5>
-            </Card>
-          ) : null;
-        })}
+        <List title="Events">
+          {confirmedEvents.map((event) => {
+            return event.confirmed_status === 'confirmed' ? (
+              <PreviewCard key={event.id} imgPath={eventImg} item={event} routePath={'events'}>
+                <Typography component="div" variant="h6">
+                  {event.name}
+                </Typography>
+                <Typography variant="subtitle1" color="text.secondary" component="div">
+                  {event.description}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {event.start}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {event.finish}
+                </Typography>
+              </PreviewCard>
+            ) : null;
+          })}
+        </List>
       </div>
       <div className="map">
         <GoogleMap
