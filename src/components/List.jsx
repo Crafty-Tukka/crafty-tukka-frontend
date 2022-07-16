@@ -1,10 +1,14 @@
+import {Typography} from '@mui/material';
 import React from 'react';
 
-function List() {
+function List({title, children}) {
   return (
-    <div>
-      <h1>List</h1>
-    </div>
+    <>
+      <Typography component="div" variant="h4">
+        {title}
+      </Typography>
+      {children}
+    </>
   );
 }
 
