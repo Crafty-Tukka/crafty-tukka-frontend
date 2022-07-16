@@ -14,7 +14,7 @@ But the important part is that it has my favourite configuration for **Prettier*
 Besides, `Husky` is configure to run Prettier and ESLint before doing a commit, so you can be sure of all the code having the same style after a commit.
 
 ```
-"lint-staged": {
+"lint-staged": { 
     "src/*.{js}": "eslint",
     "src/**/*.{js,jsx,json,css,scss,md}": "prettier -w -u"
 },
