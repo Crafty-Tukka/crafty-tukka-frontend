@@ -1,4 +1,7 @@
-import {Card, CardContent, CardMedia, Typography} from '@mui/material';
+// This component may not be needed anymore as we are using a pop-up modal to display details
+
+import {Typography} from '@mui/material';
+import Details from 'components/Details';
 import React from 'react';
 import {useParams} from 'react-router';
 import {Link} from 'react-router-dom';
@@ -31,15 +34,12 @@ function Event() {
     <>
       {event ? (
         // this needs to be refactored into a details component
-        <Card>
-          <CardContent>
-            <CardMedia component="img" height="140" image={`${img}`} alt="event image" />
-            <Typography variant="h3">{event.name}</Typography>
-            <Typography variant="p">{event.description}</Typography>
-            <Typography variant="h6">Start time: {event.start}</Typography>
-            <Typography variant="h6">Finish time: {event.finish}</Typography>
-          </CardContent>
-        </Card>
+        <Details item={event} imgPath={img}>
+          <Typography variant="h3">{event.name}</Typography>
+          <Typography variant="p">{event.description}</Typography>
+          <Typography variant="h6">Start time: {event.start}</Typography>
+          <Typography variant="h6">Finish time: {event.finish}</Typography>
+        </Details>
       ) : (
         <>
           <p>Event not found</p>
