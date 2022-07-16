@@ -18,6 +18,7 @@ import {StateContext} from 'utils/stateContext';
 import venuesList from './data/breweries.json';
 import eventsList from './data/events.json';
 import foodTrucksList from './data/food-trucks.json';
+import Map from 'components/map/Map';
 
 function App() {
   const initialState = {
@@ -43,7 +44,9 @@ function App() {
       <Router>
         <NavBar />
         <Routes>
-          <Route path="/" element={<Navigate to="events" replace />} />
+          {/* <Route path="/" element={<Navigate to="events" replace />} /> */}
+          <Route path="/" element={<Navigate to="map" replace />} />
+          <Route path="map" element={<Map />} />
           <Route path="events">
             <Route index element={<Events />} />
             <Route path="new" element={loggedInUser ? <EventForm /> : <Signin />} />
