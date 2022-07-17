@@ -1,7 +1,7 @@
 import {useMemo, useCallback, useRef, useState, useEffect} from 'react';
 import {GoogleMap, Marker} from '@react-google-maps/api';
-import Events from 'components/events/Events';
-import './MapStyle.css';
+// import Events from 'components/events/Events';
+// import './Map.css';
 import venues from '../../data/breweries.json';
 
 function Map() {
@@ -26,24 +26,22 @@ function Map() {
   const onLoad = useCallback((map) => (mapRef.current = map), []);
 
   return (
-    <div className="container">
-      <div className="controls">
-        <Events />
-      </div>
-      <div className="map">
-        <GoogleMap
-          zoom={12}
-          center={center}
-          mapContainerClassName="map-container"
-          options={options}
-          onLoad={onLoad}
-        >
-          {markers.map((marker) => (
-            <Marker key={marker.id} position={marker.position} />
-          ))}
-        </GoogleMap>
-      </div>
-    </div>
+    // <div className="container">
+    // <div className="controls"><Events /></div>
+    // <div className="map">
+    <GoogleMap
+      zoom={12}
+      center={center}
+      mapContainerClassName="map-container"
+      options={options}
+      onLoad={onLoad}
+    >
+      {markers.map((marker) => (
+        <Marker key={marker.id} position={marker.position} />
+      ))}
+    </GoogleMap>
+    // </div>
+    // </div>
   );
 }
 

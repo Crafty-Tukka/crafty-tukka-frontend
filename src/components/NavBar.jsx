@@ -10,7 +10,7 @@ function NavBar() {
           <Typography variant="h2">
             <Toolbar disableGutters>
               <Tabs value={false}>
-                <Tab label="Home" value="/events" component={Link} to="/map" />
+                <Tab label="Home" value="/events" component={Link} to="/events" />
                 <Tab label="Food Trucks" value="/foodtrucks" component={Link} to="/foodtrucks" />
                 <Tab label="Breweries" value="/venues" component={Link} to="/venues" />
                 <Tab label="Sign In" value="/auth/signin" component={Link} to="/auth/signin" />
