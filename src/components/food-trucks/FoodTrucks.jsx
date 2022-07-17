@@ -1,10 +1,43 @@
 import React from 'react';
+import {Typography} from '@mui/material';
+import List from 'components/List';
+import PreviewCard from 'components/PreviewCard';
+import {useGlobalState} from 'utils/stateContext';
 
 function FoodTrucks() {
+  const {store} = useGlobalState();
+  const {foodTrucks} = store;
+  console.log(foodTrucks);
+
+  const foodTruckImg =
+    'https://cdn.shopify.com/s/files/1/0619/1700/3994/files/Ballistic-Beer-Our-Story-About-Us-1.jpg?crop=top&height=275&v=1650431502&width=275';
+
   return (
-    <div>
-      <h1>FoodTrucks</h1>
-    </div>
+    <List title="Food Trucks">
+      {foodTrucks.map((foodTruck) => {
+        return (
+          <PreviewCard
+            key={foodTruck.id}
+            imgPath={foodTruckImg}
+            item={foodTruck}
+            routePath={'foodTrucks'}
+          >
+            <Typography component="div" variant="h6">
+              {foodTruck.name}
+            </Typography>
+            <Typography variant="subtitle1" color="text.secondary" component="div">
+              {foodTruck.description}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {foodTruck.start}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {foodTruck.finish}
+            </Typography>
+          </PreviewCard>
+        );
+      })}
+    </List>
   );
 }
 
