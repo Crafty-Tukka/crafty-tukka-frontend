@@ -11,6 +11,7 @@ import EventForm from 'components/events/EventForm';
 import Events from 'components/events/Events';
 import FoodTruck from 'components/food-trucks/FoodTruck';
 import FoodTrucks from 'components/food-trucks/FoodTrucks';
+import Map from 'components/map/Map';
 import Venue from 'components/venues/Venue';
 import Venues from 'components/venues/Venues';
 import reducer from 'utils/reducer';
@@ -18,7 +19,6 @@ import {StateContext} from 'utils/stateContext';
 import venuesList from './data/breweries.json';
 import eventsList from './data/events.json';
 import foodTrucksList from './data/food-trucks.json';
-import Map from 'components/map/Map';
 
 function App() {
   const initialState = {
