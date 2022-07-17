@@ -1,5 +1,7 @@
-import {Button, Card, CardActions, CardContent, CardMedia, Typography} from '@mui/material';
 import React from 'react';
+import ComputerIcon from '@mui/icons-material/Computer';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import {Button, Card, CardActions, CardContent, CardMedia, Typography, Link} from '@mui/material';
 
 const style = {
   position: 'absolute',
@@ -28,8 +30,24 @@ function Details({item, imgPath, handleClose}) {
           </Typography>
           {item.start ? <Typography variant="h6">Start time: {item.start}</Typography> : null}
           {item.finish ? <Typography variant="h6">Finish time: {item.finish}</Typography> : null}
-          {item.address ? <Typography variant="h6">{item.address}</Typography> : null}
+          {item.location ? (
+            <Typography variant="body2">
+              {item.location.address1} <br /> {item.location.city}
+            </Typography>
+          ) : null}
           {item.category ? <Typography variant="h6">{item.category}</Typography> : null}
+          <span>
+            {item.facebook ? (
+              <Link href={`${item.facebook}`} target="_blank" rel="noreferrer">
+                <FacebookIcon />
+              </Link>
+            ) : null}
+            {item.website ? (
+              <Link href={`${item.website}`} target="_blank" rel="noreferrer">
+                <ComputerIcon />
+              </Link>
+            ) : null}
+          </span>
         </CardContent>
         <CardActions>
           <Button size="small" onClick={handleClose}>
