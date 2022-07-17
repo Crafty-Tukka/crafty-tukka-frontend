@@ -28,7 +28,11 @@ function Details({item, imgPath, handleClose}) {
           </Typography>
           {item.start ? <Typography variant="h6">Start time: {item.start}</Typography> : null}
           {item.finish ? <Typography variant="h6">Finish time: {item.finish}</Typography> : null}
-          {item.address ? <Typography variant="h6">{item.address}</Typography> : null}
+          {item.location ? (
+            <Typography variant="body2">
+              {item.location.address1} <br /> {item.location.city}
+            </Typography>
+          ) : null}
           {item.category ? <Typography variant="h6">{item.category}</Typography> : null}
         </CardContent>
         <CardActions>
