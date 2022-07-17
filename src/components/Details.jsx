@@ -8,7 +8,8 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  // width: 400,
+  width: 640,
+  height: 640,
   // bgcolor: 'background.paper',
   // border: '2px solid #000',
   // maxWidth: 345,
@@ -38,12 +39,12 @@ function Details({item, imgPath, handleClose}) {
           {item.category ? <Typography variant="h6">{item.category}</Typography> : null}
           <span>
             {item.facebook ? (
-              <Link href={`${item.facebook}`} target="_blank" rel="noreferrer">
+              <Link href={item.facebook} target="_blank" rel="noreferrer">
                 <FacebookIcon />
               </Link>
             ) : null}
             {item.website ? (
-              <Link href={`${item.website}`} target="_blank" rel="noreferrer">
+              <Link href={item.website} target="_blank" rel="noreferrer">
                 <ComputerIcon />
               </Link>
             ) : null}

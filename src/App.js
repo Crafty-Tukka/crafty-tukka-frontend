@@ -11,7 +11,7 @@ import EventForm from 'components/events/EventForm';
 import Events from 'components/events/Events';
 import FoodTruck from 'components/food-trucks/FoodTruck';
 import FoodTrucks from 'components/food-trucks/FoodTrucks';
-import Map from 'components/map/Map';
+// import Map from 'components/map/Map';
 import Venue from 'components/venues/Venue';
 import Venues from 'components/venues/Venues';
 import reducer from 'utils/reducer';
@@ -44,9 +44,9 @@ function App() {
       <Router>
         <NavBar />
         <Routes>
-          {/* <Route path="/" element={<Navigate to="events" replace />} /> */}
-          <Route path="/" element={<Navigate to="map" replace />} />
-          <Route path="map" element={<Map />} />
+          <Route path="/" element={<Navigate to="events" replace />} />
+          {/* <Route path="/" element={<Navigate to="map" replace />} /> */}
+          {/* <Route path="map" element={<Map />} /> */}
           <Route path="events">
             <Route index element={<Events />} />
             <Route path="new" element={loggedInUser ? <EventForm /> : <Signin />} />

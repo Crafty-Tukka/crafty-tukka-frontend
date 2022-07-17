@@ -1,7 +1,8 @@
 import {useGlobalState} from 'utils/stateContext';
-import List from 'components/List';
 import {Typography} from '@mui/material';
-import PreviewCard from 'components/PreviewCard';
+import SideBarContainer from 'components/Containers/SideBarContainer';
+import MapContainer from 'components/Containers/MapContainer';
+import LinkedCard from 'components/LinkedCard';
 
 function Events() {
   const {store} = useGlobalState();
@@ -12,26 +13,28 @@ function Events() {
     'https://cdn.shopify.com/s/files/1/0619/1700/3994/files/Ballistic-Beer-Our-Story-About-Us-1.jpg?crop=top&height=275&v=1650431502&width=275';
 
   return (
-    <List title="Events">
-      {confirmedEvents.map((event) => {
-        return event.confirmed_status === 'confirmed' ? (
-          <PreviewCard key={event.id} imgPath={eventImg} item={event} routePath={'events'}>
-            <Typography component="div" variant="h6">
-              {event.name}
-            </Typography>
-            <Typography variant="subtitle1" color="text.secondary" component="div">
-              {event.description}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {event.start}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {event.finish}
-            </Typography>
-          </PreviewCard>
-        ) : null;
-      })}
-    </List>
+    <MapContainer>
+      <SideBarContainer title="Events">
+        {confirmedEvents.map((event) => {
+          return event.confirmed_status === 'confirmed' ? (
+            <LinkedCard key={event.id} imgPath={eventImg} item={event} routePath={'events'}>
+              <Typography component="div" variant="h6">
+                {event.name}
+              </Typography>
+              <Typography variant="subtitle1" color="text.secondary" component="div">
+                {event.description}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {event.start}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {event.finish}
+              </Typography>
+            </LinkedCard>
+          ) : null;
+        })}
+      </SideBarContainer>
+    </MapContainer>
   );
 }
 
