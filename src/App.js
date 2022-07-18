@@ -1,4 +1,4 @@
-import React, {useReducer} from 'react';
+import React, {useReducer, useState} from 'react';
 import {useLoadScript} from '@react-google-maps/api';
 import {BrowserRouter as Router, Navigate, Route, Routes} from 'react-router-dom';
 import NavBar from 'components/NavBar';
@@ -14,7 +14,7 @@ import FoodTrucks from 'components/food-trucks/FoodTrucks';
 // import Map from 'components/map/Map';
 import Venue from 'components/venues/Venue';
 import Venues from 'components/venues/Venues';
-import reducer from 'utils/reducer';
+import {reducer} from 'utils/reducer';
 import {StateContext} from 'utils/stateContext';
 import venuesList from './data/breweries.json';
 import eventsList from './data/events.json';
@@ -31,18 +31,27 @@ function App() {
   };
 
   const [store, dispatch] = useReducer(reducer, initialState);
-  const {loggedInUser} = store;
+  // const {loggedInUser} = store;
   const {isLoaded} = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries: ['places']
   });
+  const [loggedInUser, setLoggedInUser] = useState('');
+
+  const activateUser = (email) => {
+    setLoggedInUser(email);
+    // dispatch({
+    //   type: 'setLoggedInUser',
+    //   data: name
+    // });
+  };
 
   if (!isLoaded) return <div>Loading...</div>;
 
   return (
     <StateContext.Provider value={{store, dispatch}}>
       <Router>
-        <NavBar />
+        <NavBar loggedInUser={loggedInUser} activateUser={activateUser} />
         <Routes>
           <Route path="/" element={<Navigate to="events" replace />} />
           {/* <Route path="/" element={<Navigate to="map" replace />} /> */}
@@ -67,7 +76,7 @@ function App() {
             {/* FoodTruck page will host search logic to locate food truck based on id. then it will render detail component using props.children as discussed with glen. */}
             <Route path=":foodtruckid" element={<FoodTruck />} />
           </Route>
-          <Route path="auth/signin" element={<Signin />} />
+          <Route path="auth/signin" element={<Signin activateUser={activateUser} />} />
           <Route path="auth/signup" element={<Signup />} />
           <Route path="auth/editprofile" element={<EditProfile />} />
           <Route path="*" element={<NotFound />} />
