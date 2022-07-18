@@ -37,9 +37,9 @@ function Map() {
   const mapRef = useRef(GoogleMap);
   const onLoad = useCallback((map) => (mapRef.current = map), []);
 
-  const onZoomChanged = () => {
-    setZoom(mapRef.zoom);
-  };
+  // const onZoomChanged = () => {
+  //   setZoom(mapRef.zoom);
+  // };
 
   return (
     // <div className="container">
@@ -51,7 +51,7 @@ function Map() {
       mapContainerClassName="map-container"
       options={options}
       onLoad={onLoad}
-      onZoomChanged={onZoomChanged}
+      // onZoomChanged={onZoomChanged}
     >
       {markers.map((marker) => (
         <Marker key={marker.id} position={marker.position} onClick={onClick} />
