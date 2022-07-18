@@ -5,7 +5,7 @@ Test branch created
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) using the template of **Latte and Code**.
 
-## What will you find here
+## What will you find here 
 
 This app is configured to work under **React 18** and **React Router v6**.
 
