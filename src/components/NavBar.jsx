@@ -1,8 +1,14 @@
 import React from 'react';
 import {AppBar, Toolbar, Typography, Tabs, Tab, Container} from '@mui/material';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 
-function NavBar() {
+function NavBar({loggedInUser, activateUser}) {
+  const navigate = useNavigate();
+  const logOut = (event) => {
+    event.preventDefault();
+    activateUser('');
+    navigate('/events');
+  };
   return (
     <>
       <AppBar position="sticky">
@@ -13,17 +19,33 @@ function NavBar() {
                 <Tab label="Home" value="/events" component={Link} to="/events" />
                 <Tab label="Food Trucks" value="/foodtrucks" component={Link} to="/foodtrucks" />
                 <Tab label="Breweries" value="/venues" component={Link} to="/venues" />
-                <Tab label="Sign In" value="/auth/signin" component={Link} to="/auth/signin" />
-                <Tab label="Sign Up" value="/auth/signup" component={Link} to="/auth/signup" />
-                <Tab label="My Events" />
-                <Tab label="Book an Event" value="/events/new" component={Link} to="/events/new" />
-                <Tab
-                  label="Edit Profile"
-                  value="auth/editprofile"
-                  component={Link}
-                  to="auth/editprofile"
-                />
-                <Tab label="Log Out" component={Link} to="/events" />
+                {!loggedInUser && (
+                  <Tab label="Sign In" value="/auth/signin" component={Link} to="/auth/signin" />
+                )}
+                {!loggedInUser && (
+                  <Tab label="Sign Up" value="/auth/signup" component={Link} to="/auth/signup" />
+                )}
+                {loggedInUser && <Tab label="My Events" />}
+                {loggedInUser && (
+                  <Tab
+                    label="Book an Event"
+                    value="/events/new"
+                    component={Link}
+                    to="/events/new"
+                  />
+                )}
+                {loggedInUser && (
+                  <Tab
+                    label="Edit Profile"
+                    value="auth/editprofile"
+                    component={Link}
+                    to="auth/editprofile"
+                  />
+                )}
+                {loggedInUser}
+                {loggedInUser && (
+                  <Tab label="Log Out" component={Link} to="/events" onClick={logOut} />
+                )}
               </Tabs>
             </Toolbar>
           </Typography>
