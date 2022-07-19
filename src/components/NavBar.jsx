@@ -9,7 +9,9 @@ import {
   IconButton,
   Menu,
   MenuItem,
-  Button
+  Button,
+  Tooltip,
+  Avatar
 } from '@mui/material';
 import {Link, useNavigate} from 'react-router-dom';
 import AdbIcon from '@mui/icons-material/Adb';
@@ -23,6 +25,7 @@ function NavBar({loggedInUser, activateUser}) {
     navigate('/events');
   };
   const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -30,6 +33,14 @@ function NavBar({loggedInUser, activateUser}) {
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
+  };
+
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
   };
 
   return (
@@ -209,38 +220,116 @@ function NavBar({loggedInUser, activateUser}) {
                   <Tab label="Sign Up" value="/auth/signup" component={Link} to="/auth/signup" />
                 </Button>
               )}
-              {loggedInUser && (
-                <Button onClick={handleCloseNavMenu} sx={{my: 2, color: 'white', display: 'block'}}>
-                  <Tab label="My Events" />
-                </Button>
-              )}
-              {loggedInUser && (
-                <Button onClick={handleCloseNavMenu} sx={{my: 2, color: 'white', display: 'block'}}>
-                  <Tab
-                    label="Book an Event"
-                    value="/events/new"
-                    component={Link}
-                    to="/events/new"
-                  />
-                </Button>
-              )}
-              {loggedInUser && (
-                <Button onClick={handleCloseNavMenu} sx={{my: 2, color: 'white', display: 'block'}}>
-                  <Tab
-                    label="Edit Profile"
-                    value="auth/editprofile"
-                    component={Link}
-                    to="auth/editprofile"
-                  />
-                </Button>
-              )}
-              {loggedInUser}
-              {loggedInUser && (
-                <Button onClick={handleCloseNavMenu} sx={{my: 2, color: 'white', display: 'block'}}>
-                  <Tab label="Log Out" component={Link} to="/events" onClick={logOut} />
-                </Button>
-              )}
+              {/* {loggedInUser && (
+                <>
+                  <Button
+                    onClick={handleCloseNavMenu}
+                    sx={{my: 2, color: 'white', display: 'block'}}
+                  >
+                    <Tab label="My Events" />
+                  </Button>
+                  <Button
+                    onClick={handleCloseNavMenu}
+                    sx={{my: 2, color: 'white', display: 'block'}}
+                  >
+                    <Tab
+                      label="Book an Event"
+                      value="/events/new"
+                      component={Link}
+                      to="/events/new"
+                    />
+                  </Button>
+                  <Button
+                    onClick={handleCloseNavMenu}
+                    sx={{my: 2, color: 'white', display: 'block'}}
+                  >
+                    <Tab
+                      label="Edit Profile"
+                      value="auth/editprofile"
+                      component={Link}
+                      to="auth/editprofile"
+                    />
+                  </Button>
+                  <Button
+                    onClick={handleCloseNavMenu}
+                    sx={{my: 2, color: 'white', display: 'block'}}
+                  >
+                    <Tab label="Log Out" component={Link} to="/events" onClick={logOut} />
+                  </Button>
+                </>
+              )} */}
             </Box>
+            {loggedInUser && (
+              <Box sx={{flexGrow: 0}}>
+                <Tooltip title="Open My User Settings">
+                  <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
+                    <Avatar
+                      alt="User Avatar"
+                      src="https://images.unsplash.com/photo-1600956306204-d6a5c6aab472?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
+                    />
+                  </IconButton>
+                </Tooltip>
+                <Menu
+                  sx={{mt: '45px'}}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right'
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right'
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+                  <MenuItem onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">
+                      {loggedInUser && (
+                        <>
+                          <Button
+                            onClick={handleCloseNavMenu}
+                            sx={{my: 2, color: 'red', display: 'block'}}
+                          >
+                            <Tab label="My Events" />
+                          </Button>
+                          <Button
+                            onClick={handleCloseNavMenu}
+                            sx={{my: 2, color: 'red', display: 'block'}}
+                          >
+                            <Tab
+                              label="Book an Event"
+                              value="/events/new"
+                              component={Link}
+                              to="/events/new"
+                            />
+                          </Button>
+                          <Button
+                            onClick={handleCloseNavMenu}
+                            sx={{my: 2, color: 'red', display: 'block'}}
+                          >
+                            <Tab
+                              label="Edit Profile"
+                              value="auth/editprofile"
+                              component={Link}
+                              to="auth/editprofile"
+                            />
+                          </Button>
+                          <Button
+                            onClick={handleCloseNavMenu}
+                            sx={{my: 2, color: 'red', display: 'block'}}
+                          >
+                            <Tab label="Log Out" component={Link} to="/events" onClick={logOut} />
+                          </Button>
+                        </>
+                      )}
+                    </Typography>
+                  </MenuItem>
+                </Menu>
+              </Box>
+            )}
           </Toolbar>
         </Container>
       </AppBar>
