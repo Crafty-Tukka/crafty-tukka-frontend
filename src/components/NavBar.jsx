@@ -117,16 +117,18 @@ function NavBar({loggedInUser, activateUser}) {
                   </Typography>
                 </MenuItem>
                 {!loggedInUser && (
-                  <MenuItem onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">
-                      <Tab
-                        label="Sign In"
-                        value="/auth/signin"
-                        component={Link}
-                        to="/auth/signin"
-                      />
-                    </Typography>
-                  </MenuItem>
+                  <>
+                    <MenuItem onClick={handleCloseNavMenu}>
+                      <Typography textAlign="center">
+                        <Tab
+                          label="Sign In"
+                          value="/auth/signin"
+                          component={Link}
+                          to="/auth/signin"
+                        />
+                      </Typography>
+                    </MenuItem>
+                  </>
                 )}
                 {!loggedInUser && (
                   <MenuItem onClick={handleCloseNavMenu}>
@@ -140,7 +142,7 @@ function NavBar({loggedInUser, activateUser}) {
                     </Typography>
                   </MenuItem>
                 )}
-                {loggedInUser && (
+                {/* {loggedInUser && (
                   <MenuItem onClick={handleCloseNavMenu}>
                     <Typography textAlign="center">
                       <Tab label="My Events" />{' '}
@@ -178,7 +180,7 @@ function NavBar({loggedInUser, activateUser}) {
                       <Tab label="Log Out" component={Link} to="/events" onClick={logOut} />
                     </Typography>
                   </MenuItem>
-                )}
+                )} */}
               </Menu>
             </Box>
             <AdbIcon sx={{display: {xs: 'flex', md: 'none'}, mr: 1}} />
