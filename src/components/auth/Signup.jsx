@@ -1,36 +1,13 @@
 // import {Button, InputLabel, TextField, Typography} from '@mui/material';
-import {Box, Button} from '@mui/material';
-import {useState} from 'react';
-import {useNavigate} from 'react-router-dom';
+import {Button} from '@mui/material';
+
 // import {useGlobalState} from '../utils/stateContext';
 
-function Signup({activateBusinessType, businessType}) {
+function Signup() {
   const businessTypeArray = [
-    {id: 1, type: 'Food Truck'},
-    {id: 2, type: 'Venue'}
+    {id: 1, business: 'Food Truck'},
+    {id: 2, business: 'Venue'}
   ];
-
-  const initialFormData = {
-    business: ''
-  };
-  const [formData, setFormData] = useState(initialFormData);
-  const navigate = useNavigate();
-
-  // const [error, setError] = useState(null); //to be implemented with reducer
-
-  const handleBusinessType = (event) => {
-    setFormData({
-      ...formData, // previous state for username or password
-      [event.target.name]: event.target.value // new state for username or password
-    });
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // console.log(formData);
-    activateBusinessType(formData.business);
-    navigate(`/auth/signup/${businessType}`);
-  };
 
   return (
     <div>
@@ -38,17 +15,10 @@ function Signup({activateBusinessType, businessType}) {
       {businessTypeArray.map((business) => {
         return (
           <>
-            <Box component="form" noValidate onClick={handleSubmit}>
-              <Button
-                key={business.id}
-                name={business.type}
-                value={formData.business}
-                onChange={handleBusinessType}
-              >
-                {business.type}
-              </Button>
-              <br />
-            </Box>
+            <Button key={business.id} name={business.business}>
+              {business.business}
+            </Button>
+            <br />
           </>
         );
       })}

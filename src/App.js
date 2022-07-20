@@ -27,8 +27,7 @@ function App() {
     pendingEvents: {},
     venues: venuesList,
     foodTrucks: foodTrucksList,
-    category: '',
-    businessType: ''
+    category: ''
   };
 
   const [store, dispatch] = useReducer(reducer, initialState);
@@ -39,11 +38,6 @@ function App() {
   });
 
   const [loggedInUser, setLoggedInUser] = useState('');
-  const [businessType, setBusinessType] = useState([]);
-
-  const activateBusinessType = (businessType) => {
-    setBusinessType(businessType);
-  };
 
   const activateUser = (email) => {
     setLoggedInUser(email);
@@ -84,12 +78,7 @@ function App() {
             <Route path=":foodtruckid" element={<FoodTruck />} />
           </Route>
           <Route path="auth/signin" element={<Signin activateUser={activateUser} />} />
-          <Route
-            path="auth/signup"
-            element={
-              <Signup activateBusinessType={activateBusinessType} businessType={businessType} />
-            }
-          />
+          <Route path="auth/signup" element={<Signup />} />
           <Route path="auth/editprofile" element={<EditProfile />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
