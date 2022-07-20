@@ -37,6 +37,7 @@ function App() {
     libraries: ['places']
   });
   const [loggedInUser, setLoggedInUser] = useState('');
+  const [businessType, setBusinessType] = useState(['Food Truck', 'Venue']);
 
   const activateUser = (email) => {
     setLoggedInUser(email);
@@ -44,6 +45,10 @@ function App() {
     //   type: 'setLoggedInUser',
     //   data: name
     // });
+  };
+
+  const activateBusinessType = (businessType) => {
+    setBusinessType(businessType);
   };
 
   if (!isLoaded) return <div>Loading...</div>;
@@ -77,7 +82,12 @@ function App() {
             <Route path=":foodtruckid" element={<FoodTruck />} />
           </Route>
           <Route path="auth/signin" element={<Signin activateUser={activateUser} />} />
-          <Route path="auth/signup" element={<Signup />} />
+          <Route
+            path="auth/signup"
+            element={
+              <Signup activateBusinessType={activateBusinessType} businessType={businessType} />
+            }
+          />
           <Route path="auth/editprofile" element={<EditProfile />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
