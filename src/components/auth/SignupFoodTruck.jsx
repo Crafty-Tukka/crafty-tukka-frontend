@@ -4,8 +4,6 @@ import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -84,7 +82,6 @@ function SignupFoodTruck() {
               <Grid item xs={12}>
                 <FormControl fullWidth>
                   <InputLabel>Cuisine Category</InputLabel>
-
                   <>
                     <Select
                       required
@@ -103,26 +100,45 @@ function SignupFoodTruck() {
                   </>
                 </FormControl>
               </Grid>
-
+              <Grid item xs={12}>
+                <TextField id="bio" label="Bio" name="bio" multiline rows={6} fullWidth />
+              </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  autoComplete="given-name"
-                  name="firstName"
+                  autoComplete="mobile"
+                  name="mobile"
                   required
                   fullWidth
-                  id="firstName"
-                  label="First Name"
+                  id="mobile"
+                  label="Mobile Number"
                   autoFocus
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  required
                   fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
+                  id="website"
+                  label="Website"
+                  name="website"
+                  autoComplete="website"
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  autoComplete="google-maps"
+                  name="google-maps"
+                  fullWidth
+                  id="google-maps"
+                  label="Google Places"
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  id="facebook"
+                  label="Facebook"
+                  name="facebook"
+                  autoComplete="facebook"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -146,19 +162,13 @@ function SignupFoodTruck() {
                   autoComplete="new-password"
                 />
               </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
-                />
-              </Grid>
             </Grid>
             <Button type="submit" fullWidth variant="contained" sx={{mt: 3, mb: 2}}>
               Sign Up
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/auth/signin" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
