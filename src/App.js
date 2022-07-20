@@ -7,7 +7,7 @@ import EditProfile from 'components/auth/EditProfile';
 import Signin from 'components/auth/Signin';
 import Signup from 'components/auth/Signup';
 import Event from 'components/events/Event';
-import EventForm from 'components/events/EventForm';
+import EventFormCheckout from 'components/events/EventFormCheckout';
 import Events from 'components/events/Events';
 import FoodTruck from 'components/food-trucks/FoodTruck';
 import FoodTrucks from 'components/food-trucks/FoodTrucks';
@@ -61,7 +61,12 @@ function App() {
           {/* <Route path="map" element={<Map />} /> */}
           <Route path="events">
             <Route index element={<Events />} />
-            <Route path="new" element={loggedInUser ? <EventForm /> : <Signin />} />
+            <Route
+              path="new"
+              element={
+                loggedInUser ? <EventFormCheckout loggedInUser={loggedInUser} /> : <Signin />
+              }
+            />
             {/* Event page will host search logic to locate event based on id. then it will render detail component using props.children as discussed with glen. */}
             <Route path=":eventid" element={<Event />} />
             <Route path="venue/:venueid" element={<Events />} />
