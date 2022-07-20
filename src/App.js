@@ -19,6 +19,8 @@ import {StateContext} from 'utils/stateContext';
 import venuesList from './data/breweries.json';
 import eventsList from './data/events.json';
 import foodTrucksList from './data/food-trucks.json';
+import SignupFoodTruck from 'components/auth/SignupFoodTruck';
+import SignupVenue from 'components/auth/SignupVenue';
 
 function App() {
   const initialState = {
@@ -78,7 +80,11 @@ function App() {
             <Route path=":foodtruckid" element={<FoodTruck />} />
           </Route>
           <Route path="auth/signin" element={<Signin activateUser={activateUser} />} />
-          <Route path="auth/signup" element={<Signup />} />
+          <Route path="auth/signup">
+            <Route index element={<Signup />} />
+            <Route path="foodtruck" element={<SignupFoodTruck />} />
+            <Route path="venue" element={<SignupVenue />} />
+          </Route>
           <Route path="auth/editprofile" element={<EditProfile />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
