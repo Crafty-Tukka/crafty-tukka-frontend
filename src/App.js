@@ -27,7 +27,8 @@ function App() {
     pendingEvents: {},
     venues: venuesList,
     foodTrucks: foodTrucksList,
-    category: ''
+    category: '',
+    businessType: ''
   };
 
   const [store, dispatch] = useReducer(reducer, initialState);
@@ -36,8 +37,13 @@ function App() {
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries: ['places']
   });
+
   const [loggedInUser, setLoggedInUser] = useState('');
-  const [businessType, setBusinessType] = useState(['Food Truck', 'Venue']);
+  const [businessType, setBusinessType] = useState([]);
+
+  const activateBusinessType = (businessType) => {
+    setBusinessType(businessType);
+  };
 
   const activateUser = (email) => {
     setLoggedInUser(email);
@@ -45,10 +51,6 @@ function App() {
     //   type: 'setLoggedInUser',
     //   data: name
     // });
-  };
-
-  const activateBusinessType = (businessType) => {
-    setBusinessType(businessType);
   };
 
   if (!isLoaded) return <div>Loading...</div>;
