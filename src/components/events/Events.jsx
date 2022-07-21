@@ -18,18 +18,19 @@ function Events() {
         {confirmedEvents.map((event) => {
           return event.confirmed_status === 'confirmed' ? (
             <LinkedCard key={event.id} imgPath={eventImg} item={event} routePath={'events'}>
+              {/* this can be refactored into preview card component */}
               <Typography component="div" variant="h6">
                 {event.name}
               </Typography>
               <Typography variant="subtitle1" color="text.secondary" component="div">
+                {event.date}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
                 {event.description}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
-                {event.start}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
+              {/* <Typography variant="body2" color="text.secondary">
                 {event.finish}
-              </Typography>
+              </Typography> */}
             </LinkedCard>
           ) : null;
         })}
