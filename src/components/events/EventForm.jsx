@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {useGlobalState} from 'utils/stateContext';
 
 function EventForm() {
   const initialEventData = {
@@ -8,9 +9,15 @@ function EventForm() {
     truck: ''
   };
 
+  const [formData, setFormData] = useState(initialEventData);
+
+  const {store} = useGlobalState();
+  const {foodTrucks} = store;
+  console.log(foodTrucks);
+
   return (
     <div>
-      <h1>EventForm</h1>
+      <form>EventForm</form>
     </div>
   );
 }
