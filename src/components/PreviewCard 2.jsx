@@ -1,12 +1,11 @@
+import {Box, Card, CardContent, CardMedia} from '@mui/material';
 import React from 'react';
 import {Link} from 'react-router-dom';
 import Modal from '@mui/material/Modal';
 import Details from './Details';
-import TileCard from './TileCard';
-import PreviewCard from './PreviewCard';
 // import {useGlobalState} from 'utils/stateContext';
 
-function LinkedCard({imgPath, item, routePath, children}) {
+function PreviewCard({imgPath, item, routePath, children}) {
   // const {store} = useGlobalState();
   // const {venues} = store;
   const [open, setOpen] = React.useState(false);
@@ -37,20 +36,23 @@ function LinkedCard({imgPath, item, routePath, children}) {
     // this routes to Event page and may not be needed anymore as we are using a pop-up modal
     // <Link to={`/${routePath}/${item.id}`} style={{textDecoration: 'none', margin: '4px'}}>
     <Link to="" onClick={handleOpen} style={{textDecoration: 'none', margin: '4px'}}>
-      {item.start ? (
-        <PreviewCard imgPath={img} item={item}>
-          {children}
-        </PreviewCard>
-      ) : (
-        <TileCard imgPath={img} item={item} />
-      )}
-
+      <Card sx={{display: 'flex'}}>
+        <CardMedia
+          component="img"
+          sx={{width: 151}}
+          image={img}
+          alt="Live from space album cover"
+        />
+        <Box sx={{display: 'flex', flexDirection: 'column'}}>
+          <CardContent sx={{flex: '1 0 auto'}}>{children}</CardContent>
+        </Box>
+      </Card>
       {/* Pop up model to display item information */}
-      <Modal open={open} onClose={handleClose} style={{outline: 0}}>
+      <Modal open={open} onClose={handleClose}>
         <Details item={item} imgPath={img} handleClose={handleClose}></Details>
       </Modal>
     </Link>
   );
 }
 
-export default LinkedCard;
+export default PreviewCard;

@@ -1,7 +1,16 @@
 import React from 'react';
 import ComputerIcon from '@mui/icons-material/Computer';
 import FacebookIcon from '@mui/icons-material/Facebook';
-import {Button, Card, CardActions, CardContent, CardMedia, Typography, Link} from '@mui/material';
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Typography,
+  Link,
+  Chip
+} from '@mui/material';
 
 const style = {
   position: 'absolute',
@@ -21,7 +30,7 @@ function Details({item, imgPath, handleClose}) {
   return (
     <>
       <Card sx={style}>
-        <CardMedia component="img" height="140" image={imgPath} alt={item.name} />
+        <CardMedia component="img" height="340" image={imgPath} alt={item.name} />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {item.name}
@@ -36,7 +45,8 @@ function Details({item, imgPath, handleClose}) {
               {item.location.address1} <br /> {item.location.city}
             </Typography>
           ) : null}
-          {item.category ? <Typography variant="h6">{item.category}</Typography> : null}
+          {item.email ? <Typography variant="h6">Email: {item.email}</Typography> : null}
+          {item.mobile ? <Typography variant="h6">Mobile: {item.mobile}</Typography> : null}
           <span>
             {item.facebook ? (
               <Link href={item.facebook} target="_blank" rel="noreferrer">
@@ -51,6 +61,9 @@ function Details({item, imgPath, handleClose}) {
           </span>
         </CardContent>
         <CardActions>
+          {item.category ? (
+            <Chip label={item.category} color="secondary" variant="outlined" />
+          ) : null}
           <Button size="small" onClick={handleClose}>
             Close
           </Button>
