@@ -29,6 +29,7 @@ function Map() {
   const [mapInstance, setMapInstance] = useState({});
   const onLoad = (map) => {
     setMapInstance(map);
+    console.log(map);
   };
 
   const onZoomChanged = () => {
@@ -50,7 +51,8 @@ function Map() {
       center={center}
       mapContainerClassName="map-container"
       options={options}
-      onLoad={onLoad}
+      // onLoad={onLoad}
+      onLoad={() => onLoad(this)}
       onZoomChanged={onZoomChanged}
     >
       {markers.map((marker) => (
