@@ -52,7 +52,7 @@ function Map() {
       mapContainerClassName="map-container"
       options={options}
       // onLoad={onLoad}
-      onLoad={() => onLoad(this)}
+      onLoad={onLoad}
       onZoomChanged={onZoomChanged}
     >
       {markers.map((marker) => (

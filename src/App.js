@@ -1,4 +1,4 @@
-import React, {useReducer, useState} from 'react';
+import React, {useReducer, useState, useEffect} from 'react';
 import {useLoadScript} from '@react-google-maps/api';
 import {BrowserRouter as Router, Navigate, Route, Routes} from 'react-router-dom';
 import NavBar from 'components/NavBar';
@@ -33,6 +33,7 @@ function App() {
   };
 
   const [store, dispatch] = useReducer(reducer, initialState);
+  const [events, setEvents] = useState(eventsList);
   // const {loggedInUser} = store;
   const {isLoaded} = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
@@ -49,6 +50,29 @@ function App() {
     // });
   };
 
+  const nextId = (data) => {
+    if (data.length === 0) return 1;
+    const sortData = data.sort((a, b) => a.id - b.id);
+    const nextId = sortData[sortData.length - 1].id + 1;
+    return nextId;
+  };
+
+  const addEvent = (start, end, truck) => {
+    const event = {
+      start: start,
+      end: end,
+      truck: truck,
+      username: loggedInUser,
+      id: nextId(eventsList)
+    };
+    setEvents((events) => [event, ...events]);
+    // dispatch({
+    // 	type: "addEvent",
+    // 	data: event,
+    // });
+    // setMessageList((messageList) => [message, ...messageList]);
+  };
+
   if (!isLoaded) return <div>Loading...</div>;
 
   return (
@@ -61,7 +85,10 @@ function App() {
           {/* <Route path="map" element={<Map />} /> */}
           <Route path="events">
             <Route index element={<Events />} />
-            <Route path="new" element={loggedInUser ? <EventForm /> : <Signin />} />
+            <Route
+              path="new"
+              element={loggedInUser ? <EventForm addEvent={addEvent} /> : <Signin />}
+            />
             {/* Event page will host search logic to locate event based on id. then it will render detail component using props.children as discussed with glen. */}
             <Route path=":eventid" element={<Event />} />
             <Route path="venue/:venueid" element={<Events />} />
