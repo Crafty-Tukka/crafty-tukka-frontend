@@ -25,6 +25,8 @@ function EventForm({addEvent}) {
   };
 
   const [formData, setFormData] = useState(initialEventData);
+  const [startDate, setStartDate] = useState(initialEventData.start);
+  const [endDate, setEndDate] = useState(initialEventData.end);
   const navigate = useNavigate();
   const {store} = useGlobalState();
   const {foodTrucks} = store;
@@ -99,7 +101,7 @@ function EventForm({addEvent}) {
                     name="start"
                     value={formData.start}
                     onChange={handleFormData}
-                    // renderInput={(params) => <TextField {...params} />}
+                    renderInput={(params) => <TextField {...params} />}
                   />
                   <Typography variant="h5">Choose your Event End Date and Time</Typography>
                   <MobileDateTimePicker
@@ -108,7 +110,7 @@ function EventForm({addEvent}) {
                     name="end"
                     value={formData.end}
                     onChange={handleFormData}
-                    // renderInput={(params) => <TextField {...params} />}
+                    renderInput={(params) => <TextField {...params} />}
                   />
                 </Stack>
               </Box>
