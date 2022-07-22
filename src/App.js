@@ -72,10 +72,6 @@ function App() {
     // });
     // setMessageList((messageList) => [message, ...messageList]);
   };
-  useEffect(() => {
-    // API fetch to go here
-    setEvents(events);
-  }, []);
 
   if (!isLoaded) return <div>Loading...</div>;
 

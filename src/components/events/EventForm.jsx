@@ -5,7 +5,7 @@ import {useNavigate} from 'react-router-dom';
 // import TextField from '@mui/material/TextField';
 // import {AdapterMoment} from '@mui/x-date-pickers/AdapterMoment';
 // import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
-import {Typography} from '@mui/material';
+import {Typography, Button} from '@mui/material';
 // import {MobileDateTimePicker} from '@mui/x-date-pickers/MobileDateTimePicker';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -139,6 +139,9 @@ function EventForm({addEvent}) {
                   />
                 </Stack>
               </LocalizationProvider> */}
+              <Button type="submit" value="Login" fullWidth variant="contained" sx={{mt: 3, mb: 2}}>
+                Add Event
+              </Button>
             </Box>
           </Box>
         </Container>
