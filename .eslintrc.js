@@ -24,7 +24,7 @@ module.exports = {
   rules: {
     semi: [2, 'always', {omitLastInOneLineBlock: true}],
     'space-before-function-paren': 'off',
-    'no-unused-vars': 2,
+    // 'no-unused-vars': 2,
     'react/no-did-update-set-state': ['off'],
     'react/jsx-uses-vars': 'error',
     'react/jsx-no-undef': 'error',
