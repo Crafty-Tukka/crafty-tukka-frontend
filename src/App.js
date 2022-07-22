@@ -1,4 +1,4 @@
-import React, {useReducer, useState} from 'react';
+import React, {useReducer, useState, useEffect} from 'react';
 import {useLoadScript} from '@react-google-maps/api';
 import {BrowserRouter as Router, Navigate, Route, Routes} from 'react-router-dom';
 import NavBar from 'components/NavBar';
@@ -65,13 +65,17 @@ function App() {
       username: loggedInUser,
       id: nextId(eventsList)
     };
-    setEvents((events) => [event], ...events);
+    setEvents((events) => [event, ...events]);
     // dispatch({
     // 	type: "addEvent",
     // 	data: event,
     // });
     // setMessageList((messageList) => [message, ...messageList]);
   };
+  useEffect(() => {
+    // API fetch to go here
+    setEvents(events);
+  }, []);
 
   if (!isLoaded) return <div>Loading...</div>;
 

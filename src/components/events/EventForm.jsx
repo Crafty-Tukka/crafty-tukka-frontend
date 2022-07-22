@@ -25,8 +25,8 @@ function EventForm({addEvent}) {
   };
 
   const [formData, setFormData] = useState(initialEventData);
-  const [startDate, setStartDate] = useState(initialEventData.start);
-  const [endDate, setEndDate] = useState(initialEventData.end);
+  const [startDate, setStartDate] = useState(formData.start);
+  const [endDate, setEndDate] = useState(formData.end);
   const navigate = useNavigate();
   const {store} = useGlobalState();
   const {foodTrucks} = store;
@@ -99,8 +99,10 @@ function EventForm({addEvent}) {
                     label="Start Date and Time"
                     inputFormat="DD/MM/yyyy hh:mm a"
                     name="start"
-                    value={formData.start}
-                    onChange={handleFormData}
+                    value={startDate}
+                    onChange={(newValue) => {
+                      setStartDate(newValue);
+                    }}
                     renderInput={(params) => <TextField {...params} />}
                   />
                   <Typography variant="h5">Choose your Event End Date and Time</Typography>
@@ -108,8 +110,10 @@ function EventForm({addEvent}) {
                     label="End Date and Time"
                     inputFormat="DD/MM/yyyy hh:mm a"
                     name="end"
-                    value={formData.end}
-                    onChange={handleFormData}
+                    value={endDate}
+                    onChange={(newValue) => {
+                      setEndDate(newValue);
+                    }}
                     renderInput={(params) => <TextField {...params} />}
                   />
                 </Stack>
