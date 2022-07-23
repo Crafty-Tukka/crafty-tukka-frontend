@@ -12,8 +12,11 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import {FormControl, InputLabel, Select} from '@mui/material';
-import IconButton from '@mui/material/IconButton';
-import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import {useGlobalState} from 'utils/stateContext';
+import {useNavigate} from 'react-router';
+import {signUpFoodTruck} from 'services/authServices';
+// import IconButton from '@mui/material/IconButton';
+// import PhotoCamera from '@mui/icons-material/PhotoCamera';
 
 function Copyright(props) {
   return (
@@ -31,25 +34,81 @@ function Copyright(props) {
 const theme = createTheme();
 
 function SignupFoodTruck() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password')
+  const {dispatch} = useGlobalState();
+  const navigate = useNavigate();
+
+  const initialFormData = {
+    name: '',
+    email: '',
+    description: '',
+    facebook: '',
+    website: '',
+    google_maps: '',
+    mobile: '',
+    category: '',
+    password: '',
+    password_confirmation: ''
+  };
+
+  const [formData, setFormData] = useState(initialFormData);
+  const [error, setError] = useState(null);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    signUpFoodTruck(formData)
+      .then((user) => {
+        console.log(user);
+        let errorMessage = '';
+        if (user.error) {
+          // console.log(user.error)
+          // convert the object into a string
+          Object.keys(user.error).forEach((key) => {
+            //console.log(key, user.error[key])
+            errorMessage = errorMessage.concat('', `${key} ${user.error[key]}`);
+          });
+          setError(errorMessage);
+        } else {
+          sessionStorage.setItem('email', user.email);
+          sessionStorage.setItem('token', user.jwt);
+          dispatch({
+            type: 'setLoggedInUser',
+            data: user.email
+          });
+          dispatch({
+            type: 'setToken',
+            data: user.jwt
+          });
+          // dispatch({
+          //   type: 'setPicture',
+          //   data: user.picture
+          // });
+          setFormData(initialFormData);
+          navigate('/events');
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const handleFormData = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
     });
   };
 
-  const cuisineList = [
+  const categoryList = [
     {id: 1, type: 'Burgers'},
     {id: 2, type: 'Wings'},
     {id: 3, type: 'Yummy Sweets'}
   ];
-  const [cuisineType, setCuisineType] = useState('');
+  // const [categoryType, setCategoryType] = useState('');
 
-  const handleChange = (event) => {
-    setCuisineType(event.target.value);
-  };
+  // const handleChange = (event) => {
+  //   setCategoryType(event.target.value);
+  // };
 
   return (
     <ThemeProvider theme={theme}>
@@ -79,6 +138,8 @@ function SignupFoodTruck() {
                   label="Food Truck Name"
                   name="name"
                   autoComplete="name"
+                  value={formData.name}
+                  onChange={handleFormData}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -88,10 +149,12 @@ function SignupFoodTruck() {
                     <Select
                       required
                       label="Cuisine Category"
-                      value={cuisineType}
-                      onChange={handleChange}
+                      value={formData.category}
+                      onChange={handleFormData}
+                      name="category"
+                      id="category"
                     >
-                      {cuisineList.map((cuisine) => {
+                      {categoryList.map((cuisine) => {
                         return (
                           <MenuItem key={cuisine.id} value={cuisine.type} name={cuisine.type}>
                             {cuisine.type}
@@ -114,6 +177,8 @@ function SignupFoodTruck() {
                   id="mobile"
                   label="Mobile Number"
                   autoFocus
+                  onChange={handleFormData}
+                  value={formData.mobile}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -123,15 +188,19 @@ function SignupFoodTruck() {
                   label="Website"
                   name="website"
                   autoComplete="website"
+                  onChange={handleFormData}
+                  value={formData.website}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  autoComplete="google-maps"
-                  name="google-maps"
+                  autoComplete="google_maps"
+                  name="google_maps"
                   fullWidth
-                  id="google-maps"
+                  id="google_maps"
                   label="Google Places"
+                  onChange={handleFormData}
+                  value={formData.google_maps}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -141,9 +210,11 @@ function SignupFoodTruck() {
                   label="Facebook"
                   name="facebook"
                   autoComplete="facebook"
+                  onChange={handleFormData}
+                  value={formData.facebook}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              {/* <Grid item xs={12} sm={6}>
                 <Button variant="contained" component="label">
                   Upload
                   <input hidden accept="image/*" multiple="false" type="file" />
@@ -152,7 +223,7 @@ function SignupFoodTruck() {
                   <input hidden accept="image/*" type="file" name="picture" id="picture" />
                   <PhotoCamera />
                 </IconButton>
-              </Grid>
+              </Grid> */}
               <Grid item xs={12}>
                 <TextField
                   required
@@ -161,6 +232,8 @@ function SignupFoodTruck() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  onChange={handleFormData}
+                  value={formData.email}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -172,6 +245,21 @@ function SignupFoodTruck() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  onChange={handleFormData}
+                  value={formData.password}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="password_confirmation"
+                  label="Confirm Password"
+                  type="password"
+                  id="password_confirmation"
+                  autoComplete="new-password"
+                  onChange={handleFormData}
+                  value={formData.password_confirmation}
                 />
               </Grid>
             </Grid>

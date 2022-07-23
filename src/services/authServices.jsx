@@ -11,3 +11,9 @@ export async function signInVenue(data) {
   console.log(response.data);
   return response.data;
 }
+
+export async function signUpFoodTruck(data) {
+  const response = await craftyTukkaAPI.post('/auth/foodtrucks/signup', data);
+  console.log(response.data);
+  return response.data;
+}
