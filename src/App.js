@@ -1,4 +1,4 @@
-import React, {useReducer, useState, useEffect} from 'react';
+import React, {useReducer, useEffect} from 'react';
 import {useLoadScript} from '@react-google-maps/api';
 import {BrowserRouter as Router, Navigate, Route, Routes} from 'react-router-dom';
 import NavBar from 'components/NavBar';

@@ -10,8 +10,11 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
-import {FormControl, InputLabel, Select} from '@mui/material';
-import MenuItem from '@mui/material/MenuItem';
+// import {FormControl, InputLabel, Select} from '@mui/material';
+// import MenuItem from '@mui/material/MenuItem';
+import {useGlobalState} from 'utils/stateContext';
+import {useNavigate} from 'react-router';
+import {signUpVenue} from 'services/authServices';
 
 function Copyright(props) {
   return (
@@ -29,30 +32,81 @@ function Copyright(props) {
 const theme = createTheme();
 
 function SignupVenue() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password')
+  const {dispatch} = useGlobalState();
+  const navigate = useNavigate();
+
+  const initialFormData = {
+    name: '',
+    email: '',
+    description: '',
+    facebook: '',
+    website: '',
+    google_maps: '',
+    mobile: '',
+    password: '',
+    password_confirmation: ''
+  };
+
+  const [formData, setFormData] = useState(initialFormData);
+  const [error, setError] = useState(null);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    signUpVenue(formData)
+      .then((user) => {
+        console.log(user);
+        let errorMessage = '';
+        if (user.error) {
+          // console.log(user.error)
+          // convert the object into a string
+          Object.keys(user.error).forEach((key) => {
+            //console.log(key, user.error[key])
+            errorMessage = errorMessage.concat('', `${key} ${user.error[key]}`);
+          });
+          setError(errorMessage);
+        } else {
+          sessionStorage.setItem('email', user.email);
+          sessionStorage.setItem('token', user.jwt);
+          dispatch({
+            type: 'setLoggedInUser',
+            data: user.email
+          });
+          dispatch({
+            type: 'setToken',
+            data: user.jwt
+          });
+          setFormData(initialFormData);
+          navigate('/events');
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const handleFormData = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
     });
   };
+  // const stateList = [
+  //   {id: 1, type: 'Queensland'},
+  //   {id: 2, type: 'New South Wales'},
+  //   {id: 3, type: 'Victoria'},
+  //   {id: 4, type: 'South Australia'},
+  //   {id: 5, type: 'Western Australia'}
+  // ];
+  // const [stateType, setStateType] = useState('');
 
-  const stateList = [
-    {id: 1, type: 'Queensland'},
-    {id: 2, type: 'New South Wales'},
-    {id: 3, type: 'Victoria'},
-    {id: 4, type: 'South Australia'},
-    {id: 5, type: 'Western Australia'}
-  ];
-  const [stateType, setStateType] = useState('');
-
-  const handleChange = (event) => {
-    setStateType(event.target.value);
-  };
+  // const handleChange = (event) => {
+  //   setStateType(event.target.value);
+  // };
 
   return (
     <ThemeProvider theme={theme}>
+      {error && <p>{error}</p>}
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -79,12 +133,24 @@ function SignupVenue() {
                   label="Venue Name"
                   name="name"
                   autoComplete="name"
+                  value={formData.name}
+                  onChange={handleFormData}
                 />
               </Grid>
               <Grid item xs={12}>
-                <TextField id="bio" label="Bio" name="bio" multiline rows={6} fullWidth />
+                <TextField
+                  id="description"
+                  name="description"
+                  label="Bio"
+                  onChange={handleFormData}
+                  value={formData.description}
+                  multiline
+                  rows={6}
+                  fullWidth
+                />
               </Grid>
-              <Grid item xs={12}>
+              {/* This is the address form */}
+              {/* <Grid item xs={12}>
                 <TextField
                   required
                   id="address1"
@@ -138,7 +204,7 @@ function SignupVenue() {
                     </Select>
                   </>
                 </FormControl>
-              </Grid>
+              </Grid> */}
 
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -147,6 +213,8 @@ function SignupVenue() {
                   required
                   fullWidth
                   id="mobile"
+                  value={formData.mobile}
+                  onChange={handleFormData}
                   label="Mobile Number"
                   autoFocus
                 />
@@ -157,15 +225,19 @@ function SignupVenue() {
                   id="website"
                   label="Website"
                   name="website"
+                  onChange={handleFormData}
+                  value={formData.website}
                   autoComplete="website"
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="google-maps"
-                  name="google-maps"
+                  name="google_maps"
                   fullWidth
-                  id="google-maps"
+                  id="google_maps"
+                  onChange={handleFormData}
+                  value={formData.google_maps}
                   label="Google Places"
                 />
               </Grid>
@@ -176,6 +248,8 @@ function SignupVenue() {
                   label="Facebook"
                   name="facebook"
                   autoComplete="facebook"
+                  onChange={handleFormData}
+                  value={formData.facebook}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -186,6 +260,8 @@ function SignupVenue() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  onChange={handleFormData}
+                  value={formData.email}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -196,7 +272,22 @@ function SignupVenue() {
                   label="Password"
                   type="password"
                   id="password"
+                  onChange={handleFormData}
+                  value={formData.password}
                   autoComplete="new-password"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="password_confirmation"
+                  label="Confirm Password"
+                  type="password"
+                  id="password_confirmation"
+                  autoComplete="new-password"
+                  onChange={handleFormData}
+                  value={formData.password_confirmation}
                 />
               </Grid>
             </Grid>
