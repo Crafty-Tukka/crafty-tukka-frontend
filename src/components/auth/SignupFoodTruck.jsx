@@ -141,6 +141,16 @@ function SignupFoodTruck() {
                   autoComplete="facebook"
                 />
               </Grid>
+              <Grid item xs={12} sm={6}>
+                <Button variant="contained" component="label">
+                  Upload
+                  <input hidden accept="image/*" multiple="false" type="file" />
+                </Button>
+                <IconButton color="primary" aria-label="upload picture" component="label">
+                  <input hidden accept="image/*" type="file" name="picture" id="picture" />
+                  <PhotoCamera />
+                </IconButton>
+              </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
