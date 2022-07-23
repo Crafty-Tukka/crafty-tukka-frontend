@@ -12,6 +12,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import {FormControl, InputLabel, Select} from '@mui/material';
+import IconButton from '@mui/material/IconButton';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
 
 function Copyright(props) {
   return (
@@ -140,6 +142,16 @@ function SignupFoodTruck() {
                   name="facebook"
                   autoComplete="facebook"
                 />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Button variant="contained" component="label">
+                  Upload
+                  <input hidden accept="image/*" multiple="false" type="file" />
+                </Button>
+                <IconButton color="primary" aria-label="upload picture" component="label">
+                  <input hidden accept="image/*" type="file" name="picture" id="picture" />
+                  <PhotoCamera />
+                </IconButton>
               </Grid>
               <Grid item xs={12}>
                 <TextField

@@ -1,4 +1,4 @@
-import React, {useReducer, useState, useEffect} from 'react';
+import React, {useReducer, useEffect} from 'react';
 import {useLoadScript} from '@react-google-maps/api';
 import {BrowserRouter as Router, Navigate, Route, Routes} from 'react-router-dom';
 import NavBar from 'components/NavBar';
@@ -18,7 +18,7 @@ import {reducer} from 'utils/reducer';
 import {StateContext} from 'utils/stateContext';
 // import venuesList from './data/breweries.json';
 // import eventsList from './data/events.json';
-import foodTrucksList from './data/food-trucks.json';
+// import foodTrucksList from './data/food-trucks.json';
 import SignupFoodTruck from 'components/auth/SignupFoodTruck';
 import SignupVenue from 'components/auth/SignupVenue';
 import {getEvents} from 'services/eventsServices';
@@ -27,7 +27,8 @@ import {getFoodTrucks} from 'services/foodTrucksServices';
 
 function App() {
   const initialState = {
-    loggedInUser: '',
+    loggedInUser: sessionStorage.getItem('email') || null,
+    token: sessionStorage.getItem('token') || null,
     confirmedEvents: [],
     pendingEvents: {},
     venues: [],
@@ -37,13 +38,13 @@ function App() {
 
   const [store, dispatch] = useReducer(reducer, initialState);
   // const [events, setEvents] = useState(initialState.confirmedEvents);
-  // const {loggedInUser} = store;
+  const {loggedInUser} = store;
   const {isLoaded} = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries: ['places']
   });
 
-  const [loggedInUser, setLoggedInUser] = useState('');
+  // const [loggedInUser, setLoggedInUser] = useState('');
 
   useEffect(() => {
     getEvents().then((events) => {
@@ -72,13 +73,13 @@ function App() {
     });
   }, []);
 
-  const activateUser = (email) => {
-    setLoggedInUser(email);
-    // dispatch({
-    //   type: 'setLoggedInUser',
-    //   data: name
-    // });
-  };
+  // const activateUser = (email) => {
+  //   setLoggedInUser(email);
+  //   // dispatch({
+  //   //   type: 'setLoggedInUser',
+  //   //   data: name
+  //   // });
+  // };
 
   // const nextId = (data) => {
   //   if (data.length === 0) return 1;
@@ -108,7 +109,7 @@ function App() {
   return (
     <StateContext.Provider value={{store, dispatch}}>
       <Router>
-        <NavBar loggedInUser={loggedInUser} activateUser={activateUser} />
+        <NavBar loggedInUser={loggedInUser} />
         <Routes>
           <Route path="/" element={<Navigate to="events" replace />} />
           {/* <Route path="/" element={<Navigate to="map" replace />} /> */}
@@ -136,7 +137,7 @@ function App() {
             {/* FoodTruck page will host search logic to locate food truck based on id. then it will render detail component using props.children as discussed with glen. */}
             <Route path=":foodtruckid" element={<FoodTruck />} />
           </Route>
-          <Route path="auth/signin" element={<Signin activateUser={activateUser} />} />
+          <Route path="auth/signin" element={<Signin />} />
           <Route path="auth/signup">
             <Route index element={<Signup />} />
             <Route path="foodtruck" element={<SignupFoodTruck />} />
