@@ -14,6 +14,13 @@ export const reducer = (state, action) => {
         confirmedEvents: action.data
       };
     }
+    case 'setVenues': {
+      //populate the messageList Array with the inital values
+      return {
+        ...state,
+        venues: action.data
+      };
+    }
     default:
       return state;
   }

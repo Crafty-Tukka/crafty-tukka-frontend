@@ -16,19 +16,20 @@ import Venue from 'components/venues/Venue';
 import Venues from 'components/venues/Venues';
 import {reducer} from 'utils/reducer';
 import {StateContext} from 'utils/stateContext';
-import venuesList from './data/breweries.json';
+// import venuesList from './data/breweries.json';
 // import eventsList from './data/events.json';
 import foodTrucksList from './data/food-trucks.json';
 import SignupFoodTruck from 'components/auth/SignupFoodTruck';
 import SignupVenue from 'components/auth/SignupVenue';
 import {getEvents} from 'services/eventsServices';
+import {getVenues} from 'services/venuesServices';
 
 function App() {
   const initialState = {
     loggedInUser: '',
     confirmedEvents: [],
     pendingEvents: {},
-    venues: venuesList,
+    venues: [],
     foodTrucks: foodTrucksList,
     category: ''
   };
@@ -48,6 +49,15 @@ function App() {
       dispatch({
         type: 'setEvents',
         data: events
+      });
+    });
+  }, []);
+
+  useEffect(() => {
+    getVenues().then((venues) => {
+      dispatch({
+        type: 'setVenues',
+        data: venues
       });
     });
   }, []);
