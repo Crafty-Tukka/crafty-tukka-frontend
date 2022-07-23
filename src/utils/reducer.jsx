@@ -5,16 +5,30 @@ export const reducer = (state, action) => {
   // console.log(state);
   // // the type key determines the action we are taking
   // // the data key contains the data necessary to update the state
-  // switch (action.type) {
-  //   // the function will return the updated state
-  //   case 'setLoggedInUser': {
-  //     // updatges the loggedinuser value
-  //     return {
-  //       ...state,
-  //       loggedInUser: action.data
-  //     };
-  //   }
-  //   default:
-  //     return state;
-  // }
+  switch (action.type) {
+    // the function will return the updated state
+    case 'setEvents': {
+      //populate the messageList Array with the inital values
+      return {
+        ...state,
+        confirmedEvents: action.data
+      };
+    }
+    case 'setVenues': {
+      //populate the messageList Array with the inital values
+      return {
+        ...state,
+        venues: action.data
+      };
+    }
+    case 'setFoodTrucks': {
+      //populate the messageList Array with the inital values
+      return {
+        ...state,
+        foodTrucks: action.data
+      };
+    }
+    default:
+      return state;
+  }
 };

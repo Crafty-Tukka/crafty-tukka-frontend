@@ -21,9 +21,11 @@ function Venues() {
             <Typography variant="subtitle1" color="text.secondary" component="div">
               {venue.description}
             </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {venue.location.address1}, {venue.location.city}
-            </Typography>
+            {venue.location && (
+              <Typography variant="body2" color="text.secondary">
+                {venue.location.address1}, {venue.location.city}
+              </Typography>
+            )}
             <Typography variant="body2" color="text.secondary">
               {venue.facebook}
             </Typography>
