@@ -17,15 +17,16 @@ import Venues from 'components/venues/Venues';
 import {reducer} from 'utils/reducer';
 import {StateContext} from 'utils/stateContext';
 import venuesList from './data/breweries.json';
-import eventsList from './data/events.json';
+// import eventsList from './data/events.json';
 import foodTrucksList from './data/food-trucks.json';
 import SignupFoodTruck from 'components/auth/SignupFoodTruck';
 import SignupVenue from 'components/auth/SignupVenue';
+import {getEvents} from 'services/eventsServices';
 
 function App() {
   const initialState = {
     loggedInUser: '',
-    confirmedEvents: eventsList,
+    confirmedEvents: [],
     pendingEvents: {},
     venues: venuesList,
     foodTrucks: foodTrucksList,
@@ -33,7 +34,7 @@ function App() {
   };
 
   const [store, dispatch] = useReducer(reducer, initialState);
-  const [events, setEvents] = useState(eventsList);
+  // const [events, setEvents] = useState(initialState.confirmedEvents);
   // const {loggedInUser} = store;
   const {isLoaded} = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
@@ -41,6 +42,15 @@ function App() {
   });
 
   const [loggedInUser, setLoggedInUser] = useState('');
+
+  useEffect(() => {
+    getEvents().then((events) => {
+      dispatch({
+        type: 'setEvents',
+        data: events
+      });
+    });
+  }, []);
 
   const activateUser = (email) => {
     setLoggedInUser(email);
@@ -50,28 +60,28 @@ function App() {
     // });
   };
 
-  const nextId = (data) => {
-    if (data.length === 0) return 1;
-    const sortData = data.sort((a, b) => a.id - b.id);
-    const nextId = sortData[sortData.length - 1].id + 1;
-    return nextId;
-  };
+  // const nextId = (data) => {
+  //   if (data.length === 0) return 1;
+  //   const sortData = data.sort((a, b) => a.id - b.id);
+  //   const nextId = sortData[sortData.length - 1].id + 1;
+  //   return nextId;
+  // };
 
-  const addEvent = (start, end, truck) => {
-    const event = {
-      start: start,
-      end: end,
-      truck: truck,
-      username: loggedInUser,
-      id: nextId(eventsList)
-    };
-    setEvents((events) => [event, ...events]);
-    // dispatch({
-    // 	type: "addEvent",
-    // 	data: event,
-    // });
-    // setMessageList((messageList) => [message, ...messageList]);
-  };
+  // const addEvent = (start, end, truck) => {
+  //   const event = {
+  //     start: start,
+  //     end: end,
+  //     truck: truck,
+  //     username: loggedInUser,
+  //     id: nextId(eventsList)
+  //   };
+  //   setEvents((events) => [event, ...events]);
+  //   // dispatch({
+  //   // 	type: "addEvent",
+  //   // 	data: event,
+  //   // });
+  //   // setMessageList((messageList) => [message, ...messageList]);
+  // };
 
   if (!isLoaded) return <div>Loading...</div>;
 
@@ -87,7 +97,7 @@ function App() {
             <Route index element={<Events />} />
             <Route
               path="new"
-              element={loggedInUser ? <EventForm addEvent={addEvent} /> : <Signin />}
+              element={loggedInUser ? <EventForm /> : <Signin />} //addEvent={addEvent}
             />
             {/* Event page will host search logic to locate event based on id. then it will render detail component using props.children as discussed with glen. */}
             <Route path=":eventid" element={<Event />} />

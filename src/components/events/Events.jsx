@@ -16,7 +16,7 @@ function Events() {
     <MapContainer>
       <SideBarContainer title="Events">
         {confirmedEvents.map((event) => {
-          return event.confirmed_status === 'confirmed' ? (
+          return event.confirmed === true ? (
             <LinkedCard key={event.id} imgPath={eventImg} item={event} routePath={'events'}>
               {/* this can be refactored into preview card component */}
               <Typography component="div" variant="h6">
