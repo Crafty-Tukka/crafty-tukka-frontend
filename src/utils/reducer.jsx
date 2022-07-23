@@ -42,6 +42,12 @@ export const reducer = (state, action) => {
         token: action.data
       };
     }
+    case 'setPicture': {
+      return {
+        ...state,
+        picture: action.data
+      };
+    }
     default:
       return state;
   }

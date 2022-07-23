@@ -15,6 +15,8 @@ import {createTheme, ThemeProvider} from '@mui/material/styles';
 import {useGlobalState} from 'utils/stateContext';
 import {useNavigate} from 'react-router';
 import {signUpVenue} from 'services/authServices';
+import IconButton from '@mui/material/IconButton';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
 
 function Copyright(props) {
   return (
@@ -76,6 +78,10 @@ function SignupVenue() {
             type: 'setToken',
             data: user.jwt
           });
+          // dispatch({
+          //   type: 'setPicture',
+          //   data: user.picture
+          // });
           setFormData(initialFormData);
           navigate('/events');
         }
@@ -264,6 +270,16 @@ function SignupVenue() {
                   value={formData.email}
                 />
               </Grid>
+              {/* <Grid item xs={12} sm={6}>
+                <Button variant="contained" component="label">
+                  Upload
+                  <input hidden accept="image/*" multiple="false" type="file" />
+                </Button>
+                <IconButton color="primary" aria-label="upload picture" component="label">
+                  <input hidden accept="image/*" type="file" name="picture" id="picture" />
+                  <PhotoCamera />
+                </IconButton>
+              </Grid> */}
               <Grid item xs={12}>
                 <TextField
                   required
