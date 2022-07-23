@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-// import {useGlobalState} from 'utils/stateContext';
+import {useGlobalState} from 'utils/stateContext';
 import {useNavigate} from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -14,6 +14,7 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
+import {signInVenue} from 'services/authServices';
 
 function Copyright(props) {
   return (
@@ -30,8 +31,8 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-function Signin({activateUser}) {
-  // const {dispatch} = useGlobalState(); //to be implemented with reducer
+function Signin() {
+  const {dispatch} = useGlobalState(); //to be implemented with reducer
   const initialFormData = {
     email: '',
     password: ''
@@ -40,6 +41,7 @@ function Signin({activateUser}) {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState(initialFormData);
+  const [error, setError] = useState(null);
   // const [error, setError] = useState(null); //to be implemented with reducer
 
   const handleFormData = (event) => {
@@ -52,37 +54,28 @@ function Signin({activateUser}) {
   const handleSubmit = (event) => {
     event.preventDefault();
     // console.log(formData);
-    activateUser(formData.email);
-    setFormData(initialFormData); // cleaning the form data displayed
-    navigate('/events');
+    signInVenue(formData).then((user) => {
+      // console.log(user)
+      if (user.error) {
+        console.log('user.error', user.error);
+        setError(user.error);
+      } else {
+        setError(null);
+        sessionStorage.setItem('email', user.email);
+        sessionStorage.setItem('token', user.jwt);
+        dispatch({
+          type: 'setLoggedInUser',
+          data: user.email
+        });
+        dispatch({
+          type: 'setToken',
+          data: user.jwt
+        });
+        setFormData(initialFormData);
+        navigate('/events');
+      }
+    });
   };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-
-  //   signIn(formData).then((user) => {
-  //     // console.log(user)
-  //     if (user.error) {
-  //       console.log('user.error', user.error);
-  //       setError(user.error);
-  //     } else {
-  //       setError(null);
-  //       dispatch({
-  //         type: 'setLoggedInUser',
-  //         data: user.name
-  //       });
-  //       setFormData(initialFormData);
-  //       navigate('/events');
-  //     }
-  //   });
-  // };
-
-  // const handleFormData = (e) => {
-  //   setFormData({
-  //     ...formData,
-  //     [e.target.id]: e.target.value
-  //   });
-  // };
 
   return (
     <ThemeProvider theme={theme}>
@@ -119,6 +112,7 @@ function Signin({activateUser}) {
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
+            {error && <p>{error}</p>}
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{mt: 1}}>
               <TextField
                 margin="normal"
@@ -170,31 +164,6 @@ function Signin({activateUser}) {
         </Grid>
       </Grid>
     </ThemeProvider>
-    // <div>
-    //   <form onSubmit={handleSubmit}>
-    //     <div>
-    //       <label>Email:</label>
-    //       <input
-    //         type="email"
-    //         name="email"
-    //         id="email"
-    //         value={formData.email}
-    //         onChange={handleFormData}
-    //       />
-    //     </div>
-    //     <div>
-    //       <label>Password:</label>
-    //       <input
-    //         type="password"
-    //         name="password"
-    //         id="password"
-    //         value={formData.password}
-    //         onChange={handleFormData}
-    //       />
-    //     </div>
-    //     <input type="submit" value="Login" />
-    //   </form>
-    // </div>
   );
 }
 
