@@ -21,6 +21,13 @@ export const reducer = (state, action) => {
         venues: action.data
       };
     }
+    case 'setFoodTrucks': {
+      //populate the messageList Array with the inital values
+      return {
+        ...state,
+        foodTrucks: action.data
+      };
+    }
     default:
       return state;
   }

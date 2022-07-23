@@ -23,6 +23,7 @@ import SignupFoodTruck from 'components/auth/SignupFoodTruck';
 import SignupVenue from 'components/auth/SignupVenue';
 import {getEvents} from 'services/eventsServices';
 import {getVenues} from 'services/venuesServices';
+import {getFoodTrucks} from 'services/foodTrucksServices';
 
 function App() {
   const initialState = {
@@ -30,7 +31,7 @@ function App() {
     confirmedEvents: [],
     pendingEvents: {},
     venues: [],
-    foodTrucks: foodTrucksList,
+    foodTrucks: [],
     category: ''
   };
 
@@ -58,6 +59,15 @@ function App() {
       dispatch({
         type: 'setVenues',
         data: venues
+      });
+    });
+  }, []);
+
+  useEffect(() => {
+    getFoodTrucks().then((foodTrucks) => {
+      dispatch({
+        type: 'setFoodTrucks',
+        data: foodTrucks
       });
     });
   }, []);
