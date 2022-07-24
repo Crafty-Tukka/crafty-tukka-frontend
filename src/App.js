@@ -30,7 +30,7 @@ function App() {
     loggedInUser: sessionStorage.getItem('email') || null,
     token: sessionStorage.getItem('token') || null,
     confirmedEvents: [],
-    // pendingEvents: {},
+    pendingEvents: [],
     venues: [],
     foodTrucks: [],
     category: ''

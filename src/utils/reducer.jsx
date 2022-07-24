@@ -14,6 +14,13 @@ export const reducer = (state, action) => {
         confirmedEvents: action.data
       };
     }
+    case 'setPendingEvents': {
+      //populate the messageList Array with the inital values
+      return {
+        ...state,
+        pendingEvents: action.data
+      };
+    }
     case 'setVenues': {
       //populate the messageList Array with the inital values
       return {
@@ -48,6 +55,14 @@ export const reducer = (state, action) => {
         picture: action.data
       };
     }
+    case 'addVenueEvent': {
+      //receives a message and adds it to the list
+      return {
+        ...state,
+        pendingEvents: [action.data, ...state.pendingEvents]
+      };
+    }
+
     default:
       return state;
   }

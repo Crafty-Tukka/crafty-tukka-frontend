@@ -17,39 +17,54 @@ import MenuItem from '@mui/material/MenuItem';
 import DatePicker from 'react-datepicker';
 
 import 'react-datepicker/dist/react-datepicker.css';
+import {createEvent} from 'services/eventsServices';
 
 const theme = createTheme();
 
 function EventForm({addEvent}) {
-  const [formData, setFormData] = useState({
+  const initialFormData = {
     start: new Date(),
     end: new Date(),
     truck: ''
-  });
+  };
+
+  const [formData, setFormData] = useState(initialFormData);
   //eslint-ignore-next-line: true
   const navigate = useNavigate();
-  const {store} = useGlobalState();
-  const {foodTrucks} = store;
+  const {store, dispatch} = useGlobalState();
+  const {foodTrucks, loggedInUser} = store;
 
   useEffect(() => {
     console.log(formData);
   }, [formData]);
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (formData.start === '' || formData.end === '' || formData.truck === '') {
-      return console.log("Please don't leave an empty field");
-    } else {
-      addEvent(formData.start, formData.end, formData.truck);
-      navigate('/events');
-    }
-  };
 
   const handleFormData = (event) => {
     setFormData({
       ...formData, // previous state
       [event.target.name]: event.target.value // new state
     });
+  };
+
+  const addVenueEvent = (data) => {
+    createEvent(data).then((pendingEvent) => {
+      dispatch({
+        type: 'addVenueEvent',
+        data: pendingEvent
+      });
+      navigate('/events');
+    });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (formData.start === '' || formData.end === '' || formData.truck === '') {
+      return console.log("Please don't leave an empty field");
+    } else {
+      console.log(formData);
+      addVenueEvent(formData);
+      // addEvent(formData.start, formData.end, formData.truck);
+      // navigate('/events');
+    }
   };
 
   return (
@@ -79,7 +94,8 @@ function EventForm({addEvent}) {
                         label="Food Truck"
                         name="truck"
                         value={formData.truck}
-                        onChange={(x) => setFormData({...formData, truck: x.target.value})}
+                        // onChange={(x) => setFormData({...formData, truck: x.target.value})}
+                        onChange={handleFormData}
                       >
                         {foodTrucks.map((truck) => {
                           return (
