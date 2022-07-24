@@ -230,11 +230,11 @@ function NavBar() {
                   <Tab label="Sign In" value="/auth/signin" component={Link} to="/auth/signin" />
                 </Button>
               )}
-              {!loggedInUser && (
+              {/* {!loggedInUser && (
                 <Button onClick={handleCloseNavMenu} sx={{my: 2, color: 'white', display: 'block'}}>
                   <Tab label="Sign Up" value="/auth/signup" component={Link} to="/auth/signup" />
                 </Button>
-              )}
+              )} */}
               {/* {loggedInUser && (
                 <>
                   <Button

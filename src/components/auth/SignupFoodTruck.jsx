@@ -116,7 +116,7 @@ function SignupFoodTruck() {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 1,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center'
@@ -166,7 +166,7 @@ function SignupFoodTruck() {
                 </FormControl>
               </Grid>
               <Grid item xs={12}>
-                <TextField id="bio" label="Bio" name="bio" multiline rows={6} fullWidth />
+                <TextField id="bio" label="Bio" name="bio" multiline rows={2} fullWidth />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -275,7 +275,7 @@ function SignupFoodTruck() {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{mt: 5}} />
+        <Copyright sx={{mt: 3}} />
       </Container>
     </ThemeProvider>
   );

@@ -14,7 +14,8 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
-import {signInVenue} from 'services/authServices';
+import {signInFoodTruck, signInVenue} from 'services/authServices';
+import {Divider} from '@mui/material';
 
 function Copyright(props) {
   return (
@@ -32,7 +33,8 @@ function Copyright(props) {
 const theme = createTheme();
 
 function Signin() {
-  const {dispatch} = useGlobalState(); //to be implemented with reducer
+  const {store, dispatch} = useGlobalState(); //to be implemented with reducer
+  const {venues, foodTrucks} = store;
   const initialFormData = {
     email: '',
     password: ''
@@ -54,27 +56,53 @@ function Signin() {
   const handleSubmit = (event) => {
     event.preventDefault();
     // console.log(formData);
-    signInVenue(formData).then((user) => {
-      // console.log(user)
-      if (user.error) {
-        console.log('user.error', user.error);
-        setError(user.error);
-      } else {
-        setError(null);
-        sessionStorage.setItem('email', user.email);
-        sessionStorage.setItem('token', user.jwt);
-        dispatch({
-          type: 'setLoggedInUser',
-          data: user.email
-        });
-        dispatch({
-          type: 'setToken',
-          data: user.jwt
-        });
-        setFormData(initialFormData);
-        navigate('/events');
-      }
-    });
+    if (venues.find((venue) => venue.email === formData.email)) {
+      // venue sign in
+      signInVenue(formData).then((user) => {
+        // console.log(user)
+        if (user.error) {
+          console.log('user.error', user.error);
+          setError(user.error);
+        } else {
+          setError(null);
+          sessionStorage.setItem('email', user.email);
+          sessionStorage.setItem('token', user.jwt);
+          dispatch({
+            type: 'setLoggedInUser',
+            data: user.email
+          });
+          dispatch({
+            type: 'setToken',
+            data: user.jwt
+          });
+          setFormData(initialFormData);
+          navigate('/events');
+        }
+      });
+    } else if (foodTrucks.find((foodTruck) => foodTruck.email === formData.email)) {
+      // food truck sign in
+      signInFoodTruck(formData).then((user) => {
+        // console.log(user)
+        if (user.error) {
+          console.log('user.error', user.error);
+          setError(user.error);
+        } else {
+          setError(null);
+          sessionStorage.setItem('email', user.email);
+          sessionStorage.setItem('token', user.jwt);
+          dispatch({
+            type: 'setLoggedInUser',
+            data: user.email
+          });
+          dispatch({
+            type: 'setToken',
+            data: user.jwt
+          });
+          setFormData(initialFormData);
+          navigate('/events');
+        }
+      });
+    }
   };
 
   return (
@@ -158,7 +186,26 @@ function Signin() {
                   </Link>
                 </Grid>
               </Grid>
-              <Copyright sx={{mt: 5}} />
+              <Divider sx={{mt: 3}}>Or sign up for a vendor account</Divider>
+              <Button
+                href="/auth/signup/venue"
+                value="Venue"
+                fullWidth
+                variant="outlined"
+                sx={{mt: 3, mb: 2}}
+              >
+                Sign up as a Brewery
+              </Button>
+              <Button
+                href="/auth/signup/foodtruck"
+                value="FoodTruck"
+                fullWidth
+                variant="outlined"
+                sx={{mt: 3, mb: 2}}
+              >
+                Sign up as a Food Truck
+              </Button>
+              <Copyright sx={{mt: 4}} />
             </Box>
           </Box>
         </Grid>
