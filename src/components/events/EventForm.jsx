@@ -21,29 +21,29 @@ import {createEvent} from 'services/eventsServices';
 
 const theme = createTheme();
 
-function EventForm({addEvent}) {
-  const initialFormData = {
-    start: new Date(),
-    end: new Date(),
-    truck: ''
-  };
-
-  const [formData, setFormData] = useState(initialFormData);
+function EventForm() {
   //eslint-ignore-next-line: true
   const navigate = useNavigate();
   const {store, dispatch} = useGlobalState();
-  const {foodTrucks, loggedInUser} = store;
+  const {foodTrucks} = store;
+  const initialFormData = {
+    start: new Date(),
+    finish: new Date(),
+    name: 'Event',
+    confirmed: false
+  };
+  const [formData, setFormData] = useState(initialFormData);
 
   useEffect(() => {
     console.log(formData);
   }, [formData]);
 
-  const handleFormData = (event) => {
-    setFormData({
-      ...formData, // previous state
-      [event.target.name]: event.target.value // new state
-    });
-  };
+  // const handleFormData = (event) => {
+  //   setFormData({
+  //     ...formData, // previous state
+  //     [event.target.name]: event.target.value // new state
+  //   });
+  // };
 
   const addVenueEvent = (data) => {
     createEvent(data).then((pendingEvent) => {
@@ -93,13 +93,13 @@ function EventForm({addEvent}) {
                         required
                         label="Food Truck"
                         name="truck"
-                        value={formData.truck}
-                        // onChange={(x) => setFormData({...formData, truck: x.target.value})}
-                        onChange={handleFormData}
+                        value={formData.truck_id}
+                        onChange={(x) => setFormData({...formData, truck_id: x.target.value})}
+                        // onChange={handleFormData}
                       >
                         {foodTrucks.map((truck) => {
                           return (
-                            <MenuItem key={truck.id} value={truck.name} name={truck.name}>
+                            <MenuItem key={truck.id} value={truck.id} name={truck.name}>
                               {truck.name}
                             </MenuItem>
                           );
