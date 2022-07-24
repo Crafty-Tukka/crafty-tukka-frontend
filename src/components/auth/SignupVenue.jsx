@@ -117,7 +117,7 @@ function SignupVenue() {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 1,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center'
@@ -127,7 +127,7 @@ function SignupVenue() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Venue Sign Up
+            Brewery Sign Up
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{mt: 3}}>
             <Grid container spacing={2}>
@@ -151,7 +151,7 @@ function SignupVenue() {
                   onChange={handleFormData}
                   value={formData.description}
                   multiline
-                  rows={6}
+                  rows={2}
                   fullWidth
                 />
               </Grid>
@@ -319,7 +319,7 @@ function SignupVenue() {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{mt: 5}} />
+        <Copyright sx={{mt: 3}} />
       </Container>
     </ThemeProvider>
   );

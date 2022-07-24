@@ -5,3 +5,21 @@ export async function getEvents() {
   console.log(response.data);
   return response.data;
 }
+
+export async function createEvent(data) {
+  const response = await craftyTukkaAPI.post('/events', data);
+  console.log(response.data);
+  return response.data;
+}
+
+export async function editEvent(data, id) {
+  const response = await craftyTukkaAPI.put(`/events/${id}`, data);
+  console.log(response.data);
+  return response.data;
+}
+
+export async function deleteEvent(id) {
+  const response = await craftyTukkaAPI.delete(`/events/${id}`);
+  console.log(response.data);
+  return response.data;
+}

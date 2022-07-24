@@ -30,7 +30,7 @@ function App() {
     loggedInUser: sessionStorage.getItem('email') || null,
     token: sessionStorage.getItem('token') || null,
     confirmedEvents: [],
-    pendingEvents: {},
+    // pendingEvents: {},
     venues: [],
     foodTrucks: [],
     category: ''
@@ -38,7 +38,7 @@ function App() {
 
   const [store, dispatch] = useReducer(reducer, initialState);
   // const [events, setEvents] = useState(initialState.confirmedEvents);
-  const {loggedInUser} = store;
+  const {loggedInUser, venues, foodTrucks} = store;
   const {isLoaded} = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries: ['places']
@@ -46,6 +46,7 @@ function App() {
 
   // const [loggedInUser, setLoggedInUser] = useState('');
 
+  // we need to figure out how to keep updating this everytime a new venue/foodtruck/event is added without creating an infinite loop
   useEffect(() => {
     getEvents().then((events) => {
       dispatch({

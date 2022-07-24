@@ -1,3 +1,5 @@
+// this component is obsolete now
+
 // import {Button, InputLabel, TextField, Typography} from '@mui/material';
 import {Button} from '@mui/material';
 
