@@ -16,14 +16,13 @@ import {
 import {Link, useNavigate} from 'react-router-dom';
 import AdbIcon from '@mui/icons-material/Adb';
 import MenuIcon from '@mui/icons-material/Menu';
+import {useGlobalState} from 'utils/stateContext';
 
-function NavBar({loggedInUser, activateUser}) {
+function NavBar() {
+  const {store, dispatch} = useGlobalState();
+  const {loggedInUser} = store;
   const navigate = useNavigate();
-  const logOut = (event) => {
-    event.preventDefault();
-    activateUser('');
-    navigate('/events');
-  };
+
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
 
@@ -41,6 +40,20 @@ function NavBar({loggedInUser, activateUser}) {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const signOut = (e) => {
+    e.preventDefault();
+    sessionStorage.clear();
+    dispatch({
+      type: 'setLoggedInUser',
+      data: null
+    });
+    dispatch({
+      type: 'setToken',
+      data: null
+    });
+    navigate('/events');
   };
 
   return (
@@ -323,7 +336,7 @@ function NavBar({loggedInUser, activateUser}) {
                             onClick={handleCloseNavMenu}
                             sx={{my: 2, color: 'red', display: 'block'}}
                           >
-                            <Tab label="Log Out" component={Link} to="/events" onClick={logOut} />
+                            <Tab label="Log Out" component={Link} to="/events" onClick={signOut} />
                           </Button>
                         </>
                       )}
