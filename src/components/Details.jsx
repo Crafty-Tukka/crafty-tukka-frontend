@@ -34,13 +34,15 @@ const style = {
 function Details({item, imgPath, handleClose}) {
   const {store} = useGlobalState();
   const {confirmedEvents} = store; // this will need to be changed to item.events
+  console.log(confirmedEvents);
+  console.log(item);
 
   return (
     <>
       <Card sx={style}>
         <CardMedia component="img" height="340" image={imgPath} alt={item.name} />
         <CardHeader title={item.name} subheader={item.date ? item.date : item.website} />
-        {!item.date ? (
+        {!item.start ? (
           <CardContent sx={{width: '50%', pt: 0, pb: 1}}>
             {item.facebook ? (
               <Link sx={{mt: 1, pr: 4}} href={item.facebook} target="_blank" rel="noreferrer">
@@ -91,13 +93,14 @@ function Details({item, imgPath, handleClose}) {
           </Typography>
 
           {/* Upcoming Events */}
-          {!item.date ? (
+          {!item.start ? (
             <>
               <Typography sx={{mt: 2}} variant="h6" component="div">
                 Upcoming Events
               </Typography>
               {confirmedEvents.map((event) => {
-                return event.confirmed_status === 'confirmed' ? (
+                return event.confirmed === true &&
+                  item.id === (event.foodtruck_id || event.venue_id) ? (
                   <LinkedCard key={event.id} imgPath={event.img} item={event}>
                     {/* this can be refactored into preview card component */}
                     <Typography component="div" variant="h6">
@@ -120,7 +123,7 @@ function Details({item, imgPath, handleClose}) {
         </CardContent>
         <CardActions>
           <Button size="small" onClick={handleClose}>
-            Close
+            Back
           </Button>
         </CardActions>
       </Card>
