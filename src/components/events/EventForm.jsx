@@ -26,22 +26,22 @@ function EventForm() {
   const navigate = useNavigate();
   const {store, dispatch} = useGlobalState();
   const {foodTrucks} = store;
-  const initialFormData = {
+  const initialVenueFormData = {
     start: new Date(),
     finish: new Date(),
     name: 'Event',
     description: '',
     confirmed: false
   };
-  const [formData, setFormData] = useState(initialFormData);
+  const [formVenueData, setFormVenueData] = useState(initialVenueFormData);
 
   useEffect(() => {
-    console.log(formData);
-  }, [formData]);
+    console.log(formVenueData);
+  }, [formVenueData]);
 
   const handleFormData = (event) => {
-    setFormData({
-      ...formData, // previous state
+    setFormVenueData({
+      ...formVenueData, // previous state
       [event.target.name]: event.target.value // new state
     });
   };
@@ -58,11 +58,11 @@ function EventForm() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (formData.start === '' || formData.end === '' || formData.truck === '') {
+    if (formVenueData.start === '' || formVenueData.end === '' || formVenueData.truck === '') {
       return console.log("Please don't leave an empty field");
     } else {
-      console.log(formData);
-      addVenueEvent(formData);
+      console.log(formVenueData);
+      addVenueEvent(formVenueData);
       // addEvent(formData.start, formData.end, formData.truck);
       // navigate('/events');
     }
@@ -94,7 +94,7 @@ function EventForm() {
                     label="Event Name"
                     name="name"
                     autoComplete="name"
-                    value={formData.name}
+                    value={formVenueData.name}
                     onChange={handleFormData}
                   />
                 </Grid>
@@ -104,7 +104,7 @@ function EventForm() {
                     name="description"
                     label="Describe you event"
                     onChange={handleFormData}
-                    value={formData.description}
+                    value={formVenueData.description}
                     multiline
                     rows={2}
                     fullWidth
@@ -118,8 +118,10 @@ function EventForm() {
                         required
                         label="Food Truck"
                         name="truck"
-                        value={formData.truck_id}
-                        onChange={(x) => setFormData({...formData, truck_id: x.target.value})}
+                        value={formVenueData.truck_id}
+                        onChange={(x) =>
+                          setFormVenueData({...formVenueData, truck_id: x.target.value})
+                        }
                         // onChange={handleFormData}
                       >
                         {foodTrucks.map((truck) => {
@@ -138,8 +140,8 @@ function EventForm() {
                 Select Your Start Date and Time
               </Typography>
               <DatePicker
-                selected={formData.start}
-                onChange={(x) => setFormData({...formData, start: x})}
+                selected={formVenueData.start}
+                onChange={(x) => setFormVenueData({...formVenueData, start: x})}
                 name="start"
                 showTimeSelect
                 timeFormat="HH:mm"
@@ -151,8 +153,8 @@ function EventForm() {
                 Select Your Finish Date and Time
               </Typography>
               <DatePicker
-                selected={formData.finish}
-                onChange={(x) => setFormData({...formData, finish: x})}
+                selected={formVenueData.finish}
+                onChange={(x) => setFormVenueData({...formVenueData, finish: x})}
                 name="end"
                 showTimeSelect
                 timeFormat="HH:mm"
