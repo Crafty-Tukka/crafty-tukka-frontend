@@ -63,6 +63,14 @@ export const reducer = (state, action) => {
       };
     }
 
+    case 'addTruckEvent': {
+      //receives a message and adds it to the list
+      return {
+        ...state,
+        pendingEvents: [action.data, ...state.confirmedEvents]
+      };
+    }
+
     default:
       return state;
   }
