@@ -6,8 +6,20 @@ export async function getEvents() {
   return response.data;
 }
 
-export async function createEvent(data) {
-  const response = await craftyTukkaAPI.post('/events', data);
+// export async function createEvent(data) {
+//   const response = await craftyTukkaAPI.post('/events', data);
+//   console.log(response.data);
+//   return response.data;
+// }
+
+export async function createVenueEvent(data) {
+  const response = await craftyTukkaAPI.post('/events/venuecreate', data);
+  console.log(response.data);
+  return response.data;
+}
+
+export async function createTruckEvent(data) {
+  const response = await craftyTukkaAPI.post('/events/truckcreate', data);
   console.log(response.data);
   return response.data;
 }

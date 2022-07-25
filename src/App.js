@@ -74,37 +74,6 @@ function App() {
     });
   }, []);
 
-  // const activateUser = (email) => {
-  //   setLoggedInUser(email);
-  //   // dispatch({
-  //   //   type: 'setLoggedInUser',
-  //   //   data: name
-  //   // });
-  // };
-
-  // const nextId = (data) => {
-  //   if (data.length === 0) return 1;
-  //   const sortData = data.sort((a, b) => a.id - b.id);
-  //   const nextId = sortData[sortData.length - 1].id + 1;
-  //   return nextId;
-  // };
-
-  // const addEvent = (start, end, truck) => {
-  //   const event = {
-  //     start: start,
-  //     end: end,
-  //     truck: truck,
-  //     username: loggedInUser,
-  //     id: nextId(eventsList)
-  //   };
-  //   setEvents((events) => [event, ...events]);
-  //   // dispatch({
-  //   // 	type: "addEvent",
-  //   // 	data: event,
-  //   // });
-  //   // setMessageList((messageList) => [message, ...messageList]);
-  // };
-
   if (!isLoaded) return <div>Loading...</div>;
 
   return (
