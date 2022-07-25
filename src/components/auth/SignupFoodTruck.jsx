@@ -166,7 +166,16 @@ function SignupFoodTruck() {
                 </FormControl>
               </Grid>
               <Grid item xs={12}>
-                <TextField id="bio" label="Bio" name="bio" multiline rows={2} fullWidth />
+                <TextField
+                  id="description"
+                  name="description"
+                  label="Bio"
+                  onChange={handleFormData}
+                  value={formData.description}
+                  multiline
+                  rows={2}
+                  fullWidth
+                />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
