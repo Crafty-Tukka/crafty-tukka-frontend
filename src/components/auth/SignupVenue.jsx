@@ -17,6 +17,7 @@ import {useNavigate} from 'react-router';
 import {signUpVenue} from 'services/authServices';
 import IconButton from '@mui/material/IconButton';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import {getGeocode, getLatLng} from 'use-places-autocomplete';
 
 function Copyright(props) {
   return (
@@ -46,11 +47,19 @@ function SignupVenue() {
     google_maps: '',
     mobile: '',
     password: '',
-    password_confirmation: ''
+    password_confirmation: '',
+    address_attributes: [
+      {street: '', suburb: '', state: 'Queensland', postcode: '', country: 'Australia'}
+    ]
   };
 
   const [formData, setFormData] = useState(initialFormData);
   const [error, setError] = useState(null);
+
+  // getGeocode(`${formData.address1}`).then((results) => {
+  //   const {lat, lng} = getLatLng(results[0]);
+  //   console.log('Coordinates: ', {lat, lng});
+  // });
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -97,6 +106,7 @@ function SignupVenue() {
       [e.target.name]: e.target.value
     });
   };
+
   // const stateList = [
   //   {id: 1, type: 'Queensland'},
   //   {id: 2, type: 'New South Wales'},
@@ -155,63 +165,39 @@ function SignupVenue() {
                   fullWidth
                 />
               </Grid>
-              {/* This is the address form */}
-              {/* <Grid item xs={12}>
-                <TextField
-                  required
-                  id="address1"
-                  name="address1"
-                  label="Address line 1"
-                  fullWidth
-                  autoComplete="address-line-1"
-                />
-              </Grid>
+              This is the address form
               <Grid item xs={12}>
                 <TextField
-                  id="address2"
-                  name="address2"
-                  label="Address line 2"
+                  required
+                  id="street"
+                  name="street"
+                  label="Address"
                   fullWidth
-                  autoComplete="address-line-2"
+                  autoComplete="address-line-1"
+                  value={formData.address_attributes.street}
+                  onChange={handleFormData}
                 />
-              </Grid>
-              <Grid item xs={12} sm={6}>
                 <TextField
                   required
-                  id="city"
-                  name="city"
-                  label="City/Suburb"
+                  id="suburb"
+                  name="suburb"
+                  label="Suburb"
                   fullWidth
-                  autoComplete="address-level2"
+                  autoComplete="suburb"
+                  value={formData.address_attributes.suburb}
+                  onChange={handleFormData}
                 />
-              </Grid>
-              <Grid item xs={12} sm={6}>
                 <TextField
                   required
                   id="postcode"
                   name="postcode"
-                  label="Postal code"
+                  label="Postcode"
                   fullWidth
-                  autoComplete="postal-code"
+                  autoComplete="postcode"
+                  value={formData.address_attributes.postcode}
+                  onChange={handleFormData}
                 />
               </Grid>
-              <Grid item xs={12}>
-                <FormControl fullWidth>
-                  <InputLabel>State</InputLabel>
-                  <>
-                    <Select required label="State" value={stateType} onChange={handleChange}>
-                      {stateList.map((state) => {
-                        return (
-                          <MenuItem key={state.id} value={state.type} name={state.type}>
-                            {state.type}
-                          </MenuItem>
-                        );
-                      })}
-                    </Select>
-                  </>
-                </FormControl>
-              </Grid> */}
-
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="mobile"
