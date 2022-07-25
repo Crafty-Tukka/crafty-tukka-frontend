@@ -5,7 +5,7 @@ import {useNavigate} from 'react-router-dom';
 // import TextField from '@mui/material/TextField';
 // import {AdapterMoment} from '@mui/x-date-pickers/AdapterMoment';
 // import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
-import {Typography, Button} from '@mui/material';
+import {Typography, Button, TextField} from '@mui/material';
 // import {MobileDateTimePicker} from '@mui/x-date-pickers/MobileDateTimePicker';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -30,6 +30,7 @@ function EventForm() {
     start: new Date(),
     finish: new Date(),
     name: 'Event',
+    description: '',
     confirmed: false
   };
   const [formData, setFormData] = useState(initialFormData);
@@ -38,12 +39,12 @@ function EventForm() {
     console.log(formData);
   }, [formData]);
 
-  // const handleFormData = (event) => {
-  //   setFormData({
-  //     ...formData, // previous state
-  //     [event.target.name]: event.target.value // new state
-  //   });
-  // };
+  const handleFormData = (event) => {
+    setFormData({
+      ...formData, // previous state
+      [event.target.name]: event.target.value // new state
+    });
+  };
 
   const addVenueEvent = (data) => {
     createEvent(data).then((pendingEvent) => {
@@ -81,10 +82,34 @@ function EventForm() {
             }}
           >
             <Typography component="h1" variant="h5">
-              Select Your Food Truck
+              Create Your Event
             </Typography>
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{mt: 3}}>
               <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    id="name"
+                    label="Event Name"
+                    name="name"
+                    autoComplete="name"
+                    value={formData.name}
+                    onChange={handleFormData}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    id="description"
+                    name="description"
+                    label="Describe you event"
+                    onChange={handleFormData}
+                    value={formData.description}
+                    multiline
+                    rows={2}
+                    fullWidth
+                  />
+                </Grid>
                 <Grid item xs={12}>
                   <FormControl fullWidth>
                     <InputLabel>Food Truck</InputLabel>
@@ -109,6 +134,9 @@ function EventForm() {
                   </FormControl>
                 </Grid>
               </Grid>
+              <Typography component="h3" variant="h5">
+                Select Your Start Date and Time
+              </Typography>
               <DatePicker
                 selected={formData.start}
                 onChange={(x) => setFormData({...formData, start: x})}
@@ -119,6 +147,9 @@ function EventForm() {
                 timeCaption="time"
                 dateFormat="MMMM d, yyyy h:mm aa"
               />
+              <Typography component="h3" variant="h5">
+                Select Your Finish Date and Time
+              </Typography>
               <DatePicker
                 selected={formData.finish}
                 onChange={(x) => setFormData({...formData, finish: x})}
