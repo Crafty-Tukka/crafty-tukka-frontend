@@ -120,8 +120,8 @@ function EventForm() {
                 dateFormat="MMMM d, yyyy h:mm aa"
               />
               <DatePicker
-                selected={formData.end}
-                onChange={(x) => setFormData({...formData, end: x})}
+                selected={formData.finish}
+                onChange={(x) => setFormData({...formData, finish: x})}
                 name="end"
                 showTimeSelect
                 timeFormat="HH:mm"
