@@ -6,13 +6,13 @@ import venues from '../../data/breweries.json';
 
 function Map() {
   const initialMapPosition = {position: {lat: -27.4705, lng: 153.026}, initialZoom: 12.1};
-  // const options = useMemo(
-  //   () => ({
-  //     disableDefaultUI: true,
-  //     clickableIcons: true
-  //   }),
-  //   []
-  // );
+  const options = useMemo(
+    () => ({
+      disableDefaultUI: true,
+      clickableIcons: true
+    }),
+    []
+  );
   const [markers, setMarkers] = useState([]);
   const [zoom, setZoom] = useState(initialMapPosition.initialZoom); // initial zoom: ;
   const [center, setCenter] = useState(initialMapPosition.position);
@@ -50,7 +50,7 @@ function Map() {
       zoom={zoom}
       center={center}
       mapContainerClassName="map-container"
-      // options={options}
+      options={options}
       // onLoad={onLoad}
       onLoad={onLoad}
       onZoomChanged={onZoomChanged}
