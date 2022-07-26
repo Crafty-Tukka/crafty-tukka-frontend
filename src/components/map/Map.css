@@ -21,11 +21,10 @@ a {
 }
 
 .controls {
-  width: 30%;
+  width: 20%;
   padding: 1rem;
   background: #14161a;
   color: #fff;
-  overflow-y: scroll;
 }
 
 .controls input {
@@ -34,15 +33,20 @@ a {
 
 .map-container {
   width: 100%;
-  height: 100%;
+  height: 100vh;
 }
 
 .map {
-  width: 100%;
-  height: 100%;
+  width: 80%;
+  height: 100vh;
 }
 
 .highlight {
   font-size: 1.25rem;
   font-weight: bold;
+}
+
+.combobox-input {
+  width: 100%;
+  padding: 0.5rem;
 }

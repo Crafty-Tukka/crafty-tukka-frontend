@@ -34,6 +34,7 @@ function Map({children}) {
 
   const onZoomChanged = () => {
     setZoom(mapInstance.zoom);
+    console.log(zoom);
   };
   // const mapRef = useRef(GoogleMap);
   // const onLoad = useCallback((map) => (mapRef.current = map), []);
