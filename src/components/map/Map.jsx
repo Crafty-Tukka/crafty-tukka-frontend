@@ -1,4 +1,4 @@
-import {useMemo, useState, useEffect} from 'react';
+import {useMemo, useState, useEffect, useRef, useCallback} from 'react';
 import {GoogleMap, Marker} from '@react-google-maps/api';
 // import Events from 'components/events/Events';
 // import './Map.css';
@@ -26,21 +26,21 @@ function Map() {
     setZoom(15);
   };
 
-  const [mapInstance, setMapInstance] = useState({});
-  const onLoad = (map) => {
-    setMapInstance(map);
-    console.log(map);
-  };
-
-  const onZoomChanged = () => {
-    setZoom(mapInstance.zoom);
-  };
-  // const mapRef = useRef(GoogleMap);
-  // const onLoad = useCallback((map) => (mapRef.current = map), []);
+  // const [mapInstance, setMapInstance] = useState({});
+  // const onLoad = (map) => {
+  //   setMapInstance(map);
+  //   console.log(map);
+  // };
 
   // const onZoomChanged = () => {
-  //   setZoom(mapRef.zoom);
+  //   setZoom(mapInstance.zoom);
   // };
+  const mapRef = useRef(GoogleMap);
+  const onLoad = useCallback((map) => (mapRef.current = map), []);
+
+  const onZoomChanged = () => {
+    setZoom(mapRef.zoom);
+  };
 
   return (
     // <div className="container">

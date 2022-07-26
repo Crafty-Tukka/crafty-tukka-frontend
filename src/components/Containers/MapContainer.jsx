@@ -3,10 +3,8 @@ import './MapContainer.css';
 
 function MapContainer({children}) {
   return (
-    <div>
-      <>
-        <Map />
-      </>
+    <div className="map-container">
+      <Map />
       {children}
     </div>
   );
