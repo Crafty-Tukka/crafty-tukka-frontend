@@ -4,7 +4,7 @@ import {GoogleMap, Marker} from '@react-google-maps/api';
 // import './Map.css';
 import venues from '../../data/breweries.json';
 
-function Map() {
+function Map({children}) {
   const initialMapPosition = {position: {lat: -27.4705, lng: 153.026}, initialZoom: 12.1};
   const options = useMemo(
     () => ({
@@ -27,10 +27,10 @@ function Map() {
   };
 
   const [mapInstance, setMapInstance] = useState({});
-  // const onLoad = (map) => {
-  //   setMapInstance(map);
-  //   console.log(map);
-  // };
+  const onLoad = (map) => {
+    setMapInstance(map);
+    console.log(map);
+  };
 
   const onZoomChanged = () => {
     setZoom(mapInstance.zoom);
@@ -43,24 +43,23 @@ function Map() {
   // };
 
   return (
-    // <div className="container">
-    // <div className="controls"><Events /></div>
-    <div className="map">
-      <GoogleMap
-        zoom={zoom}
-        center={center}
-        mapContainerClassName="map-container"
-        options={options}
-        // onLoad={onLoad}
-        onLoad={(map) => {
-          setMapInstance(map);
-        }}
-        onZoomChanged={onZoomChanged}
-      >
-        {markers.map((marker) => (
-          <Marker key={marker.id} position={marker.position} onClick={onClick} />
-        ))}
-      </GoogleMap>
+    <div className="container">
+      <div className="map">
+        <GoogleMap
+          zoom={zoom}
+          center={center}
+          mapContainerClassName="map-container"
+          options={options}
+          // onLoad={onLoad}
+          onLoad={onLoad}
+          onZoomChanged={onZoomChanged}
+        >
+          {markers.map((marker) => (
+            <Marker key={marker.id} position={marker.position} onClick={onClick} />
+          ))}
+        </GoogleMap>
+        {children}
+      </div>
     </div>
   );
 }
