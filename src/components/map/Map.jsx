@@ -26,42 +26,41 @@ function Map() {
     setZoom(15);
   };
 
-  // const [mapInstance, setMapInstance] = useState({});
+  const [mapInstance, setMapInstance] = useState({});
   // const onLoad = (map) => {
   //   setMapInstance(map);
   //   console.log(map);
   // };
 
-  // const onZoomChanged = () => {
-  //   setZoom(mapInstance.zoom);
-  // };
-  const mapRef = useRef(GoogleMap);
-  const onLoad = useCallback((map) => (mapRef.current = map), []);
-
   const onZoomChanged = () => {
-    setZoom(mapRef.zoom);
+    setZoom(mapInstance.zoom);
   };
+  // const mapRef = useRef(GoogleMap);
+  // const onLoad = useCallback((map) => (mapRef.current = map), []);
+
+  // const onZoomChanged = () => {
+  //   setZoom(mapRef.zoom);
+  // };
 
   return (
     // <div className="container">
     // <div className="controls"><Events /></div>
     // <div className="map">
-    <>
-      <GoogleMap
-        zoom={zoom}
-        center={center}
-        mapContainerClassName="map-container"
-        options={options}
-        // onLoad={onLoad}
-        onLoad={onLoad}
-        onZoomChanged={onZoomChanged}
-      >
-        {markers.map((marker) => (
-          <Marker key={marker.id} position={marker.position} onClick={onClick} />
-        ))}
-      </GoogleMap>
-    </>
-    // </div>
+    <GoogleMap
+      zoom={zoom}
+      center={center}
+      mapContainerClassName="map-container"
+      options={options}
+      // onLoad={onLoad}
+      onLoad={(map) => {
+        setMapInstance(map);
+      }}
+      onZoomChanged={onZoomChanged}
+    >
+      {markers.map((marker) => (
+        <Marker key={marker.id} position={marker.position} onClick={onClick} />
+      ))}
+    </GoogleMap>
   );
 }
 
