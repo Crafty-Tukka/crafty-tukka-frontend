@@ -29,6 +29,8 @@
     "react-cool-onclickoutside": "^1.7.0",
     "react-datepicker": "^4.8.0",
     "react-dom": "^18.2.0",
+    "react-google-places-autocomplete": "^3.4.0",
+    "react-places-autocomplete": "^7.3.0",
     "react-router": "6.3.*",
     "react-router-dom": "6.3.*",
     "react-scripts": "5.0.1",

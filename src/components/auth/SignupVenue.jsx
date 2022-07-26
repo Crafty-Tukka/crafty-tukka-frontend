@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -17,7 +17,7 @@ import {useNavigate} from 'react-router';
 import {signUpVenue} from 'services/authServices';
 import IconButton from '@mui/material/IconButton';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
-import {getGeocode, getLatLng} from 'use-places-autocomplete';
+import PlacesAutocomplete, {geocodeByAddress, getLatLng} from 'react-places-autocomplete';
 
 function Copyright(props) {
   return (
@@ -47,19 +47,30 @@ function SignupVenue() {
     google_maps: '',
     mobile: '',
     password: '',
-    password_confirmation: '',
-    address_attributes: [
-      {street: '', suburb: '', state: 'Queensland', postcode: '', country: 'Australia'}
-    ]
+    password_confirmation: ''
+    // address_attributes: {
+    //   street: '',
+    //   suburb: '',
+    //   state: 'Queensland',
+    //   postcode: '',
+    //   country: 'Australia'
+    // }
   };
 
+  const [address, setAddress] = useState();
+  const [coordinates, setCoordinates] = useState({
+    lat: null,
+    lng: null
+  });
   const [formData, setFormData] = useState(initialFormData);
   const [error, setError] = useState(null);
 
-  // getGeocode(`${formData.address1}`).then((results) => {
-  //   const {lat, lng} = getLatLng(results[0]);
-  //   console.log('Coordinates: ', {lat, lng});
-  // });
+  const handleSelect = async (value) => {
+    const results = await geocodeByAddress(value);
+    const latLng = await getLatLng(results[0]);
+    setAddress(value);
+    setCoordinates(latLng);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -105,7 +116,15 @@ function SignupVenue() {
       ...formData,
       [e.target.name]: e.target.value
     });
+    console.log(formData);
   };
+
+  // const handleAddressFormData = (e) => {
+  //   setFormData({
+  //     ...formData.google_maps,
+  //     [e.target.name]: e.target.value
+  //   });
+  // };
 
   // const stateList = [
   //   {id: 1, type: 'Queensland'},
@@ -166,7 +185,7 @@ function SignupVenue() {
                 />
               </Grid>
               This is the address form
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 <TextField
                   required
                   id="street"
@@ -174,8 +193,8 @@ function SignupVenue() {
                   label="Address"
                   fullWidth
                   autoComplete="address-line-1"
-                  value={formData.address_attributes.street}
-                  onChange={handleFormData}
+                  value={formData.address_attributes.value}
+                  onChange={handleAddressFormData}
                 />
                 <TextField
                   required
@@ -184,8 +203,8 @@ function SignupVenue() {
                   label="Suburb"
                   fullWidth
                   autoComplete="suburb"
-                  value={formData.address_attributes.suburb}
-                  onChange={handleFormData}
+                  value={formData.address_attributes.value}
+                  onChange={handleAddressFormData}
                 />
                 <TextField
                   required
@@ -194,9 +213,37 @@ function SignupVenue() {
                   label="Postcode"
                   fullWidth
                   autoComplete="postcode"
-                  value={formData.address_attributes.postcode}
-                  onChange={handleFormData}
+                  value={formData.address_attributes.value}
+                  onChange={handleAddressFormData}
                 />
+              </Grid> */}
+              <Grid item xs={12}>
+                <PlacesAutocomplete value={address} onChange={setAddress} onSelect={handleSelect}>
+                  {({getInputProps, suggestions, getSuggestionItemProps, loading}) => (
+                    <div>
+                      <p>Latitude: {coordinates.lat}</p>
+                      <p>Longitude: {coordinates.lng}</p>
+
+                      <input {...getInputProps({placeholder: 'Type address'})} />
+
+                      <div>
+                        {loading ? <div>...loading</div> : null}
+
+                        {suggestions.map((suggestion) => {
+                          const style = {
+                            backgroundColor: suggestion.active ? '#41b6e6' : '#fff'
+                          };
+
+                          return (
+                            <div {...getSuggestionItemProps(suggestion, {style})}>
+                              {suggestion.description}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+                </PlacesAutocomplete>
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -222,7 +269,7 @@ function SignupVenue() {
                   autoComplete="website"
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              {/* <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="google-maps"
                   name="google_maps"
@@ -232,7 +279,7 @@ function SignupVenue() {
                   value={formData.google_maps}
                   label="Google Places"
                 />
-              </Grid>
+              </Grid> */}
               <Grid item xs={12} sm={6}>
                 <TextField
                   fullWidth
