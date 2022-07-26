@@ -46,20 +46,21 @@ function Map() {
     // <div className="container">
     // <div className="controls"><Events /></div>
     // <div className="map">
-    <GoogleMap
-      zoom={zoom}
-      center={center}
-      mapContainerClassName="map-container"
-      options={options}
-      // onLoad={onLoad}
-      onLoad={onLoad}
-      onZoomChanged={onZoomChanged}
-    >
-      {markers.map((marker) => (
-        <Marker key={marker.id} position={marker.position} onClick={onClick} />
-      ))}
-    </GoogleMap>
-    // </div>
+    <>
+      <GoogleMap
+        zoom={zoom}
+        center={center}
+        mapContainerClassName="map-container"
+        options={options}
+        // onLoad={onLoad}
+        onLoad={onLoad}
+        onZoomChanged={onZoomChanged}
+      >
+        {markers.map((marker) => (
+          <Marker key={marker.id} position={marker.position} onClick={onClick} />
+        ))}
+      </GoogleMap>
+    </>
     // </div>
   );
 }
