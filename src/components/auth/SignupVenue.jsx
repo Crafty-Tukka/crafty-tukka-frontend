@@ -235,7 +235,7 @@ function SignupVenue() {
                           };
 
                           return (
-                            <div key="1" {...getSuggestionItemProps(suggestion, {style})}>
+                            <div key="id" {...getSuggestionItemProps(suggestion, {style})}>
                               {suggestion.description}
                             </div>
                           );
