@@ -185,38 +185,6 @@ function SignupVenue() {
                 />
               </Grid>
               This is the address form
-              {/* <Grid item xs={12}>
-                <TextField
-                  required
-                  id="street"
-                  name="street"
-                  label="Address"
-                  fullWidth
-                  autoComplete="address-line-1"
-                  value={formData.address_attributes.value}
-                  onChange={handleAddressFormData}
-                />
-                <TextField
-                  required
-                  id="suburb"
-                  name="suburb"
-                  label="Suburb"
-                  fullWidth
-                  autoComplete="suburb"
-                  value={formData.address_attributes.value}
-                  onChange={handleAddressFormData}
-                />
-                <TextField
-                  required
-                  id="postcode"
-                  name="postcode"
-                  label="Postcode"
-                  fullWidth
-                  autoComplete="postcode"
-                  value={formData.address_attributes.value}
-                  onChange={handleAddressFormData}
-                />
-              </Grid> */}
               <Grid item xs={12}>
                 <PlacesAutocomplete value={address} onChange={setAddress} onSelect={handleSelect}>
                   {({getInputProps, suggestions, getSuggestionItemProps, loading}) => (
@@ -236,7 +204,10 @@ function SignupVenue() {
 
                           return (
                             <>
-                              <div {...getSuggestionItemProps(suggestion, {style})}>
+                              <div
+                                key={suggestion.id}
+                                {...getSuggestionItemProps(suggestion, {style})}
+                              >
                                 {suggestion.description}
                               </div>
                             </>
