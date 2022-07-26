@@ -235,6 +235,7 @@ function SignupVenue() {
                           };
 
                           return (
+                            // eslint-disable-next-line react/jsx-key
                             <div {...getSuggestionItemProps(suggestion, {style})}>
                               {suggestion.description}
                             </div>
