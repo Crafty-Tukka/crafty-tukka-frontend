@@ -14,7 +14,7 @@ function Map({children}) {
     []
   );
   const [markers, setMarkers] = useState([]);
-  const [zoom, setZoom] = useState(12); // initial zoom: ;
+  const [zoom, setZoom] = useState(initialMapPosition.initialZoom); // initial zoom: ;
   const [center, setCenter] = useState(initialMapPosition.position);
 
   useEffect(() => {
@@ -26,22 +26,27 @@ function Map({children}) {
     setZoom(15);
   };
 
-  // const [mapInstance, setMapInstance] = useState({});
-  // const onLoad = (map) => {
-  //   setMapInstance(map);
-  //   console.log(map);
-  // };
+  const [mapInstance, setMapInstance] = useState({});
+  const onLoad = (map) => {
+    setMapInstance(map);
+    console.log(map);
+  };
 
-  // const onZoomChanged = () => {
+  // useEffect(() => {
   //   setZoom(mapInstance.zoom);
-  //   console.log(zoom);
-  // };
-  const mapRef = useRef(GoogleMap);
-  const onLoad = useCallback((map) => (mapRef.current = map), []);
+  // }, [mapInstance.zoom]);
 
   const onZoomChanged = () => {
-    setZoom(mapRef.current.zoom);
+    setZoom(mapInstance.zoom);
+    console.log(zoom);
   };
+
+  // const mapRef = useRef(GoogleMap);
+  // const onLoad = useCallback((map) => (mapRef.current = map), []);
+
+  // const onZoomChanged = () => {
+  //   setZoom(mapRef.zoom);
+  // };
 
   return (
     <div className="container">
