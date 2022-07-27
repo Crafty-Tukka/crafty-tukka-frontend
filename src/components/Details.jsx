@@ -121,6 +121,7 @@ function Details({item, imgPath, handleClose}) {
             </>
           ) : null}
         </CardContent>
+
         <CardActions>
           <Button size="small" onClick={handleClose}>
             Back
