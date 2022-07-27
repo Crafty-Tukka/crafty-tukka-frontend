@@ -26,22 +26,22 @@ function Map({children}) {
     setZoom(15);
   };
 
-  const [mapInstance, setMapInstance] = useState({});
-  const onLoad = (map) => {
-    setMapInstance(map);
-    console.log(map);
-  };
-
-  const onZoomChanged = () => {
-    setZoom(mapInstance.zoom);
-    console.log(zoom);
-  };
-  // const mapRef = useRef(GoogleMap);
-  // const onLoad = useCallback((map) => (mapRef.current = map), []);
+  // const [mapInstance, setMapInstance] = useState({});
+  // const onLoad = (map) => {
+  //   setMapInstance(map);
+  //   console.log(map);
+  // };
 
   // const onZoomChanged = () => {
-  //   setZoom(mapRef.zoom);
+  //   setZoom(mapInstance.zoom);
+  //   console.log(zoom);
   // };
+  const mapRef = useRef(GoogleMap);
+  const onLoad = useCallback((map) => (mapRef.current = map), []);
+
+  const onZoomChanged = () => {
+    setZoom(mapRef.current.zoom);
+  };
 
   return (
     <div className="container">
