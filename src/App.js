@@ -21,16 +21,19 @@ import {StateContext} from 'utils/stateContext';
 // import foodTrucksList from './data/food-trucks.json';
 import SignupFoodTruck from 'components/auth/SignupFoodTruck';
 import SignupVenue from 'components/auth/SignupVenue';
-import {getEvents} from 'services/eventsServices';
+import {getEvents, getMyVenueEvents} from 'services/eventsServices';
 import {getVenues} from 'services/venuesServices';
 import {getFoodTrucks} from 'services/foodTrucksServices';
+import MyVenueEvents from 'components/events/MyVenueEvents';
 
 function App() {
   const initialState = {
     loggedInUser: sessionStorage.getItem('email') || null,
     token: sessionStorage.getItem('token') || null,
+    allEvents: [],
     confirmedEvents: [],
     pendingEvents: [],
+    venueEvents: [],
     venues: [],
     foodTrucks: [],
     category: ''
@@ -47,12 +50,19 @@ function App() {
 
   // we need to figure out how to keep updating this everytime a new venue/foodtruck/event is added without creating an infinite loop
   useEffect(() => {
-    getEvents().then((events) => {
-      dispatch({
-        type: 'setEvents',
-        data: events
+    getEvents()
+      .then((events) => {
+        dispatch({
+          type: 'setEvents',
+          data: events
+        });
+      })
+      .then((events) => {
+        dispatch({
+          type: 'setAllEvents',
+          data: events
+        });
       });
-    });
   }, []);
 
   useEffect(() => {
@@ -69,6 +79,15 @@ function App() {
       dispatch({
         type: 'setFoodTrucks',
         data: foodTrucks
+      });
+    });
+  }, []);
+
+  useEffect(() => {
+    getMyVenueEvents().then((events) => {
+      dispatch({
+        type: 'setVenueEvents',
+        data: events
       });
     });
   }, []);
@@ -93,6 +112,7 @@ function App() {
             <Route path=":eventid" element={<Event />} />
             <Route path="venue/:venueid" element={<Events />} />
             <Route path="venue/:venueid/pending" element={<Events />} />
+            <Route path="my-venue-events" element={<MyVenueEvents />} />
             <Route path="foodtruck/:foodtruckid" element={<Events />} />
             <Route path="foodtruck/:foodtruckid/pending" element={<Events />} />
           </Route>

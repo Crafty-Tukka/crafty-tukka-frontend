@@ -7,6 +7,13 @@ export const reducer = (state, action) => {
   // // the data key contains the data necessary to update the state
   switch (action.type) {
     // the function will return the updated state
+    case 'setAllEvents': {
+      //populate the messageList Array with the inital values
+      return {
+        ...state,
+        allEvents: action.data
+      };
+    }
     case 'setEvents': {
       //populate the messageList Array with the inital values
       return {
@@ -67,7 +74,15 @@ export const reducer = (state, action) => {
       //receives a message and adds it to the list
       return {
         ...state,
-        pendingEvents: [action.data, ...state.confirmedEvents]
+        confirmedEvents: [action.data, ...state.confirmedEvents]
+      };
+    }
+
+    case 'setVenueEvents': {
+      //receives a message and adds it to the list
+      return {
+        ...state,
+        venueEvents: [action.data, ...state.venueEvents]
       };
     }
 

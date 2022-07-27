@@ -35,3 +35,9 @@ export async function deleteEvent(id) {
   console.log(response.data);
   return response.data;
 }
+
+export async function getMyVenueEvents() {
+  const response = await craftyTukkaAPI.get('/events/my-venue-events');
+  //console.log(response.data)
+  return response.data;
+}
