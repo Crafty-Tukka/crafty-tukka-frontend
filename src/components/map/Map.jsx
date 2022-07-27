@@ -5,7 +5,7 @@ import {GoogleMap, Marker} from '@react-google-maps/api';
 import venues from '../../data/breweries.json';
 
 function Map({children}) {
-  const initialMapPosition = {position: {lat: -27.4705, lng: 153.026}, initialZoom: 12.1};
+  const initialMapPosition = {position: {lat: -27.4705, lng: 153.026}, initialZoom: 12};
   const options = useMemo(
     () => ({
       disableDefaultUI: true,
@@ -14,7 +14,7 @@ function Map({children}) {
     []
   );
   const [markers, setMarkers] = useState([]);
-  const [zoom, setZoom] = useState(initialMapPosition.initialZoom); // initial zoom: ;
+  const [zoom, setZoom] = useState(12); // initial zoom: ;
   const [center, setCenter] = useState(initialMapPosition.position);
 
   useEffect(() => {
