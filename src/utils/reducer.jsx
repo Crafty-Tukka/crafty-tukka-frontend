@@ -86,6 +86,14 @@ export const reducer = (state, action) => {
       };
     }
 
+    case 'setTruckEvents': {
+      //receives a message and adds it to the list
+      return {
+        ...state,
+        foodTruckEvents: [action.data, ...state.venueEvents]
+      };
+    }
+
     default:
       return state;
   }

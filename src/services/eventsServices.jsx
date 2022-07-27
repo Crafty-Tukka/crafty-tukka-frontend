@@ -41,3 +41,9 @@ export async function getMyVenueEvents() {
   //console.log(response.data)
   return response.data;
 }
+
+export async function getMyTruckEvents() {
+  const response = await craftyTukkaAPI.get('/events/my-truck-events');
+  //console.log(response.data)
+  return response.data;
+}

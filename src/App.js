@@ -21,10 +21,11 @@ import {StateContext} from 'utils/stateContext';
 // import foodTrucksList from './data/food-trucks.json';
 import SignupFoodTruck from 'components/auth/SignupFoodTruck';
 import SignupVenue from 'components/auth/SignupVenue';
-import {getEvents, getMyVenueEvents} from 'services/eventsServices';
+import {getEvents, getMyTruckEvents, getMyVenueEvents} from 'services/eventsServices';
 import {getVenues} from 'services/venuesServices';
 import {getFoodTrucks} from 'services/foodTrucksServices';
 import MyVenueEvents from 'components/events/MyVenueEvents';
+import MyFoodTruckEvents from 'components/events/MyFoodTruckEvents';
 
 function App() {
   const initialState = {
@@ -34,6 +35,7 @@ function App() {
     confirmedEvents: [],
     pendingEvents: [],
     venueEvents: [],
+    foodTruckEvents: [],
     venues: [],
     foodTrucks: [],
     category: ''
@@ -92,6 +94,15 @@ function App() {
     });
   }, []);
 
+  useEffect(() => {
+    getMyTruckEvents().then((events) => {
+      dispatch({
+        type: 'setTruckEvents',
+        data: events
+      });
+    });
+  }, []);
+
   if (!isLoaded) return <div>Loading...</div>;
 
   return (
@@ -113,6 +124,7 @@ function App() {
             <Route path="venue/:venueid" element={<Events />} />
             <Route path="venue/:venueid/pending" element={<Events />} />
             <Route path="my-venue-events" element={<MyVenueEvents />} />
+            <Route path="my-truck-events" element={<MyFoodTruckEvents />} />
             <Route path="foodtruck/:foodtruckid" element={<Events />} />
             <Route path="foodtruck/:foodtruckid/pending" element={<Events />} />
           </Route>
