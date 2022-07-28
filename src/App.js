@@ -24,10 +24,13 @@ import SignupVenue from 'components/auth/SignupVenue';
 import {getEvents} from 'services/eventsServices';
 import {getVenues} from 'services/venuesServices';
 import {getFoodTrucks} from 'services/foodTrucksServices';
+import VenueEvents from 'components/venues/VenueEvents';
+import VenuePendingEvents from 'components/venues/VenuePendingEvents';
 
 function App() {
   const initialState = {
     loggedInUser: sessionStorage.getItem('email') || null,
+    loggedInUserId: sessionStorage.getItem('id') || null,
     token: sessionStorage.getItem('token') || null,
     confirmedEvents: [],
     pendingEvents: [],
@@ -38,7 +41,7 @@ function App() {
 
   const [store, dispatch] = useReducer(reducer, initialState);
   // const [events, setEvents] = useState(initialState.confirmedEvents);
-  const {loggedInUser, venues, foodTrucks} = store;
+  const {loggedInUser, confirmedEvents, venues, foodTrucks} = store;
   const {isLoaded} = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries: ['places']
@@ -85,17 +88,18 @@ function App() {
           {/* <Route path="/" element={<Navigate to="map" replace />} /> */}
           {/* <Route path="map" element={<Map />} /> */}
           <Route path="events">
-            <Route index element={<Events />} />
+            <Route index element={<Events events={confirmedEvents} />} />
             <Route
               path="new"
               element={loggedInUser ? <EventForm /> : <Signin />} //addEvent={addEvent}
             />
             {/* Event page will host search logic to locate event based on id. then it will render detail component using props.children as discussed with glen. */}
             <Route path=":eventid" element={<Event />} />
-            <Route path="venue/:venueid" element={<Events />} />
-            <Route path="venue/:venueid/pending" element={<Events />} />
-            <Route path="foodtruck/:foodtruckid" element={<Events />} />
-            <Route path="foodtruck/:foodtruckid/pending" element={<Events />} />
+            {/* <Route path="venues/:venueid" element={<Events />} /> */}
+            <Route path="venues/:venueid" element={<VenueEvents />} />
+            <Route path="venues/:venueid/pending" element={<VenuePendingEvents />} />
+            <Route path="foodtrucks/:foodtruckid" element={<Events />} />
+            <Route path="foodtrucks/:foodtruckid/pending" element={<Events />} />
           </Route>
           <Route path="venues">
             <Route index element={<Venues />} />

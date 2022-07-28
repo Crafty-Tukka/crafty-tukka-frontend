@@ -67,6 +67,7 @@ function Signin() {
           setError(null);
           sessionStorage.setItem('email', user.email);
           sessionStorage.setItem('token', user.jwt);
+          sessionStorage.setItem('id', user.id);
           dispatch({
             type: 'setLoggedInUser',
             data: user.email
@@ -74,6 +75,10 @@ function Signin() {
           dispatch({
             type: 'setToken',
             data: user.jwt
+          });
+          dispatch({
+            type: 'setId',
+            data: user.id
           });
           setFormData(initialFormData);
           navigate('/events');
@@ -90,6 +95,7 @@ function Signin() {
           setError(null);
           sessionStorage.setItem('email', user.email);
           sessionStorage.setItem('token', user.jwt);
+          sessionStorage.setItem('id', user.id);
           dispatch({
             type: 'setLoggedInUser',
             data: user.email
@@ -97,6 +103,10 @@ function Signin() {
           dispatch({
             type: 'setToken',
             data: user.jwt
+          });
+          dispatch({
+            type: 'setId',
+            data: user.id
           });
           setFormData(initialFormData);
           navigate('/events');
