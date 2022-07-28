@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -17,6 +17,8 @@ import {useNavigate} from 'react-router';
 import {signUpVenue} from 'services/authServices';
 import IconButton from '@mui/material/IconButton';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import PlacesAutocomplete, {geocodeByAddress, getLatLng} from 'react-places-autocomplete';
+import AutoComplete from 'components/map/AutoComplete';
 
 function Copyright(props) {
   return (
@@ -46,11 +48,29 @@ function SignupVenue() {
     google_maps: '',
     mobile: '',
     password: '',
-    password_confirmation: ''
+    password_confirmation: '',
+    address: '',
+    lat: null,
+    lng: null
   };
+  // used by get coordinates from google maps
+  // const [address, setAddress] = useState();
+  // const [coordinates, setCoordinates] = useState({
+  //   lat: null,
+  //   lng: null
+  // });
 
   const [formData, setFormData] = useState(initialFormData);
   const [error, setError] = useState(null);
+
+  // const handleSelect = async (value) => {
+  //   const results = await geocodeByAddress(value);
+  //   const latLng = await getLatLng(results[0]);
+  //   setAddress(value);
+  //   setCoordinates(latLng);
+  // };
+
+  console.log(formData);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -78,10 +98,6 @@ function SignupVenue() {
             type: 'setToken',
             data: user.jwt
           });
-          // dispatch({
-          //   type: 'setPicture',
-          //   data: user.picture
-          // });
           setFormData(initialFormData);
           navigate('/events');
         }
@@ -96,7 +112,16 @@ function SignupVenue() {
       ...formData,
       [e.target.name]: e.target.value
     });
+    console.log(formData);
   };
+
+  // const handleAddressFormData = (e) => {
+  //   setFormData({
+  //     ...formData.google_maps,
+  //     [e.target.name]: e.target.value
+  //   });
+  // };
+
   // const stateList = [
   //   {id: 1, type: 'Queensland'},
   //   {id: 2, type: 'New South Wales'},
@@ -155,63 +180,10 @@ function SignupVenue() {
                   fullWidth
                 />
               </Grid>
-              {/* This is the address form */}
-              {/* <Grid item xs={12}>
-                <TextField
-                  required
-                  id="address1"
-                  name="address1"
-                  label="Address line 1"
-                  fullWidth
-                  autoComplete="address-line-1"
-                />
-              </Grid>
+              This is the address form
               <Grid item xs={12}>
-                <TextField
-                  id="address2"
-                  name="address2"
-                  label="Address line 2"
-                  fullWidth
-                  autoComplete="address-line-2"
-                />
+                <AutoComplete name="address" required id="address" />
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  id="city"
-                  name="city"
-                  label="City/Suburb"
-                  fullWidth
-                  autoComplete="address-level2"
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  id="postcode"
-                  name="postcode"
-                  label="Postal code"
-                  fullWidth
-                  autoComplete="postal-code"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <FormControl fullWidth>
-                  <InputLabel>State</InputLabel>
-                  <>
-                    <Select required label="State" value={stateType} onChange={handleChange}>
-                      {stateList.map((state) => {
-                        return (
-                          <MenuItem key={state.id} value={state.type} name={state.type}>
-                            {state.type}
-                          </MenuItem>
-                        );
-                      })}
-                    </Select>
-                  </>
-                </FormControl>
-              </Grid> */}
-
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="mobile"
@@ -236,7 +208,7 @@ function SignupVenue() {
                   autoComplete="website"
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              {/* <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="google-maps"
                   name="google_maps"
@@ -246,7 +218,7 @@ function SignupVenue() {
                   value={formData.google_maps}
                   label="Google Places"
                 />
-              </Grid>
+              </Grid> */}
               <Grid item xs={12} sm={6}>
                 <TextField
                   fullWidth

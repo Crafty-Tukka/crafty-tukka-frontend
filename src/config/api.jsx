@@ -2,7 +2,8 @@ import axios from 'axios';
 
 // creating the axios object as a base url
 // this is to be refactored when calling to the deployed back end
-const craftyTukkaAPI = axios.create({baseURL: 'https://crafty-tukka-api.herokuapp.com/'});
+const craftyTukkaAPI = axios.create({baseURL: 'http://localhost:5000/'});
+// const craftyTukkaAPI = axios.create({baseURL: 'https://crafty-tukka-api.herokuapp.com/'});
 
 craftyTukkaAPI.interceptors.request.use((req) => {
   // send the token in the request

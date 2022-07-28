@@ -1,5 +1,7 @@
 import {useMemo, useState, useEffect, useRef, useCallback} from 'react';
 import {GoogleMap, Marker} from '@react-google-maps/api';
+import {useGlobalState} from 'utils/stateContext';
+// import {getGeocode, getLatLng} from 'use-places-autocomplete';
 // import Events from 'components/events/Events';
 // import './Map.css';
 import venues from '../../data/breweries.json';
