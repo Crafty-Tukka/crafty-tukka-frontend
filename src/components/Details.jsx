@@ -11,8 +11,10 @@ import {
   Typography,
   Link,
   Chip,
-  CardHeader
+  CardHeader,
+  Tab
 } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 import LinkedCard from './LinkedCard';
 import {useGlobalState} from 'utils/stateContext';
 
@@ -33,9 +35,11 @@ const style = {
 
 function Details({item, imgPath, handleClose}) {
   const {store} = useGlobalState();
-  const {confirmedEvents} = store; // this will need to be changed to item.events
+  const {confirmedEvents, loggedInUserId} = store; // this will need to be changed to item.events
   console.log(confirmedEvents);
   console.log(item);
+
+  const handleEdit = (event) => {};
 
   return (
     <>
@@ -122,6 +126,30 @@ function Details({item, imgPath, handleClose}) {
           ) : null}
         </CardContent>
         <CardActions>
+          {item.start && item.venue_id === loggedInUserId ? (
+            <>
+              <Button size="small" onClick={handleEdit}>
+                <Tab label="Edit" value={`/events/${item.id}`} component={Link} to="/events/new" />
+              </Button>
+              <Link to={`/events/${item.id}`} value="Edit">
+                Edit Event
+              </Link>
+              <a href={`/events/${item.id}`}>Editing event</a>
+              <Button
+                onClick={handleClose}
+                sx={{my: 2, color: 'text.primary', display: 'block'}}
+                variant="outlined"
+                startIcon={<DeleteIcon />}
+              >
+                <Tab
+                  label="Delete"
+                  value={`/events/${item.id}`}
+                  component={Link}
+                  to={`/events/${item.id}`}
+                />
+              </Button>
+            </>
+          ) : null}
           <Button size="small" onClick={handleClose}>
             Back
           </Button>

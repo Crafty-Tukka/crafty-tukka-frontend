@@ -46,7 +46,7 @@ function LinkedCard({imgPath, item, routePath, children}) {
       )}
 
       {/* Pop up model to display item information */}
-      <Modal open={open} onClose={handleClose} style={{outline: 0}}>
+      <Modal disableEnforceFocus open={open} onClose={handleClose} style={{outline: 0}}>
         <Details item={item} imgPath={img} handleClose={handleClose}></Details>
       </Modal>
     </Link>

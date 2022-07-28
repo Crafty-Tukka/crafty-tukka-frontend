@@ -94,7 +94,7 @@ function App() {
               element={loggedInUser ? <EventForm /> : <Signin />} //addEvent={addEvent}
             />
             {/* Event page will host search logic to locate event based on id. then it will render detail component using props.children as discussed with glen. */}
-            <Route path=":eventid" element={<Event />} />
+            <Route path=":eventid" element={<EventForm />} />
             {/* <Route path="venues/:venueid" element={<Events />} /> */}
             <Route path="venues/:venueid" element={<VenueEvents />} />
             <Route path="venues/:venueid/pending" element={<VenuePendingEvents />} />
