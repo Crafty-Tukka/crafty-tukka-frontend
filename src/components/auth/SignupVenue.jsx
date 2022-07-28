@@ -56,12 +56,13 @@ function SignupVenue() {
     //   country: 'Australia'
     // }
   };
-
+  // used by get coordinates from google maps
   const [address, setAddress] = useState();
   const [coordinates, setCoordinates] = useState({
     lat: null,
     lng: null
   });
+
   const [formData, setFormData] = useState(initialFormData);
   const [error, setError] = useState(null);
 
@@ -71,6 +72,8 @@ function SignupVenue() {
     setAddress(value);
     setCoordinates(latLng);
   };
+
+  console.log(formData);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -98,10 +101,6 @@ function SignupVenue() {
             type: 'setToken',
             data: user.jwt
           });
-          // dispatch({
-          //   type: 'setPicture',
-          //   data: user.picture
-          // });
           setFormData(initialFormData);
           navigate('/events');
         }
