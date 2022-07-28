@@ -31,7 +31,7 @@ function EventForm() {
     finish: new Date(),
     name: 'Event',
     description: '',
-    confirmed: false
+    confirmed: true
   };
 
   // const initialTruckFormData = {
