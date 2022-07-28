@@ -17,7 +17,7 @@ import MenuItem from '@mui/material/MenuItem';
 import DatePicker from 'react-datepicker';
 
 import 'react-datepicker/dist/react-datepicker.css';
-import {createTruckEvent, createVenueEvent} from 'services/eventsServices';
+import {createVenueEvent} from 'services/eventsServices';
 
 const theme = createTheme();
 
@@ -31,27 +31,27 @@ function EventForm() {
     finish: new Date(),
     name: 'Event',
     description: '',
-    confirmed: false
-  };
-
-  const initialTruckFormData = {
-    start: new Date(),
-    finish: new Date(),
-    name: 'External Event',
-    description: 'Truck Unavailable',
     confirmed: true
   };
 
+  // const initialTruckFormData = {
+  //   start: new Date(),
+  //   finish: new Date(),
+  //   name: 'External Event',
+  //   description: 'Truck Unavailable',
+  //   confirmed: true
+  // };
+
   const [formVenueData, setFormVenueData] = useState(initialVenueFormData);
-  const [formTruckData, setFormTruckData] = useState(initialTruckFormData);
+  // const [formTruckData, setFormTruckData] = useState(initialTruckFormData);
 
   useEffect(() => {
     console.log(formVenueData);
   }, [formVenueData]);
 
-  useEffect(() => {
-    console.log(formTruckData);
-  }, [formTruckData]);
+  // useEffect(() => {
+  //   console.log(formTruckData);
+  // }, [formTruckData]);
 
   const handleFormData = (event) => {
     setFormVenueData({
@@ -60,12 +60,12 @@ function EventForm() {
     });
   };
 
-  const handleTruckFormData = (event) => {
-    setFormTruckData({
-      ...formVenueData, // previous state
-      [event.target.name]: event.target.value // new state
-    });
-  };
+  // const handleTruckFormData = (event) => {
+  //   setFormTruckData({
+  //     ...formVenueData, // previous state
+  //     [event.target.name]: event.target.value // new state
+  //   });
+  // };
 
   const addVenueEvent = (data) => {
     createVenueEvent(data).then((pendingEvent) => {
@@ -77,15 +77,15 @@ function EventForm() {
     });
   };
 
-  const addTruckEvent = (data) => {
-    createTruckEvent(data).then((confirmedEvent) => {
-      dispatch({
-        type: 'addTruckEvent',
-        data: confirmedEvent
-      });
-      navigate('/events');
-    });
-  };
+  // const addTruckEvent = (data) => {
+  //   createTruckEvent(data).then((confirmedEvent) => {
+  //     dispatch({
+  //       type: 'addTruckEvent',
+  //       data: confirmedEvent
+  //     });
+  //     navigate('/events');
+  //   });
+  // };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -97,15 +97,15 @@ function EventForm() {
     }
   };
 
-  const handleTruckSubmit = (event) => {
-    event.preventDefault();
-    if (formTruckData.start === '' || formTruckData.finish === '') {
-      return console.log("Please don't leave an empty field");
-    } else {
-      console.log(formTruckData);
-      addTruckEvent(formTruckData);
-    }
-  };
+  // const handleTruckSubmit = (event) => {
+  //   event.preventDefault();
+  //   if (formTruckData.start === '' || formTruckData.finish === '') {
+  //     return console.log("Please don't leave an empty field");
+  //   } else {
+  //     console.log(formTruckData);
+  //     addTruckEvent(formTruckData);
+  //   }
+  // };
 
   return (
     <>
@@ -243,7 +243,7 @@ function EventForm() {
         </ThemeProvider>
       </div>
 
-      <div>
+      {/* <div>
         <ThemeProvider theme={theme}>
           <Container component="main" maxWidth="xs">
             <CssBaseline />
@@ -335,8 +335,8 @@ function EventForm() {
                   timeIntervals={15}
                   timeCaption="time"
                   dateFormat="MMMM d, yyyy h:mm aa"
-                />
-                {/* <LocalizationProvider dateAdapter={AdapterMoment}>
+                /> */}
+      {/* <LocalizationProvider dateAdapter={AdapterMoment}>
                <Stack spacing={3}>
                  <Typography variant="h5">Choose your Event Start Date and Time</Typography>
                  <MobileDateTimePicker
@@ -362,7 +362,7 @@ function EventForm() {
                  />
                </Stack>
              </LocalizationProvider> */}
-                <Button
+      {/* <Button
                   type="submit"
                   value="Login"
                   fullWidth
@@ -375,7 +375,7 @@ function EventForm() {
             </Box>
           </Container>
         </ThemeProvider>
-      </div>
+      </div>*/}
     </>
   );
 }

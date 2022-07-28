@@ -1,11 +1,14 @@
 import {useMemo, useState, useEffect, useRef, useCallback} from 'react';
 import {GoogleMap, Marker} from '@react-google-maps/api';
+import {useGlobalState} from 'utils/stateContext';
+// import {getGeocode, getLatLng} from 'use-places-autocomplete';
 // import Events from 'components/events/Events';
-// import './Map.css';
-import venues from '../../data/breweries.json';
+import './Map.css';
+// import venues from '../../data/breweries.json';
+import mapStyles from './mapStyles';
 
 function Map({children}) {
-  const initialMapPosition = {position: {lat: -27.4705, lng: 153.026}, initialZoom: 12};
+  const initialMapPosition = {position: {lat: -27.4705, lng: 153.026}};
   const options = useMemo(
     () => ({
       disableDefaultUI: true,
@@ -13,47 +16,56 @@ function Map({children}) {
     }),
     []
   );
+  const {store} = useGlobalState();
+  const {venues} = store;
   const [markers, setMarkers] = useState([]);
-  const [zoom, setZoom] = useState(12); // initial zoom: ;
+  // const [zoom, setZoom] = useState(initialMapPosition.initialZoom); // initial zoom: ;
   const [center, setCenter] = useState(initialMapPosition.position);
+
+  // const mapRef = useRef(GoogleMap);
+  // const onLoad = useCallback((map) => (mapRef.current = map), []);
 
   useEffect(() => {
     setMarkers(venues);
-  }, []);
+  }, [venues]);
 
   const onClick = (e) => {
     setCenter(e.latLng);
-    setZoom(15);
+    // setZoom(15);
   };
 
+  console.log(markers);
+
+  // This is the code that allows map to zoom in and out when the marker is clicked
   // const [mapInstance, setMapInstance] = useState({});
   // const onLoad = (map) => {
   //   setMapInstance(map);
-  //   console.log(map);
+  //   // console.log(map);
   // };
 
   // const onZoomChanged = () => {
   //   setZoom(mapInstance.zoom);
   //   console.log(zoom);
   // };
+
+  // This is the alternative syntax for zoom change
   const mapRef = useRef(GoogleMap);
   const onLoad = useCallback((map) => (mapRef.current = map), []);
 
-  const onZoomChanged = () => {
-    setZoom(mapRef.current.zoom);
-  };
+  // const onZoomChanged = () => {
+  //   setZoom(mapRef.zoom);
+  // };
 
   return (
     <div className="container">
       <div className="map">
         <GoogleMap
-          zoom={zoom}
+          zoom={12.1}
           center={center}
           mapContainerClassName="map-container"
           options={options}
-          // onLoad={onLoad}
           onLoad={onLoad}
-          onZoomChanged={onZoomChanged}
+          // onZoomChanged={onZoomChanged}
         >
           {markers.map((marker) => (
             <Marker key={marker.id} position={marker.position} onClick={onClick} />
