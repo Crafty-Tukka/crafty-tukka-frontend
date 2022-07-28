@@ -49,6 +49,13 @@ export const reducer = (state, action) => {
         token: action.data
       };
     }
+    case 'setId': {
+      //updates with the current users Id
+      return {
+        ...state,
+        loggedInUserId: action.data
+      };
+    }
     case 'setPicture': {
       return {
         ...state,
