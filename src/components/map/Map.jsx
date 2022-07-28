@@ -27,7 +27,7 @@ function Map({children}) {
 
   useEffect(() => {
     setMarkers(venues);
-  }, [venues]);
+  }, []);
 
   const onClick = (e) => {
     setCenter(e.latLng);
