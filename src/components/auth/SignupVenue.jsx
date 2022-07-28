@@ -70,6 +70,7 @@ function SignupVenue() {
         } else {
           sessionStorage.setItem('email', user.email);
           sessionStorage.setItem('token', user.jwt);
+          sessionStorage.setItem('id', user.id);
           dispatch({
             type: 'setLoggedInUser',
             data: user.email
@@ -77,6 +78,10 @@ function SignupVenue() {
           dispatch({
             type: 'setToken',
             data: user.jwt
+          });
+          dispatch({
+            type: 'setId',
+            data: user.id
           });
           // dispatch({
           //   type: 'setPicture',

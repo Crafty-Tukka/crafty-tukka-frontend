@@ -20,7 +20,9 @@ import {useGlobalState} from 'utils/stateContext';
 
 function NavBar() {
   const {store, dispatch} = useGlobalState();
-  const {loggedInUser} = store;
+  const {loggedInUser, loggedInUserId, venues} = store;
+  console.log(loggedInUserId);
+  console.log(venues);
   const navigate = useNavigate();
 
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -306,13 +308,29 @@ function NavBar() {
                         <>
                           <Button
                             onClick={handleCloseNavMenu}
-                            sx={{my: 2, color: 'red', display: 'block'}}
+                            sx={{my: 2, color: 'text.primary', display: 'block'}}
                           >
-                            <Tab label="My Events" />
+                            <Tab
+                              label="My Events"
+                              value={`/events/venues/${loggedInUserId}`}
+                              component={Link}
+                              to={`/events/venues/${loggedInUserId}`}
+                            />
                           </Button>
                           <Button
                             onClick={handleCloseNavMenu}
-                            sx={{my: 2, color: 'red', display: 'block'}}
+                            sx={{my: 2, color: 'text.primary', display: 'block'}}
+                          >
+                            <Tab
+                              label="My Pending Events"
+                              value={`/events/venues/${loggedInUserId}/pending`}
+                              component={Link}
+                              to={`/events/venues/${loggedInUserId}/pending`}
+                            />
+                          </Button>
+                          <Button
+                            onClick={handleCloseNavMenu}
+                            sx={{my: 2, color: 'text.primary', display: 'block'}}
                           >
                             <Tab
                               label="Book an Event"
@@ -323,7 +341,7 @@ function NavBar() {
                           </Button>
                           <Button
                             onClick={handleCloseNavMenu}
-                            sx={{my: 2, color: 'red', display: 'block'}}
+                            sx={{my: 2, color: 'text.primary', display: 'block'}}
                           >
                             <Tab
                               label="Edit Profile"
@@ -334,7 +352,7 @@ function NavBar() {
                           </Button>
                           <Button
                             onClick={handleCloseNavMenu}
-                            sx={{my: 2, color: 'red', display: 'block'}}
+                            sx={{my: 2, color: 'text.primary', display: 'block'}}
                           >
                             <Tab label="Log Out" component={Link} to="/events" onClick={signOut} />
                           </Button>
