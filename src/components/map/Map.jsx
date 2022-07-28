@@ -14,8 +14,11 @@ function Map({children}) {
     []
   );
   const [markers, setMarkers] = useState([]);
-  const [zoom, setZoom] = useState(initialMapPosition.initialZoom); // initial zoom: ;
+  // const [zoom, setZoom] = useState(initialMapPosition.initialZoom); // initial zoom: ;
   const [center, setCenter] = useState(initialMapPosition.position);
+
+  const mapRef = useRef(GoogleMap);
+  const onLoad = useCallback((map) => (mapRef.current = map), []);
 
   useEffect(() => {
     setMarkers(venues);
@@ -23,24 +26,22 @@ function Map({children}) {
 
   const onClick = (e) => {
     setCenter(e.latLng);
-    setZoom(15);
+    // setZoom(15);
   };
 
-  const [mapInstance, setMapInstance] = useState({});
-  const onLoad = (map) => {
-    setMapInstance(map);
-    console.log(map);
-  };
+  // This is the code that allows map to zoom in and out when the marker is clicked
+  // const [mapInstance, setMapInstance] = useState({});
+  // const onLoad = (map) => {
+  //   setMapInstance(map);
+  //   console.log(map);
+  // };
 
-  // useEffect(() => {
+  // const onZoomChanged = () => {
   //   setZoom(mapInstance.zoom);
-  // }, [mapInstance.zoom]);
+  //   console.log(zoom);
+  // };
 
-  const onZoomChanged = () => {
-    setZoom(mapInstance.zoom);
-    console.log(zoom);
-  };
-
+  // This is the alternative syntax for zoom change
   // const mapRef = useRef(GoogleMap);
   // const onLoad = useCallback((map) => (mapRef.current = map), []);
 
@@ -52,13 +53,12 @@ function Map({children}) {
     <div className="container">
       <div className="map">
         <GoogleMap
-          zoom={zoom}
+          zoom={12.1}
           center={center}
           mapContainerClassName="map-container"
           options={options}
-          // onLoad={onLoad}
           onLoad={onLoad}
-          onZoomChanged={onZoomChanged}
+          // onZoomChanged={onZoomChanged}
         >
           {markers.map((marker) => (
             <Marker key={marker.id} position={marker.position} onClick={onClick} />
