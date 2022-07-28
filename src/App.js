@@ -40,7 +40,8 @@ function App() {
   // const [events, setEvents] = useState(initialState.confirmedEvents);
   const {loggedInUser, venues, foodTrucks} = store;
   const {isLoaded} = useLoadScript({
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+    libraries: ['places']
   });
 
   // const [loggedInUser, setLoggedInUser] = useState('');
