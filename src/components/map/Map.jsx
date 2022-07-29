@@ -34,7 +34,7 @@ function Map({children}) {
 
   const onClick = (e) => {
     setCenter(e.latLng);
-    setSelectedMarker(e.latLng); //
+    setSelectedMarker(e);
     // setZoom(15);
   };
 
@@ -69,19 +69,20 @@ function Map({children}) {
           mapContainerClassName="map-container"
           options={options}
           onLoad={onLoad}
-          // onZoomChanged={onZoomChanged}
         >
           {markers.map((marker) => (
             <Marker key={marker.id} position={marker.position} onClick={onClick} />
           ))}
           {selectedMarker && (
             <InfoWindow
-              position={selectedMarker}
+              position={selectedMarker.latLng}
               onCloseClick={() => {
                 setSelectedMarker(null);
               }}
             >
-              <div>Venue Details</div>
+              <div>
+                <h1>This is a message that should render</h1>
+              </div>
             </InfoWindow>
           )}
         </GoogleMap>
