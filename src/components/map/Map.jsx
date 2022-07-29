@@ -1,5 +1,5 @@
 import {useMemo, useState, useEffect, useRef, useCallback} from 'react';
-import {GoogleMap, Marker} from '@react-google-maps/api';
+import {GoogleMap, InfoWindow, Marker} from '@react-google-maps/api';
 import {useGlobalState} from 'utils/stateContext';
 // import {getGeocode, getLatLng} from 'use-places-autocomplete';
 // import Events from 'components/events/Events';
@@ -20,6 +20,7 @@ function Map({children}) {
   const {store} = useGlobalState();
   const {venues} = store;
   const [markers, setMarkers] = useState([]);
+  const [selectedMarker, setSelectedMarker] = useState(null);
   // const [zoom, setZoom] = useState(initialMapPosition.initialZoom); // initial zoom: ;
   const [center, setCenter] = useState(initialMapPosition.position);
   // const [venueList, setVenueList] = useState(initialMapPosition.venue
@@ -33,6 +34,7 @@ function Map({children}) {
 
   const onClick = (e) => {
     setCenter(e.latLng);
+    setSelectedMarker(e.latLng); //
     // setZoom(15);
   };
 
@@ -72,6 +74,16 @@ function Map({children}) {
           {markers.map((marker) => (
             <Marker key={marker.id} position={marker.position} onClick={onClick} />
           ))}
+          {selectedMarker && (
+            <InfoWindow
+              position={selectedMarker}
+              onCloseClick={() => {
+                setSelectedMarker(null);
+              }}
+            >
+              <div>Venue Details</div>
+            </InfoWindow>
+          )}
         </GoogleMap>
         {children}
       </div>
