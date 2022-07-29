@@ -33,7 +33,7 @@ const style = {
   // p: 4
 };
 
-function Details({item, imgPath, handleClose}) {
+function Details({item, imgPath, handleClose, center, zoom, position}) {
   const {store} = useGlobalState();
   const {confirmedEvents, loggedInUserId} = store; // this will need to be changed to item.events
   console.log(confirmedEvents);
@@ -95,6 +95,15 @@ function Details({item, imgPath, handleClose}) {
           <Typography variant="body" color="text.secondary">
             {item.description}
           </Typography>
+          <Typography variant="subtitle1" color="text.secondary">
+            hosted by {item.venue}
+          </Typography>
+          <Typography variant="subtitle1" color="text.secondary">
+            at {item.address}
+          </Typography>
+          <Typography variant="subtitle1" color="text.secondary">
+            with {item.truck}
+          </Typography>
 
           {/* Upcoming Events */}
           {!item.start ? (
@@ -104,7 +113,7 @@ function Details({item, imgPath, handleClose}) {
               </Typography>
               {confirmedEvents.map((event) => {
                 return event.confirmed === true &&
-                  item.id === (event.foodtruck_id || event.venue_id) ? (
+                  item.name === (event.foodtruck || event.venue) ? (
                   <LinkedCard key={event.id} imgPath={event.img} item={event}>
                     {/* this can be refactored into preview card component */}
                     <Typography component="div" variant="h6">
