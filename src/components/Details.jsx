@@ -33,7 +33,7 @@ const style = {
   // p: 4
 };
 
-function Details({item, imgPath, handleClose, center, zoom, position}) {
+function Details({item, imgPath, handleClose}) {
   const {store} = useGlobalState();
   const {confirmedEvents, loggedInUserId} = store; // this will need to be changed to item.events
   console.log(confirmedEvents);
@@ -95,15 +95,19 @@ function Details({item, imgPath, handleClose, center, zoom, position}) {
           <Typography variant="body" color="text.secondary">
             {item.description}
           </Typography>
-          <Typography variant="subtitle1" color="text.secondary">
-            hosted by {item.venue}
-          </Typography>
-          <Typography variant="subtitle1" color="text.secondary">
-            at {item.address}
-          </Typography>
-          <Typography variant="subtitle1" color="text.secondary">
-            with {item.truck}
-          </Typography>
+          {item.start ? (
+            <>
+              <Typography variant="subtitle1" color="text.secondary">
+                hosted by {item.venue}
+              </Typography>
+              <Typography variant="subtitle1" color="text.secondary">
+                at {item.address}
+              </Typography>
+              <Typography variant="subtitle1" color="text.secondary">
+                with {item.truck}
+              </Typography>
+            </>
+          ) : null}
 
           {/* Upcoming Events */}
           {!item.start ? (
@@ -112,8 +116,7 @@ function Details({item, imgPath, handleClose, center, zoom, position}) {
                 Upcoming Events
               </Typography>
               {confirmedEvents.map((event) => {
-                return event.confirmed === true &&
-                  item.name === (event.foodtruck || event.venue) ? (
+                return event.confirmed === true && item.name === (event.truck || event.venue) ? (
                   <LinkedCard key={event.id} imgPath={event.img} item={event}>
                     {/* this can be refactored into preview card component */}
                     <Typography component="div" variant="h6">
