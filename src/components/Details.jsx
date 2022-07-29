@@ -33,7 +33,7 @@ const style = {
   // p: 4
 };
 
-function Details({item, imgPath, handleClose}) {
+function Details({item, imgPath, handleClose, center, zoom, position}) {
   const {store} = useGlobalState();
   const {confirmedEvents, loggedInUserId} = store; // this will need to be changed to item.events
   console.log(confirmedEvents);
@@ -45,7 +45,7 @@ function Details({item, imgPath, handleClose}) {
     <>
       <Card sx={style}>
         <CardMedia component="img" height="340" image={imgPath} alt={item.name} />
-        <CardHeader title={item.name} subheader={item.date ? item.date : item.website} />
+        <CardHeader title={item.name} subheader={item.start ? item.start : item.website} />
         {!item.start ? (
           <CardContent sx={{width: '50%', pt: 0, pb: 1}}>
             {item.facebook ? (
@@ -73,9 +73,9 @@ function Details({item, imgPath, handleClose}) {
                 Mobile: {item.mobile}
               </Typography>
             ) : null}
-            {item.location ? (
+            {item.address ? (
               <Typography variant="body2" color="text.secondary">
-                {item.location.address1}, {item.location.city}
+                {item.address}
               </Typography>
             ) : null}
           </CardContent>
@@ -95,6 +95,15 @@ function Details({item, imgPath, handleClose}) {
           <Typography variant="body" color="text.secondary">
             {item.description}
           </Typography>
+          <Typography variant="subtitle1" color="text.secondary">
+            hosted by {item.venue}
+          </Typography>
+          <Typography variant="subtitle1" color="text.secondary">
+            at {item.address}
+          </Typography>
+          <Typography variant="subtitle1" color="text.secondary">
+            with {item.truck}
+          </Typography>
 
           {/* Upcoming Events */}
           {!item.start ? (
@@ -104,14 +113,20 @@ function Details({item, imgPath, handleClose}) {
               </Typography>
               {confirmedEvents.map((event) => {
                 return event.confirmed === true &&
-                  item.id === (event.foodtruck_id || event.venue_id) ? (
+                  item.name === (event.foodtruck || event.venue) ? (
                   <LinkedCard key={event.id} imgPath={event.img} item={event}>
                     {/* this can be refactored into preview card component */}
                     <Typography component="div" variant="h6">
                       {event.name}
                     </Typography>
                     <Typography variant="subtitle1" color="text.secondary">
-                      {event.date}
+                      {event.start}
+                    </Typography>
+                    <Typography variant="subtitle1" color="text.secondary">
+                      {event.venue}
+                    </Typography>
+                    <Typography variant="subtitle1" color="text.secondary">
+                      {event.truck}
                     </Typography>
                     <Typography variant="body2" color="text.secondary" component="div">
                       {event.description}
