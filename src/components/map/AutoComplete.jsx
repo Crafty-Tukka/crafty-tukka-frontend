@@ -3,22 +3,30 @@ import PlacesAutocomplete, {geocodeByAddress, getLatLng} from 'react-places-auto
 
 const AutoComplete = () => {
   // used by get coordinates from google maps
-  const [address, setAddress] = useState();
+  const [venueAddress, setVenueAddress] = useState();
   const [coordinates, setCoordinates] = useState({
     lat: null,
     lng: null
   });
 
-  const handleSelect = async (value) => {
+  const handleAddressSelect = async (value) => {
     const results = await geocodeByAddress(value);
     const latLng = await getLatLng(results[0]);
-    setAddress(value);
+    setVenueAddress(value);
     setCoordinates(latLng);
   };
 
+  const venueCoordinates = {lat: coordinates.lat, lng: coordinates.lng};
+
   return (
     <>
-      <PlacesAutocomplete value={address} onChange={setAddress} onSelect={handleSelect}>
+      <PlacesAutocomplete
+        value={venueAddress}
+        onChange={setVenueAddress}
+        onSelect={handleAddressSelect}
+        venueCoordinates={venueCoordinates}
+        venueAddress={venueAddress}
+      >
         {({getInputProps, suggestions, getSuggestionItemProps, loading}) => (
           <div>
             <p>Latitude: {coordinates.lat}</p>

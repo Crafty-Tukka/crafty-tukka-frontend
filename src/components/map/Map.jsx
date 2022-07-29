@@ -12,7 +12,8 @@ function Map({children}) {
   const options = useMemo(
     () => ({
       disableDefaultUI: true,
-      clickableIcons: true
+      clickableIcons: true,
+      styles: mapStyles
     }),
     []
   );
@@ -21,6 +22,7 @@ function Map({children}) {
   const [markers, setMarkers] = useState([]);
   // const [zoom, setZoom] = useState(initialMapPosition.initialZoom); // initial zoom: ;
   const [center, setCenter] = useState(initialMapPosition.position);
+  // const [venueList, setVenueList] = useState(initialMapPosition.venue
 
   // const mapRef = useRef(GoogleMap);
   // const onLoad = useCallback((map) => (mapRef.current = map), []);
