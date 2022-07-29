@@ -45,7 +45,7 @@ function Details({item, imgPath, handleClose}) {
     <>
       <Card sx={style}>
         <CardMedia component="img" height="340" image={imgPath} alt={item.name} />
-        <CardHeader title={item.name} subheader={item.date ? item.date : item.website} />
+        <CardHeader title={item.name} subheader={item.start ? item.start : item.website} />
         {!item.start ? (
           <CardContent sx={{width: '50%', pt: 0, pb: 1}}>
             {item.facebook ? (
@@ -73,9 +73,9 @@ function Details({item, imgPath, handleClose}) {
                 Mobile: {item.mobile}
               </Typography>
             ) : null}
-            {item.location ? (
+            {item.address ? (
               <Typography variant="body2" color="text.secondary">
-                {item.location.address1}, {item.location.city}
+                {item.address}
               </Typography>
             ) : null}
           </CardContent>
@@ -111,7 +111,13 @@ function Details({item, imgPath, handleClose}) {
                       {event.name}
                     </Typography>
                     <Typography variant="subtitle1" color="text.secondary">
-                      {event.date}
+                      {event.start}
+                    </Typography>
+                    <Typography variant="subtitle1" color="text.secondary">
+                      {event.venue}
+                    </Typography>
+                    <Typography variant="subtitle1" color="text.secondary">
+                      {event.truck}
                     </Typography>
                     <Typography variant="body2" color="text.secondary" component="div">
                       {event.description}
