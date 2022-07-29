@@ -18,6 +18,8 @@ import {signUpVenue} from 'services/authServices';
 // import IconButton from '@mui/material/IconButton';
 // import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import PlacesAutocomplete, {geocodeByAddress, getLatLng} from 'react-places-autocomplete';
+import {IconButton, InputBase, Paper} from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 
 function Copyright(props) {
   return (
@@ -49,7 +51,8 @@ function SignupVenue() {
     password: '',
     password_confirmation: '',
     address: '',
-    position_attributes: {lat: null, lng: null}
+    position_attributes: {lat: null, lng: null},
+    picture: null
   };
 
   const [formData, setFormData] = useState(initialFormData);
@@ -60,7 +63,31 @@ function SignupVenue() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    signUpVenue(formData)
+    // map each attribute from formData into the new FormData built in method so rails can process the image correctly
+    const data = new FormData();
+    Object.keys(formData).map((key) => {
+      return data.set(key, formData[key]);
+    });
+    // data.append('venue[name]', formData.name);
+    // data.append('venue[email]', formData.email);
+    // data.append('venue[description]', formData.description);
+    // data.append('venue[facebook]', formData.facebook);
+    // data.append('venue[website]', formData.website);
+    // data.append('venue[google_maps]', formData.google_maps);
+    // data.append('venue[mobile]', formData.mobile);
+    // data.append('venue[password]', formData.password);
+    // data.append('venue[password_confirmation]', formData.password_confirmation);
+    // data.append('venue[address]', formData.address);
+    data.set('position_attributes', [
+      'lat',
+      formData.position_attributes.lat,
+      'lng',
+      formData.position_attributes.lng
+    ]);
+    // data.append('venue[picture]', formData.picture);
+
+    // signUpVenue(formData)
+    signUpVenue(data)
       .then((user) => {
         console.log(user);
         let errorMessage = '';
@@ -123,6 +150,14 @@ function SignupVenue() {
     console.log(formData);
   };
 
+  const pictureSelectedHandler = (e) => {
+    console.log(e.target.files[0]);
+    setFormData({
+      ...formData,
+      picture: e.target.files[0]
+    });
+  };
+
   return (
     <ThemeProvider theme={theme}>
       {error && <p>{error}</p>}
@@ -168,7 +203,7 @@ function SignupVenue() {
                   fullWidth
                 />
               </Grid>
-              This is the address form
+              {/* This is the address form */}
               {/* <Grid item xs={12}>
                 <AutoComplete name="address" required id="address" />
               </Grid> */}
@@ -183,8 +218,22 @@ function SignupVenue() {
                 >
                   {({getInputProps, suggestions, getSuggestionItemProps, loading}) => (
                     <div>
-                      <input {...getInputProps({placeholder: 'Type address'})} />
-
+                      {/* <input {...getInputProps({placeholder: 'Type address'})} /> */}
+                      <Paper
+                        component="form"
+                        sx={{p: '2px 4px', display: 'flex', alignItems: 'center', width: 400}}
+                      >
+                        <InputBase
+                          sx={{ml: 1, flex: 1}}
+                          placeholder="Search Google Maps"
+                          autofocus
+                          // inputProps={{'aria-label': 'search google maps'}}
+                          {...getInputProps({placeholder: 'Enter your address'})}
+                        />
+                        <IconButton type="submit" sx={{p: '10px'}} aria-label="search">
+                          <SearchIcon />
+                        </IconButton>
+                      </Paper>
                       <div>
                         {loading ? <div>...loading</div> : null}
 
@@ -252,6 +301,20 @@ function SignupVenue() {
                   onChange={handleFormData}
                   value={formData.facebook}
                 />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  id="picture"
+                  label="Choose File"
+                  name="picture"
+                  autoComplete="facebook"
+                  onChange={handleFormData}
+                  value={formData.facebook}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <input id="picture" name="picture" type="file" onChange={pictureSelectedHandler} />
               </Grid>
               <Grid item xs={12}>
                 <TextField
