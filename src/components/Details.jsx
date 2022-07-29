@@ -45,7 +45,10 @@ function Details({item, imgPath, handleClose}) {
     <>
       <Card sx={style}>
         <CardMedia component="img" height="340" image={imgPath} alt={item.name} />
-        <CardHeader title={item.name} subheader={item.date ? item.date : item.website} />
+        <CardHeader
+          title={item.name}
+          subheader={item.description ? item.description : item.website}
+        />
         {!item.start ? (
           <CardContent sx={{width: '50%', pt: 0, pb: 1}}>
             {item.facebook ? (
@@ -73,9 +76,9 @@ function Details({item, imgPath, handleClose}) {
                 Mobile: {item.mobile}
               </Typography>
             ) : null}
-            {item.location ? (
+            {item.address ? (
               <Typography variant="body2" color="text.secondary">
-                {item.location.address1}, {item.location.city}
+                {item.address}
               </Typography>
             ) : null}
           </CardContent>
@@ -92,9 +95,31 @@ function Details({item, imgPath, handleClose}) {
           </CardActions>
         ) : null}
         <CardContent sx={{mt: 0, pt: 0}}>
-          <Typography variant="body" color="text.secondary">
+          {/* <Typography variant="body" color="text.secondary">
             {item.description}
-          </Typography>
+          </Typography> */}
+          {item.start ? (
+            <>
+              <Typography variant="subtitle1" color="text.secondary">
+                Date: {item.start}
+              </Typography>
+              <Typography variant="subtitle1" color="text.secondary">
+                at {item.start_time}
+              </Typography>
+              <Typography variant="subtitle1" color="text.secondary">
+                until {item.finish_time}
+              </Typography>
+              <Typography variant="subtitle1" color="text.secondary">
+                hosted by {item.venue}
+              </Typography>
+              <Typography variant="subtitle1" color="text.secondary">
+                at {item.address}
+              </Typography>
+              <Typography variant="subtitle1" color="text.secondary">
+                with {item.truck}
+              </Typography>
+            </>
+          ) : null}
 
           {/* Upcoming Events */}
           {!item.start ? (
@@ -103,15 +128,20 @@ function Details({item, imgPath, handleClose}) {
                 Upcoming Events
               </Typography>
               {confirmedEvents.map((event) => {
-                return event.confirmed === true &&
-                  item.id === (event.foodtruck_id || event.venue_id) ? (
+                return event.confirmed === true && item.name === (event.truck || event.venue) ? (
                   <LinkedCard key={event.id} imgPath={event.img} item={event}>
                     {/* this can be refactored into preview card component */}
                     <Typography component="div" variant="h6">
                       {event.name}
                     </Typography>
                     <Typography variant="subtitle1" color="text.secondary">
-                      {event.date}
+                      {event.start}
+                    </Typography>
+                    <Typography variant="subtitle1" color="text.secondary">
+                      {event.venue}
+                    </Typography>
+                    <Typography variant="subtitle1" color="text.secondary">
+                      {event.truck}
                     </Typography>
                     <Typography variant="body2" color="text.secondary" component="div">
                       {event.description}
