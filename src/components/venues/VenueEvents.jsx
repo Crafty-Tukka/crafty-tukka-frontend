@@ -30,9 +30,9 @@ function VenueEvents() {
             <Typography variant="subtitle1" color="text.secondary" component="div">
               {event.description}
             </Typography>
-            {event.location && (
+            {event.address && (
               <Typography variant="body2" color="text.secondary">
-                {event.location.address1}, {event.location.city}
+                {event.address}
               </Typography>
             )}
             {/* <Typography variant="body2" color="text.secondary">

@@ -15,10 +15,9 @@ import {createTheme, ThemeProvider} from '@mui/material/styles';
 import {useGlobalState} from 'utils/stateContext';
 import {useNavigate} from 'react-router';
 import {signUpVenue} from 'services/authServices';
-import IconButton from '@mui/material/IconButton';
-import PhotoCamera from '@mui/icons-material/PhotoCamera';
+// import IconButton from '@mui/material/IconButton';
+// import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import PlacesAutocomplete, {geocodeByAddress, getLatLng} from 'react-places-autocomplete';
-import AutoComplete from 'components/map/AutoComplete';
 
 function Copyright(props) {
   return (
@@ -50,25 +49,11 @@ function SignupVenue() {
     password: '',
     password_confirmation: '',
     address: '',
-    lat: null,
-    lng: null
+    position_attributes: {lat: null, lng: null}
   };
-  // used by get coordinates from google maps
-  // const [address, setAddress] = useState();
-  // const [coordinates, setCoordinates] = useState({
-  //   lat: null,
-  //   lng: null
-  // });
 
   const [formData, setFormData] = useState(initialFormData);
   const [error, setError] = useState(null);
-
-  // const handleSelect = async (value) => {
-  //   const results = await geocodeByAddress(value);
-  //   const latLng = await getLatLng(results[0]);
-  //   setAddress(value);
-  //   setCoordinates(latLng);
-  // };
 
   console.log(formData);
 
@@ -80,10 +65,8 @@ function SignupVenue() {
         console.log(user);
         let errorMessage = '';
         if (user.error) {
-          // console.log(user.error)
           // convert the object into a string
           Object.keys(user.error).forEach((key) => {
-            //console.log(key, user.error[key])
             errorMessage = errorMessage.concat('', `${key} ${user.error[key]}`);
           });
           setError(errorMessage);
@@ -103,10 +86,6 @@ function SignupVenue() {
             type: 'setId',
             data: user.id
           });
-          // dispatch({
-          //   type: 'setPicture',
-          //   data: user.picture
-          // });
           setFormData(initialFormData);
           navigate('/events');
         }
@@ -116,6 +95,26 @@ function SignupVenue() {
       });
   };
 
+  const [venueAddress, setVenueAddress] = useState();
+  const [coordinates, setCoordinates] = useState({
+    lat: null,
+    lng: null
+  });
+
+  const handleAddressSelect = async (value) => {
+    const results = await geocodeByAddress(value);
+    const latLng = await getLatLng(results[0]);
+    setVenueAddress(value);
+    setCoordinates(latLng);
+    setFormData({
+      ...formData,
+      address: value,
+      position_attributes: latLng
+    });
+  };
+
+  // const venueCoordinates = {lat: coordinates.lat, lng: coordinates.lng};
+
   const handleFormData = (e) => {
     setFormData({
       ...formData,
@@ -123,26 +122,6 @@ function SignupVenue() {
     });
     console.log(formData);
   };
-
-  // const handleAddressFormData = (e) => {
-  //   setFormData({
-  //     ...formData.google_maps,
-  //     [e.target.name]: e.target.value
-  //   });
-  // };
-
-  // const stateList = [
-  //   {id: 1, type: 'Queensland'},
-  //   {id: 2, type: 'New South Wales'},
-  //   {id: 3, type: 'Victoria'},
-  //   {id: 4, type: 'South Australia'},
-  //   {id: 5, type: 'Western Australia'}
-  // ];
-  // const [stateType, setStateType] = useState('');
-
-  // const handleChange = (event) => {
-  //   setStateType(event.target.value);
-  // };
 
   return (
     <ThemeProvider theme={theme}>
@@ -190,8 +169,43 @@ function SignupVenue() {
                 />
               </Grid>
               This is the address form
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 <AutoComplete name="address" required id="address" />
+              </Grid> */}
+              <Grid item xs={12}>
+                <PlacesAutocomplete
+                  value={venueAddress}
+                  onChange={setVenueAddress}
+                  onSelect={handleAddressSelect}
+                  // venueCoordinates={venueCoordinates}
+                  venueAddress={venueAddress}
+                  name="address"
+                >
+                  {({getInputProps, suggestions, getSuggestionItemProps, loading}) => (
+                    <div>
+                      <input {...getInputProps({placeholder: 'Type address'})} />
+
+                      <div>
+                        {loading ? <div>...loading</div> : null}
+
+                        {suggestions.map((suggestion) => {
+                          const style = {
+                            backgroundColor: suggestion.active ? '#41b6e6' : '#fff'
+                          };
+
+                          return (
+                            <div
+                              key={coordinates.lat}
+                              {...getSuggestionItemProps(suggestion, {style})}
+                            >
+                              {suggestion.description}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+                </PlacesAutocomplete>
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
