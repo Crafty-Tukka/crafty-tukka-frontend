@@ -25,11 +25,17 @@ function Events() {
                 {event.name}
               </Typography>
               <Typography variant="subtitle1" color="text.secondary" component="div">
-                {event.date}
+                at {event.venue}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                {event.description}
+                featuring {event.truck}
               </Typography>
+              <Typography variant="body2" color="text.secondary">
+                on {event.start}
+              </Typography>
+              {/* <Typography variant="body2" color="text.secondary">
+                {event.venue.name}
+              </Typography> */}
               {/* <Typography variant="body2" color="text.secondary">
                 {event.finish}
               </Typography> */}
