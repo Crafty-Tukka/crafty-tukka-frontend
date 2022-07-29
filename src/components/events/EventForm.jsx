@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {useGlobalState} from 'utils/stateContext';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 // import Stack from '@mui/material/Stack';
 // import TextField from '@mui/material/TextField';
 // import {AdapterMoment} from '@mui/x-date-pickers/AdapterMoment';
@@ -25,7 +25,11 @@ function EventForm() {
   //eslint-ignore-next-line: true
   const navigate = useNavigate();
   const {store, dispatch} = useGlobalState();
-  const {foodTrucks, venues, loggedInUser} = store;
+  const {foodTrucks, venues, loggedInUser, confirmedEvents} = store;
+  console.log(confirmedEvents);
+  const params = useParams();
+  const {eventid} = params;
+  console.log(eventid);
   const initialVenueFormData = {
     start: new Date(),
     finish: new Date(),
@@ -33,7 +37,6 @@ function EventForm() {
     description: '',
     confirmed: true
   };
-
   // const initialTruckFormData = {
   //   start: new Date(),
   //   finish: new Date(),
@@ -43,11 +46,47 @@ function EventForm() {
   // };
 
   const [formVenueData, setFormVenueData] = useState(initialVenueFormData);
+  console.log(formVenueData);
   // const [formTruckData, setFormTruckData] = useState(initialTruckFormData);
 
+  // callback to find event using params
+  const getEvent = (id) => {
+    console.log(eventid);
+    console.log(confirmedEvents);
+    return confirmedEvents.find((event) => event.id === parseInt(id));
+  };
+
+  // if params then set venue form data
+  // if (params.eventid) {
+  //   const event = getEvent(params.eventid);
+  //   console.log(event);
+  //   setFormVenueData({
+  //     ...formVenueData,
+  //     name: event.name,
+  //     start: event.start,
+  //     finish: event.finish,
+  //     description: event.description,
+  //     confirmed: event.confirmed
+  //   });
+  //   console.log(formVenueData);
+  // }
+
   useEffect(() => {
+    console.log(eventid);
+    if (eventid) {
+      const event = getEvent(eventid);
+      console.log(event);
+      setFormVenueData({
+        ...formVenueData,
+        name: event.name,
+        start: event.start,
+        finish: event.finish,
+        description: event.description,
+        confirmed: event.confirmed
+      });
+    }
     console.log(formVenueData);
-  }, [formVenueData]);
+  }, [eventid]);
 
   // useEffect(() => {
   //   console.log(formTruckData);
