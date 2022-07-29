@@ -33,6 +33,9 @@ function Events() {
               <Typography variant="body2" color="text.secondary">
                 on {event.start}
               </Typography>
+              <Typography variant="body2" color="text.secondary">
+                at {event.start_time}
+              </Typography>
               {/* <Typography variant="body2" color="text.secondary">
                 {event.venue.name}
               </Typography> */}
