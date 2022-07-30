@@ -51,7 +51,8 @@ function SignupVenue() {
     password: '',
     password_confirmation: '',
     address: '',
-    position_attributes: {lat: null, lng: null},
+    lat: null,
+    lng: null,
     picture: null
   };
 
@@ -112,7 +113,8 @@ function SignupVenue() {
     setFormData({
       ...formData,
       address: value,
-      position_attributes: latLng
+      lat: latLng.lat,
+      lng: latLng.lng
     });
   };
 

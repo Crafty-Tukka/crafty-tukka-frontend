@@ -79,7 +79,7 @@ function Map({children}) {
         onLoad={onLoad}
       >
         {markers.map((marker) => (
-          <Marker key={marker.id} position={marker.position} onClick={onClick} />
+          <Marker key={marker.id} position={{lat: marker.lat, lng: marker.lng}} onClick={onClick} />
         ))}
         {selectedMarker && (
           <InfoWindow
