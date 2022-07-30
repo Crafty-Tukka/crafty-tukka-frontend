@@ -33,7 +33,6 @@ function Map() {
     setEvent(item);
   };
 
-
   // This is the alternative syntax for zoom change
   const mapRef = useRef(GoogleMap);
   const onLoad = useCallback((map) => (mapRef.current = map), []);
@@ -83,7 +82,6 @@ function Map() {
           </InfoWindow>
         )}
       </GoogleMap>
-      {children}
     </div>
   );
 }
