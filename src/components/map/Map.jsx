@@ -6,7 +6,7 @@ import mapStyles from './mapStyles';
 import LinkedCard from 'components/LinkedCard';
 import {Typography} from '@mui/material';
 
-function Map({children}) {
+function Map() {
   const initialMapPosition = {position: {lat: -27.4705, lng: 153.026}};
   const options = useMemo(
     () => ({
@@ -32,6 +32,7 @@ function Map({children}) {
     setSelectedMarker(e);
     setEvent(item);
   };
+
 
   // This is the alternative syntax for zoom change
   const mapRef = useRef(GoogleMap);

@@ -44,7 +44,7 @@ function Details({item, imgPath, handleClose}) {
   return (
     <>
       <Card sx={style}>
-        <CardMedia component="img" height="340" image={imgPath} alt={item.name} />
+        <CardMedia component="img" height="340" image={item.picture_url} alt={item.name} />
         <CardHeader
           title={item.name}
           subheader={item.description ? item.description : item.website}

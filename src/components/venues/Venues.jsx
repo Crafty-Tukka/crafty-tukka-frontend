@@ -14,7 +14,7 @@ function Venues() {
     <PageContainer title="Breweries">
       {venues.map((venue) => {
         return (
-          <LinkedCard key={venue.id} imgPath={venueImg} item={venue} routePath={'venues'}>
+          <LinkedCard key={venue.id} imgPath={venue.picture_url} item={venue} routePath={'venues'}>
             <Typography component="div" variant="h6" className="h6">
               {venue.name}
             </Typography>
