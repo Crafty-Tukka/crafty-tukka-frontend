@@ -23,7 +23,12 @@ function VenueEvents() {
     <PageContainer title="My Events">
       {venueEvents.map((event) => {
         return (
-          <LinkedCard key={event.id} imgPath={eventImg} item={event} routePath={'/events/venues/'}>
+          <LinkedCard
+            key={event.id}
+            imgPath={event.picture_url}
+            item={event}
+            routePath={'/events/venues/'}
+          >
             <Typography component="div" variant="h6" className="h6">
               {event.name}
             </Typography>

@@ -6,9 +6,9 @@ import {useGlobalState} from 'utils/stateContext';
 import './Map.css';
 // import venues from '../../data/breweries.json';
 import mapStyles from './mapStyles';
-import {Box, Container} from '@mui/material';
+import {Box} from '@mui/material';
 
-function Map({children}) {
+function Map() {
   const initialMapPosition = {position: {lat: -27.4705, lng: 153.026}};
   const options = useMemo(
     () => ({
@@ -40,6 +40,9 @@ function Map({children}) {
   };
 
   console.log(markers);
+  {
+    markers.map((marker) => console.log(marker.picture));
+  }
 
   // This is the code that allows map to zoom in and out when the marker is clicked
   // const [mapInstance, setMapInstance] = useState({});
@@ -89,12 +92,11 @@ function Map({children}) {
             }}
           >
             <div>
-              <h1>This is a message that should render</h1>
+              <img src={selectedMarker.picture} alt="marker"></img>
             </div>
           </InfoWindow>
         )}
       </GoogleMap>
-      {children}
     </Box>
   );
 }

@@ -22,9 +22,8 @@ function Event() {
     // let venue;
     // venue = venues.find((venue) => venue.id === event.venue_id);
     // return venue.src.path
-
     // comment this out once venues have profile pics
-    return 'https://cdn.shopify.com/s/files/1/0619/1700/3994/files/Ballistic-Beer-Our-Story-About-Us-1.jpg?crop=top&height=275&v=1650431502&width=275';
+    // return 'https://cdn.shopify.com/s/files/1/0619/1700/3994/files/Ballistic-Beer-Our-Story-About-Us-1.jpg?crop=top&height=275&v=1650431502&width=275';
   };
 
   const event = getEvent(params.eventid);
@@ -34,7 +33,7 @@ function Event() {
     <>
       {event ? (
         // this needs to be refactored into a details component
-        <Details item={event} imgPath={img}>
+        <Details item={event} imgPath={event.picture_url}>
           <Typography variant="h3">{event.name}</Typography>
           <Typography variant="p">{event.description}</Typography>
           <Typography variant="h6">Start time: {event.start}</Typography>
