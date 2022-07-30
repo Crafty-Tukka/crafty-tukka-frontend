@@ -63,31 +63,7 @@ function SignupVenue() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // map each attribute from formData into the new FormData built in method so rails can process the image correctly
-    const data = new FormData();
-    Object.keys(formData).map((key) => {
-      return data.set(key, formData[key]);
-    });
-    // data.append('venue[name]', formData.name);
-    // data.append('venue[email]', formData.email);
-    // data.append('venue[description]', formData.description);
-    // data.append('venue[facebook]', formData.facebook);
-    // data.append('venue[website]', formData.website);
-    // data.append('venue[google_maps]', formData.google_maps);
-    // data.append('venue[mobile]', formData.mobile);
-    // data.append('venue[password]', formData.password);
-    // data.append('venue[password_confirmation]', formData.password_confirmation);
-    // data.append('venue[address]', formData.address);
-    data.set('position_attributes', [
-      'lat',
-      formData.position_attributes.lat,
-      'lng',
-      formData.position_attributes.lng
-    ]);
-    // data.append('venue[picture]', formData.picture);
-
-    // signUpVenue(formData)
-    signUpVenue(data)
+    signUpVenue(formData)
       .then((user) => {
         console.log(user);
         let errorMessage = '';
@@ -302,7 +278,7 @@ function SignupVenue() {
                   value={formData.facebook}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              {/* <Grid item xs={12} sm={6}>
                 <TextField
                   fullWidth
                   id="picture"
@@ -312,7 +288,7 @@ function SignupVenue() {
                   onChange={handleFormData}
                   value={formData.facebook}
                 />
-              </Grid>
+              </Grid> */}
               <Grid item xs={12} sm={6}>
                 <input id="picture" name="picture" type="file" onChange={pictureSelectedHandler} />
               </Grid>
