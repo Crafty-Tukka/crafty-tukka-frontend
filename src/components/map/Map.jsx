@@ -6,6 +6,7 @@ import {useGlobalState} from 'utils/stateContext';
 import './Map.css';
 // import venues from '../../data/breweries.json';
 import mapStyles from './mapStyles';
+import {Box, Container} from '@mui/material';
 
 function Map({children}) {
   const initialMapPosition = {position: {lat: -27.4705, lng: 153.026}};
@@ -61,34 +62,40 @@ function Map({children}) {
   // };
 
   return (
-    <div className="container">
-      <div className="map">
-        <GoogleMap
-          zoom={12.1}
-          center={center}
-          mapContainerClassName="map-container"
-          options={options}
-          onLoad={onLoad}
-        >
-          {markers.map((marker) => (
-            <Marker key={marker.id} position={marker.position} onClick={onClick} />
-          ))}
-          {selectedMarker && (
-            <InfoWindow
-              position={selectedMarker.latLng}
-              onCloseClick={() => {
-                setSelectedMarker(null);
-              }}
-            >
-              <div>
-                <h1>This is a message that should render</h1>
-              </div>
-            </InfoWindow>
-          )}
-        </GoogleMap>
-        {children}
-      </div>
-    </div>
+    <Box
+      sx={{
+        bgcolor: 'background.paper',
+        boxShadow: 1,
+        borderRadius: 2,
+        p: 2,
+        minWidth: 300
+      }}
+    >
+      <GoogleMap
+        zoom={12.1}
+        center={center}
+        mapContainerClassName="map-container"
+        options={options}
+        onLoad={onLoad}
+      >
+        {markers.map((marker) => (
+          <Marker key={marker.id} position={{lat: marker.lat, lng: marker.lng}} onClick={onClick} />
+        ))}
+        {selectedMarker && (
+          <InfoWindow
+            position={selectedMarker.latLng}
+            onCloseClick={() => {
+              setSelectedMarker(null);
+            }}
+          >
+            <div>
+              <h1>This is a message that should render</h1>
+            </div>
+          </InfoWindow>
+        )}
+      </GoogleMap>
+      {children}
+    </Box>
   );
 }
 

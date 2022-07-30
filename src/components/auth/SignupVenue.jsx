@@ -18,6 +18,8 @@ import {signUpVenue} from 'services/authServices';
 // import IconButton from '@mui/material/IconButton';
 // import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import PlacesAutocomplete, {geocodeByAddress, getLatLng} from 'react-places-autocomplete';
+import {IconButton, InputBase, Paper} from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 
 function Copyright(props) {
   return (
@@ -49,7 +51,9 @@ function SignupVenue() {
     password: '',
     password_confirmation: '',
     address: '',
-    position_attributes: {lat: null, lng: null}
+    lat: null,
+    lng: null,
+    picture: null
   };
 
   const [formData, setFormData] = useState(initialFormData);
@@ -59,8 +63,12 @@ function SignupVenue() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const data = new FormData();
+    Object.keys(formData).map((key) => {
+      return data.set(key, formData[key]);
+    });
 
-    signUpVenue(formData)
+    signUpVenue(data)
       .then((user) => {
         console.log(user);
         let errorMessage = '';
@@ -109,7 +117,8 @@ function SignupVenue() {
     setFormData({
       ...formData,
       address: value,
-      position_attributes: latLng
+      lat: latLng.lat,
+      lng: latLng.lng
     });
   };
 
@@ -121,6 +130,14 @@ function SignupVenue() {
       [e.target.name]: e.target.value
     });
     console.log(formData);
+  };
+
+  const pictureSelectedHandler = (e) => {
+    console.log(e.target.files[0]);
+    setFormData({
+      ...formData,
+      picture: e.target.files[0]
+    });
   };
 
   return (
@@ -168,7 +185,7 @@ function SignupVenue() {
                   fullWidth
                 />
               </Grid>
-              This is the address form
+              {/* This is the address form */}
               {/* <Grid item xs={12}>
                 <AutoComplete name="address" required id="address" />
               </Grid> */}
@@ -183,8 +200,22 @@ function SignupVenue() {
                 >
                   {({getInputProps, suggestions, getSuggestionItemProps, loading}) => (
                     <div>
-                      <input {...getInputProps({placeholder: 'Type address'})} />
-
+                      {/* <input {...getInputProps({placeholder: 'Type address'})} /> */}
+                      <Paper
+                        component="form"
+                        sx={{p: '2px 4px', display: 'flex', alignItems: 'center', width: 400}}
+                      >
+                        <InputBase
+                          sx={{ml: 1, flex: 1}}
+                          placeholder="Search Google Maps"
+                          autofocus
+                          // inputProps={{'aria-label': 'search google maps'}}
+                          {...getInputProps({placeholder: 'Enter your address'})}
+                        />
+                        <IconButton type="submit" sx={{p: '10px'}} aria-label="search">
+                          <SearchIcon />
+                        </IconButton>
+                      </Paper>
                       <div>
                         {loading ? <div>...loading</div> : null}
 
@@ -252,6 +283,20 @@ function SignupVenue() {
                   onChange={handleFormData}
                   value={formData.facebook}
                 />
+              </Grid>
+              {/* <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  id="picture"
+                  label="Choose File"
+                  name="picture"
+                  autoComplete="facebook"
+                  onChange={handleFormData}
+                  value={formData.facebook}
+                />
+              </Grid> */}
+              <Grid item xs={12} sm={6}>
+                <input id="picture" name="picture" type="file" onChange={pictureSelectedHandler} />
               </Grid>
               <Grid item xs={12}>
                 <TextField
