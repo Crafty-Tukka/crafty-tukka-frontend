@@ -210,10 +210,11 @@ function Signin() {
                 href="/auth/signup/foodtruck"
                 value="FoodTruck"
                 fullWidth
+                disabled
                 variant="outlined"
                 sx={{mt: 3, mb: 2}}
               >
-                Sign up as a Food Truck
+                Sign up as a Food Truck (coming soon)
               </Button>
               <Copyright sx={{mt: 4}} />
             </Box>

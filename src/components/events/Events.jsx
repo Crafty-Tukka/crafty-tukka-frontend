@@ -4,7 +4,8 @@ import SideBarContainer from 'components/Containers/SideBarContainer';
 import MapContainer from 'components/Containers/MapContainer';
 import LinkedCard from 'components/LinkedCard';
 // import Map from 'components/map/Map';
-import {useEffect} from 'react';
+// import {useEffect} from 'react';
+
 
 function Events() {
   const {store} = useGlobalState();
