@@ -63,8 +63,12 @@ function SignupVenue() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const data = new FormData();
+    Object.keys(formData).map((key) => {
+      return data.set(key, formData[key]);
+    });
 
-    signUpVenue(formData)
+    signUpVenue(data)
       .then((user) => {
         console.log(user);
         let errorMessage = '';
