@@ -17,7 +17,7 @@ import MenuItem from '@mui/material/MenuItem';
 import DatePicker from 'react-datepicker';
 
 import 'react-datepicker/dist/react-datepicker.css';
-import {createVenueEvent} from 'services/eventsServices';
+import {createVenueEvent, editEvent, getEvent} from 'services/eventsServices';
 
 const theme = createTheme();
 
@@ -26,10 +26,9 @@ function EventForm() {
   const navigate = useNavigate();
   const {store, dispatch} = useGlobalState();
   const {foodTrucks, venues, loggedInUser, confirmedEvents} = store;
-  console.log(confirmedEvents);
   const params = useParams();
   const {eventid} = params;
-  console.log(eventid);
+
   const initialVenueFormData = {
     start: new Date(),
     finish: new Date(),
@@ -37,60 +36,26 @@ function EventForm() {
     description: '',
     confirmed: true
   };
-  // const initialTruckFormData = {
-  //   start: new Date(),
-  //   finish: new Date(),
-  //   name: 'External Event',
-  //   description: 'Truck Unavailable',
-  //   confirmed: true
-  // };
 
   const [formVenueData, setFormVenueData] = useState(initialVenueFormData);
   console.log(formVenueData);
-  // const [formTruckData, setFormTruckData] = useState(initialTruckFormData);
-
-  // callback to find event using params
-  const getEvent = (id) => {
-    console.log(eventid);
-    console.log(confirmedEvents);
-    return confirmedEvents.find((event) => event.id === parseInt(id));
-  };
-
-  // if params then set venue form data
-  // if (params.eventid) {
-  //   const event = getEvent(params.eventid);
-  //   console.log(event);
-  //   setFormVenueData({
-  //     ...formVenueData,
-  //     name: event.name,
-  //     start: event.start,
-  //     finish: event.finish,
-  //     description: event.description,
-  //     confirmed: event.confirmed
-  //   });
-  //   console.log(formVenueData);
-  // }
 
   useEffect(() => {
     console.log(eventid);
     if (eventid) {
-      const event = getEvent(eventid);
-      console.log(event);
-      setFormVenueData({
-        ...formVenueData,
-        name: event.name,
-        start: event.start,
-        finish: event.finish,
-        description: event.description,
-        confirmed: event.confirmed
+      getEvent(eventid).then((event) => {
+        console.log(event);
+        setFormVenueData({
+          ...formVenueData,
+          name: event.name,
+          start: Date.parse(event.start),
+          finish: Date.parse(event.finish),
+          description: event.description,
+          confirmed: event.confirmed
+        });
       });
     }
-    console.log(formVenueData);
   }, [eventid]);
-
-  // useEffect(() => {
-  //   console.log(formTruckData);
-  // }, [formTruckData]);
 
   const handleFormData = (event) => {
     setFormVenueData({
@@ -98,13 +63,6 @@ function EventForm() {
       [event.target.name]: event.target.value // new state
     });
   };
-
-  // const handleTruckFormData = (event) => {
-  //   setFormTruckData({
-  //     ...formVenueData, // previous state
-  //     [event.target.name]: event.target.value // new state
-  //   });
-  // };
 
   const addVenueEvent = (data) => {
     createVenueEvent(data).then((pendingEvent) => {
@@ -116,35 +74,39 @@ function EventForm() {
     });
   };
 
-  // const addTruckEvent = (data) => {
-  //   createTruckEvent(data).then((confirmedEvent) => {
-  //     dispatch({
-  //       type: 'addTruckEvent',
-  //       data: confirmedEvent
-  //     });
-  //     navigate('/events');
-  //   });
-  // };
+  const updateEvent = (data, id) => {
+    editEvent(data, id).then((pendingEvent) => {
+      dispatch({
+        type: '',
+        action: pendingEvent
+      });
+      navigate('/events');
+    });
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (formVenueData.start === '' || formVenueData.finish === '' || formVenueData.truck === '') {
-      return console.log("Please don't leave an empty field");
+    if (eventid) {
+      updateEvent({...formVenueData}, eventid);
     } else {
-      console.log(formVenueData);
-      addVenueEvent(formVenueData);
+      if (formVenueData.start === '' || formVenueData.finish === '' || formVenueData.truck === '') {
+        return console.log("Please don't leave an empty field");
+      } else {
+        console.log(formVenueData);
+        addVenueEvent(formVenueData);
+      }
     }
   };
 
-  // const handleTruckSubmit = (event) => {
-  //   event.preventDefault();
-  //   if (formTruckData.start === '' || formTruckData.finish === '') {
-  //     return console.log("Please don't leave an empty field");
-  //   } else {
-  //     console.log(formTruckData);
-  //     addTruckEvent(formTruckData);
-  //   }
-  // };
+  let title = '';
+  let buttonText = '';
+  if (eventid) {
+    title = 'Edit Your Event';
+    buttonText = 'Save Changes';
+  } else {
+    title = 'Create Your Event';
+    buttonText = 'Add Event';
+  }
 
   return (
     <>
@@ -161,7 +123,7 @@ function EventForm() {
               }}
             >
               <Typography component="h1" variant="h5">
-                Create Your Event
+                {title}
               </Typography>
               <Box component="form" noValidate onSubmit={handleSubmit} sx={{mt: 3}}>
                 <Grid container spacing={2}>
@@ -175,6 +137,7 @@ function EventForm() {
                       autoComplete="name"
                       value={formVenueData.name}
                       onChange={handleFormData}
+                      inputProps={{maxLength: 25}}
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -274,7 +237,7 @@ function EventForm() {
                   variant="contained"
                   sx={{mt: 3, mb: 2}}
                 >
-                  Add Event
+                  {buttonText}
                 </Button>
               </Box>
             </Box>

@@ -36,20 +36,21 @@ function LinkedCard({imgPath, item, routePath, children}) {
   return (
     // this routes to Event page and may not be needed anymore as we are using a pop-up modal
     // <Link to={`/${routePath}/${item.id}`} style={{textDecoration: 'none', margin: '4px'}}>
-    <Link to="" onClick={handleOpen} style={{textDecoration: 'none', margin: '4px'}}>
-      {item.start ? (
-        <PreviewCard imgPath={img} item={item}>
-          {children}
-        </PreviewCard>
-      ) : (
-        <TileCard imgPath={img} item={item} />
-      )}
-
+    <>
+      <Link to="" onClick={handleOpen} style={{textDecoration: 'none', margin: '4px'}}>
+        {item.start ? (
+          <PreviewCard imgPath={img} item={item}>
+            {children}
+          </PreviewCard>
+        ) : (
+          <TileCard imgPath={img} item={item} />
+        )}
+      </Link>
       {/* Pop up model to display item information */}
       <Modal disableEnforceFocus open={open} onClose={handleClose} style={{outline: 0}}>
         <Details item={item} imgPath={img} handleClose={handleClose}></Details>
       </Modal>
-    </Link>
+    </>
   );
 }
 
