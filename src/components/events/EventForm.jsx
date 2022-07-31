@@ -46,10 +46,7 @@ function EventForm() {
       getEvent(eventid).then((event) => {
         console.log(event);
         setFormVenueData({
-          ...formVenueData,
           name: event.name,
-          start: Date.parse(event.start),
-          finish: Date.parse(event.finish),
           description: event.description,
           confirmed: event.confirmed
         });
@@ -77,7 +74,7 @@ function EventForm() {
   const updateEvent = (data, id) => {
     editEvent(data, id).then((pendingEvent) => {
       dispatch({
-        type: '',
+        type: 'addVenueEvent',
         action: pendingEvent
       });
       navigate('/events');
@@ -160,9 +157,9 @@ function EventForm() {
                           required
                           label="Food Truck"
                           name="truck"
-                          value={formVenueData.truck_id}
+                          value={formVenueData.truck}
                           onChange={(x) =>
-                            setFormVenueData({...formVenueData, truck_id: x.target.value})
+                            setFormVenueData({...formVenueData, truck: x.target.value})
                           }
                           // onChange={handleFormData}
                         >
