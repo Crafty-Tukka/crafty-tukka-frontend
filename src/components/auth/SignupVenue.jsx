@@ -75,7 +75,7 @@ function SignupVenue() {
         if (user.error) {
           // convert the object into a string
           Object.keys(user.error).forEach((key) => {
-            errorMessage = errorMessage.concat(' ', `${key} ${user.error[key]}`);
+            errorMessage = errorMessage.concat(' | ', `${key} ${user.error[key]}`);
           });
           setError(errorMessage);
         } else {
@@ -99,7 +99,8 @@ function SignupVenue() {
         }
       })
       .catch((e) => {
-        console.log(e);
+        console.log(e.response.data);
+        setError(e.response.data.error);
       });
   };
 
