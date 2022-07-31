@@ -181,6 +181,7 @@ function SignupVenue() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  required
                   id="description"
                   name="description"
                   label="Bio"
@@ -197,6 +198,7 @@ function SignupVenue() {
               </Grid> */}
               <Grid item xs={12}>
                 <PlacesAutocomplete
+                  required
                   value={venueAddress}
                   onChange={setVenueAddress}
                   onSelect={handleAddressSelect}
@@ -302,7 +304,13 @@ function SignupVenue() {
                 />
               </Grid> */}
               <Grid item xs={12} sm={6}>
-                <input id="picture" name="picture" type="file" onChange={pictureSelectedHandler} />
+                <input
+                  required
+                  id="picture"
+                  name="picture"
+                  type="file"
+                  onChange={pictureSelectedHandler}
+                />
               </Grid>
               <Grid item xs={12}>
                 <TextField
