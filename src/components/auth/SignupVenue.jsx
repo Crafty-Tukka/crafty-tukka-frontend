@@ -18,7 +18,7 @@ import {signUpVenue} from 'services/authServices';
 // import IconButton from '@mui/material/IconButton';
 // import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import PlacesAutocomplete, {geocodeByAddress, getLatLng} from 'react-places-autocomplete';
-import {IconButton, InputBase, Paper} from '@mui/material';
+import {Alert, AlertTitle, IconButton, InputBase, Paper} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
 function Copyright(props) {
@@ -75,7 +75,7 @@ function SignupVenue() {
         if (user.error) {
           // convert the object into a string
           Object.keys(user.error).forEach((key) => {
-            errorMessage = errorMessage.concat('', `${key} ${user.error[key]}`);
+            errorMessage = errorMessage.concat(' | ', `${key} ${user.error[key]}`);
           });
           setError(errorMessage);
         } else {
@@ -99,7 +99,8 @@ function SignupVenue() {
         }
       })
       .catch((e) => {
-        console.log(e);
+        console.log(e.response.data);
+        setError(e.response.data.error);
       });
   };
 
@@ -142,7 +143,12 @@ function SignupVenue() {
 
   return (
     <ThemeProvider theme={theme}>
-      {error && <p>{error}</p>}
+      {error && (
+        <Alert severity="error">
+          <AlertTitle>Error</AlertTitle>
+          {error}
+        </Alert>
+      )}
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -175,6 +181,7 @@ function SignupVenue() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  required
                   id="description"
                   name="description"
                   label="Bio"
@@ -191,6 +198,7 @@ function SignupVenue() {
               </Grid> */}
               <Grid item xs={12}>
                 <PlacesAutocomplete
+                  required
                   value={venueAddress}
                   onChange={setVenueAddress}
                   onSelect={handleAddressSelect}
@@ -296,7 +304,13 @@ function SignupVenue() {
                 />
               </Grid> */}
               <Grid item xs={12} sm={6}>
-                <input id="picture" name="picture" type="file" onChange={pictureSelectedHandler} />
+                <input
+                  required
+                  id="picture"
+                  name="picture"
+                  type="file"
+                  onChange={pictureSelectedHandler}
+                />
               </Grid>
               <Grid item xs={12}>
                 <TextField
