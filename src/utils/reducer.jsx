@@ -8,28 +8,24 @@ export const reducer = (state, action) => {
   switch (action.type) {
     // the function will return the updated state
     case 'setEvents': {
-      //populate the messageList Array with the inital values
       return {
         ...state,
         confirmedEvents: action.data
       };
     }
     case 'setPendingEvents': {
-      //populate the messageList Array with the inital values
       return {
         ...state,
         pendingEvents: action.data
       };
     }
     case 'setVenues': {
-      //populate the messageList Array with the inital values
       return {
         ...state,
         venues: action.data
       };
     }
     case 'setFoodTrucks': {
-      //populate the messageList Array with the inital values
       return {
         ...state,
         foodTrucks: action.data
@@ -63,15 +59,21 @@ export const reducer = (state, action) => {
       };
     }
     case 'addVenueEvent': {
-      //receives a message and adds it to the list
       return {
         ...state,
-        pendingEvents: [action.data, ...state.pendingEvents]
+        confirmedEvents: [action.data, ...state.confirmedEvents]
+      };
+    }
+
+    case 'updateVenueEvent': {
+      const events = state.confirmedEvents.filter((event) => event.id !== action.data.id);
+      return {
+        ...state,
+        confirmedEvents: [action.data, ...events]
       };
     }
 
     case 'addTruckEvent': {
-      //receives a message and adds it to the list
       return {
         ...state,
         pendingEvents: [action.data, ...state.confirmedEvents]

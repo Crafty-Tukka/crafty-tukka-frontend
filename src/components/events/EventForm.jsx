@@ -95,6 +95,7 @@ function EventForm() {
       } else {
         dispatch({
           type: '',
+          // type: 'updateVenueEvent',
           action: pendingEvent
         });
         navigate('/events');
