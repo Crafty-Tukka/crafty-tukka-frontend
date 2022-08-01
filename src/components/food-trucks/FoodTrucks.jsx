@@ -18,7 +18,7 @@ function FoodTrucks() {
         return (
           <LinkedCard
             key={foodTruck.id}
-            imgPath={foodTruckImg}
+            imgPath={foodTruck.picture_url}
             item={foodTruck}
             routePath={'foodTrucks'}
           >

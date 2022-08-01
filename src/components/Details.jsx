@@ -129,7 +129,7 @@ function Details({item, imgPath, handleClose}) {
               </Typography>
               {confirmedEvents.map((event) => {
                 return event.confirmed === true && item.name === (event.truck || event.venue) ? (
-                  <LinkedCard key={event.id} imgPath={event.img} item={event}>
+                  <LinkedCard key={event.id} imgPath={event.picture_url} item={event}>
                     {/* this can be refactored into preview card component */}
                     <Typography component="div" variant="h6">
                       {event.name}
