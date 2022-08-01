@@ -78,6 +78,7 @@ function EventForm() {
     editEvent(data, id).then((pendingEvent) => {
       dispatch({
         type: '',
+        // type: 'updateVenueEvent',
         action: pendingEvent
       });
       navigate('/events');
