@@ -5,7 +5,7 @@ import {useNavigate, useParams} from 'react-router-dom';
 // import TextField from '@mui/material/TextField';
 // import {AdapterMoment} from '@mui/x-date-pickers/AdapterMoment';
 // import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
-import {Typography, Button, TextField} from '@mui/material';
+import {Typography, Button, TextField, Alert, AlertTitle} from '@mui/material';
 // import {MobileDateTimePicker} from '@mui/x-date-pickers/MobileDateTimePicker';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -15,7 +15,6 @@ import {FormControl, InputLabel, Select} from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import MenuItem from '@mui/material/MenuItem';
 import DatePicker from 'react-datepicker';
-
 import 'react-datepicker/dist/react-datepicker.css';
 import {createVenueEvent, editEvent, getEvent} from 'services/eventsServices';
 
@@ -30,14 +29,15 @@ function EventForm() {
   const {eventid} = params;
 
   const initialVenueFormData = {
-    start: new Date(),
-    finish: new Date(),
-    name: 'Event',
+    start: null,
+    finish: null,
+    name: '',
     description: '',
     confirmed: true
   };
 
   const [formVenueData, setFormVenueData] = useState(initialVenueFormData);
+  const [error, setError] = useState(null);
   console.log(formVenueData);
 
   useEffect(() => {
@@ -48,7 +48,12 @@ function EventForm() {
         setFormVenueData({
           name: event.name,
           description: event.description,
-          confirmed: event.confirmed
+          confirmed: event.confirmed,
+          start: null,
+          start_time: null,
+          finish: null,
+          finish_time: null,
+          truck_id: null
         });
       });
     }
@@ -63,21 +68,37 @@ function EventForm() {
 
   const addVenueEvent = (data) => {
     createVenueEvent(data).then((pendingEvent) => {
-      dispatch({
-        type: 'addVenueEvent',
-        data: pendingEvent
-      });
-      navigate('/events');
+      let errorMessage = '';
+      if (pendingEvent.error) {
+        Object.keys(pendingEvent.error).forEach((key) => {
+          errorMessage = errorMessage.concat(' | ', `${key} ${pendingEvent.error[key]}`);
+        });
+        setError(errorMessage);
+      } else {
+        dispatch({
+          type: 'addVenueEvent',
+          data: pendingEvent
+        });
+        navigate('/events');
+      }
     });
   };
 
   const updateEvent = (data, id) => {
     editEvent(data, id).then((pendingEvent) => {
-      dispatch({
-        type: 'addVenueEvent',
-        action: pendingEvent
-      });
-      navigate('/events');
+      let errorMessage = '';
+      if (pendingEvent.error) {
+        Object.keys(pendingEvent.error).forEach((key) => {
+          errorMessage = errorMessage.concat(' | ', `${key} ${pendingEvent.error[key]}`);
+        });
+        setError(errorMessage);
+      } else {
+        dispatch({
+          type: '',
+          action: pendingEvent
+        });
+        navigate('/events');
+      }
     });
   };
 
@@ -109,6 +130,12 @@ function EventForm() {
     <>
       <div>
         <ThemeProvider theme={theme}>
+          {error && (
+            <Alert severity="error">
+              <AlertTitle>Error</AlertTitle>
+              {error}
+            </Alert>
+          )}
           <Container component="main" maxWidth="xs">
             <CssBaseline />
             <Box
@@ -157,9 +184,9 @@ function EventForm() {
                           required
                           label="Food Truck"
                           name="truck"
-                          value={formVenueData.truck}
+                          value={formVenueData.truck_id}
                           onChange={(x) =>
-                            setFormVenueData({...formVenueData, truck: x.target.value})
+                            setFormVenueData({...formVenueData, truck_id: x.target.value})
                           }
                           // onChange={handleFormData}
                         >
