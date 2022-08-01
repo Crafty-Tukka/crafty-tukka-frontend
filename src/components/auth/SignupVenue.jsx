@@ -61,6 +61,12 @@ function SignupVenue() {
 
   console.log(formData);
 
+  // const searchOptions = {
+  //   location: new (-27.4705, 153.026),
+  //   radius: 2000,
+  //   types: ['address']
+  // };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = new FormData();
@@ -113,6 +119,7 @@ function SignupVenue() {
   const handleAddressSelect = async (value) => {
     const results = await geocodeByAddress(value);
     const latLng = await getLatLng(results[0]);
+    console.log(results);
     setVenueAddress(value);
     setCoordinates(latLng);
     setFormData({
@@ -205,6 +212,7 @@ function SignupVenue() {
                   // venueCoordinates={venueCoordinates}
                   venueAddress={venueAddress}
                   name="address"
+                  // searchOptions={searchOptions}
                 >
                   {({getInputProps, suggestions, getSuggestionItemProps, loading}) => (
                     <div>

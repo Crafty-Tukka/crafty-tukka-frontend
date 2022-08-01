@@ -6,7 +6,6 @@ import LinkedCard from 'components/LinkedCard';
 // import Map from 'components/map/Map';
 // import {useEffect} from 'react';
 
-
 function Events() {
   const {store} = useGlobalState();
   const {confirmedEvents} = store;
@@ -37,7 +36,7 @@ function Events() {
                 featuring {event.truck}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                on {event.start}
+                on {event.date}
               </Typography>
               <Typography variant="body2" color="text.secondary">
                 at {event.start_time}

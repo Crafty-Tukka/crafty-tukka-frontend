@@ -16,7 +16,7 @@ function PreviewCard({imgPath, item, routePath, children}) {
 
   const getImg = () => {
     // this checks if item is an event and searches for associated venue img
-    if (item.start) {
+    if (item.date) {
       // let venue;
       // venue = venues.find((venue) => venue.id === item.venue_id);
       // return venue.img;
