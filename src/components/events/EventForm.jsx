@@ -17,7 +17,6 @@ import MenuItem from '@mui/material/MenuItem';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import {createVenueEvent, editEvent, getEvent} from 'services/eventsServices';
-import moment from 'moment-timezone';
 
 const theme = createTheme();
 
@@ -29,11 +28,10 @@ function EventForm() {
   const params = useParams();
   const {eventid} = params;
 
-  // const tz = moment.tz.setDefault('Australia/Brisbane');
   const initialVenueFormData = {
-    date: new Date(),
-    start_time: new Date(),
-    finish_time: new Date(),
+    date: null,
+    start_time: null,
+    finish_time: null,
     name: '',
     description: '',
     confirmed: true
@@ -109,17 +107,8 @@ function EventForm() {
     if (eventid) {
       updateEvent({...formVenueData}, eventid);
     } else {
-      if (
-        formVenueData.date === '' ||
-        formVenueData.finish_time === '' ||
-        formVenueData.start_time === '' ||
-        formVenueData.truck === ''
-      ) {
-        return console.log("Please don't leave an empty field");
-      } else {
-        console.log(formVenueData);
-        addVenueEvent(formVenueData);
-      }
+      console.log(formVenueData);
+      addVenueEvent(formVenueData);
     }
   };
 
