@@ -18,7 +18,7 @@ function FoodTrucks() {
         return (
           <LinkedCard
             key={foodTruck.id}
-            imgPath={foodTruckImg}
+            imgPath={foodTruck.picture_url}
             item={foodTruck}
             routePath={'foodTrucks'}
           >
@@ -29,10 +29,10 @@ function FoodTrucks() {
               {foodTruck.description}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              {foodTruck.start}
+              {foodTruck.start_time}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              {foodTruck.finish}
+              {foodTruck.finish_time}
             </Typography>
           </LinkedCard>
         );

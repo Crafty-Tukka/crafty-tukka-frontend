@@ -36,8 +36,8 @@ function Event() {
         <Details item={event} imgPath={event.picture_url}>
           <Typography variant="h3">{event.name}</Typography>
           <Typography variant="p">{event.description}</Typography>
-          <Typography variant="h6">Start time: {event.start}</Typography>
-          <Typography variant="h6">Finish time: {event.finish}</Typography>
+          <Typography variant="h6">Start time: {event.start_time}</Typography>
+          <Typography variant="h6">Finish time: {event.finish_time}</Typography>
         </Details>
       ) : (
         <>
