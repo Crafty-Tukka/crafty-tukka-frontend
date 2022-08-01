@@ -15,7 +15,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import {signInFoodTruck, signInVenue} from 'services/authServices';
-import {Divider} from '@mui/material';
+import {Alert, AlertTitle, Divider} from '@mui/material';
 
 function Copyright(props) {
   return (
@@ -58,65 +58,90 @@ function Signin() {
     // console.log(formData);
     if (venues.find((venue) => venue.email === formData.email)) {
       // venue sign in
-      signInVenue(formData).then((user) => {
-        // console.log(user)
-        if (user.error) {
-          console.log('user.error', user.error);
-          setError(user.error);
-        } else {
-          setError(null);
-          sessionStorage.setItem('email', user.email);
-          sessionStorage.setItem('token', user.jwt);
-          sessionStorage.setItem('id', user.id);
-          dispatch({
-            type: 'setLoggedInUser',
-            data: user.email
-          });
-          dispatch({
-            type: 'setToken',
-            data: user.jwt
-          });
-          dispatch({
-            type: 'setId',
-            data: user.id
-          });
-          setFormData(initialFormData);
-          navigate('/events');
-        }
-      });
+      signInVenue(formData)
+        .then((user) => {
+          console.log(user);
+          let errorMessage = '';
+          if (user.error) {
+            // convert the object into a string
+            // Object.keys(user.error).forEach((key) => {
+            //   errorMessage = errorMessage.concat(' | ', `${key} ${user.error[key]}`);
+            // });
+            errorMessage = user.error;
+            setError(errorMessage);
+          } else {
+            setError(null);
+            sessionStorage.setItem('email', user.email);
+            sessionStorage.setItem('token', user.jwt);
+            sessionStorage.setItem('id', user.id);
+            dispatch({
+              type: 'setLoggedInUser',
+              data: user.email
+            });
+            dispatch({
+              type: 'setToken',
+              data: user.jwt
+            });
+            dispatch({
+              type: 'setId',
+              data: user.id
+            });
+            setFormData(initialFormData);
+            navigate('/events');
+          }
+        })
+        .catch((e) => {
+          console.log(e.response.data);
+          setError(e.response.data.error);
+        });
     } else if (foodTrucks.find((foodTruck) => foodTruck.email === formData.email)) {
       // food truck sign in
-      signInFoodTruck(formData).then((user) => {
-        // console.log(user)
-        if (user.error) {
-          console.log('user.error', user.error);
-          setError(user.error);
-        } else {
-          setError(null);
-          sessionStorage.setItem('email', user.email);
-          sessionStorage.setItem('token', user.jwt);
-          sessionStorage.setItem('id', user.id);
-          dispatch({
-            type: 'setLoggedInUser',
-            data: user.email
-          });
-          dispatch({
-            type: 'setToken',
-            data: user.jwt
-          });
-          dispatch({
-            type: 'setId',
-            data: user.id
-          });
-          setFormData(initialFormData);
-          navigate('/events');
-        }
-      });
+      signInFoodTruck(formData)
+        .then((user) => {
+          console.log(user);
+          let errorMessage = '';
+          if (user.error) {
+            errorMessage = user.error;
+            setError(errorMessage);
+          } else {
+            setError(null);
+            sessionStorage.setItem('email', user.email);
+            sessionStorage.setItem('token', user.jwt);
+            sessionStorage.setItem('id', user.id);
+            dispatch({
+              type: 'setLoggedInUser',
+              data: user.email
+            });
+            dispatch({
+              type: 'setToken',
+              data: user.jwt
+            });
+            dispatch({
+              type: 'setId',
+              data: user.id
+            });
+            setFormData(initialFormData);
+            navigate('/events');
+          }
+        })
+        .catch((e) => {
+          console.log(e.response.data);
+          setError(e.response.data.error);
+        });
+    } else {
+      let errorMessage = 'Please enter a valid email or password';
+      setError(errorMessage);
     }
   };
 
   return (
     <ThemeProvider theme={theme}>
+      {error && (
+        <Alert severity="error">
+          <AlertTitle>Error</AlertTitle>
+          {error}
+        </Alert>
+      )}
       <Grid container component="main" sx={{height: '100vh'}}>
         <CssBaseline />
         <Grid
