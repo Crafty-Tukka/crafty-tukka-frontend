@@ -15,7 +15,7 @@ function LinkedCard({imgPath, item, routePath, children}) {
 
   // const getImg = () => {
   //   // this checks if item is an event and searches for associated venue img
-  //   if (item.start) {
+  //   if (item.date) {
   //     let venue;
   //     venue = venues.find((venue) => venue.id === item.venue_id);
   //     return venue.picture_url;
@@ -37,15 +37,15 @@ function LinkedCard({imgPath, item, routePath, children}) {
     // this routes to Event page and may not be needed anymore as we are using a pop-up modal
     // <Link to={`/${routePath}/${item.id}`} style={{textDecoration: 'none', margin: '4px'}}>
     <>
-    <Link to="" onClick={handleOpen} style={{textDecoration: 'none', margin: '4px'}}>
-      {item.start ? (
-        <PreviewCard imgPath={item.picture_url} item={item}>
-          {children}
-        </PreviewCard>
-      ) : (
-        <TileCard imgPath={item.picture_url} item={item} />
-      )}
-     </Link>
+      <Link to="" onClick={handleOpen} style={{textDecoration: 'none', margin: '4px'}}>
+        {item.date ? (
+          <PreviewCard imgPath={item.picture_url} item={item}>
+            {children}
+          </PreviewCard>
+        ) : (
+          <TileCard imgPath={item.picture_url} item={item} />
+        )}
+      </Link>
       {/* Pop up model to display item information */}
       <Modal disableEnforceFocus open={open} onClose={handleClose} style={{outline: 0}}>
         <Details item={item} imgPath={item.picture_url} handleClose={handleClose}></Details>

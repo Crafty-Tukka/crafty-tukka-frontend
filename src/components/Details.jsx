@@ -49,7 +49,7 @@ function Details({item, imgPath, handleClose}) {
           title={item.name}
           subheader={item.description ? item.description : item.website}
         />
-        {!item.start ? (
+        {!item.date ? (
           <CardContent sx={{width: '50%', pt: 0, pb: 1}}>
             {item.facebook ? (
               <Link sx={{mt: 1, pr: 4}} href={item.facebook} target="_blank" rel="noreferrer">
@@ -98,10 +98,10 @@ function Details({item, imgPath, handleClose}) {
           {/* <Typography variant="body" color="text.secondary">
             {item.description}
           </Typography> */}
-          {item.start ? (
+          {item.date ? (
             <>
               <Typography variant="subtitle1" color="text.secondary">
-                Date: {item.start}
+                Date: {item.date}
               </Typography>
               <Typography variant="subtitle1" color="text.secondary">
                 at {item.start_time}
@@ -122,7 +122,7 @@ function Details({item, imgPath, handleClose}) {
           ) : null}
 
           {/* Upcoming Events */}
-          {!item.start ? (
+          {!item.date ? (
             <>
               <Typography sx={{mt: 2}} variant="h6" component="div">
                 Upcoming Events
@@ -135,7 +135,7 @@ function Details({item, imgPath, handleClose}) {
                       {event.name}
                     </Typography>
                     <Typography variant="subtitle1" color="text.secondary">
-                      {event.start}
+                      {event.date}
                     </Typography>
                     <Typography variant="subtitle1" color="text.secondary">
                       {event.venue}
@@ -156,7 +156,7 @@ function Details({item, imgPath, handleClose}) {
           ) : null}
         </CardContent>
         <CardActions>
-          {item.start && item.venue_id === loggedInUserId ? (
+          {item.date && item.venue_id === loggedInUserId ? (
             <>
               <Button size="small" onClick={handleEdit}>
                 <Tab label="Edit" value={`/events/${item.id}`} component={Link} to="/events/new" />

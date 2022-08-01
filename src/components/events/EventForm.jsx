@@ -17,6 +17,7 @@ import MenuItem from '@mui/material/MenuItem';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import {createVenueEvent, editEvent, getEvent} from 'services/eventsServices';
+import moment from 'moment-timezone';
 
 const theme = createTheme();
 
@@ -28,9 +29,11 @@ function EventForm() {
   const params = useParams();
   const {eventid} = params;
 
+  // const tz = moment.tz.setDefault('Australia/Brisbane');
   const initialVenueFormData = {
-    start: null,
-    finish: null,
+    date: new Date(),
+    start_time: new Date(),
+    finish_time: new Date(),
     name: '',
     description: '',
     confirmed: true
@@ -49,9 +52,8 @@ function EventForm() {
           name: event.name,
           description: event.description,
           confirmed: event.confirmed,
-          start: null,
+          date: null,
           start_time: null,
-          finish: null,
           finish_time: null,
           truck_id: null
         });
@@ -107,7 +109,12 @@ function EventForm() {
     if (eventid) {
       updateEvent({...formVenueData}, eventid);
     } else {
-      if (formVenueData.start === '' || formVenueData.finish === '' || formVenueData.truck === '') {
+      if (
+        formVenueData.date === '' ||
+        formVenueData.finish_time === '' ||
+        formVenueData.start_time === '' ||
+        formVenueData.truck === ''
+      ) {
         return console.log("Please don't leave an empty field");
       } else {
         console.log(formVenueData);
@@ -203,30 +210,42 @@ function EventForm() {
                   </Grid>
                 </Grid>
                 <Typography component="h3" variant="h5">
-                  Select Your Start Date and Time
+                  Select Your Event Date
                 </Typography>
                 <DatePicker
-                  selected={formVenueData.start}
-                  onChange={(x) => setFormVenueData({...formVenueData, start: x})}
-                  name="start"
-                  showTimeSelect
-                  timeFormat="HH:mm"
-                  timeIntervals={15}
-                  timeCaption="time"
-                  dateFormat="MMMM d, yyyy h:mm aa"
+                  selected={formVenueData.date}
+                  onChange={(x) => setFormVenueData({...formVenueData, date: x})}
+                  name="date"
+                  dateFormat="MMMM d, yyyy"
+                  minDate={new Date()}
                 />
                 <Typography component="h3" variant="h5">
-                  Select Your Finish Date and Time
+                  Select Your Start Time
                 </Typography>
                 <DatePicker
-                  selected={formVenueData.finish}
-                  onChange={(x) => setFormVenueData({...formVenueData, finish: x})}
-                  name="end"
+                  selected={formVenueData.start_time}
+                  onChange={(x) => setFormVenueData({...formVenueData, start_time: x})}
+                  name="start_time"
                   showTimeSelect
-                  timeFormat="HH:mm"
+                  showTimeSelectOnly
                   timeIntervals={15}
-                  timeCaption="time"
-                  dateFormat="MMMM d, yyyy h:mm aa"
+                  timeCaption="Time"
+                  dateFormat="h:mm aa"
+                  minDate={new Date()}
+                />
+                <Typography component="h3" variant="h5">
+                  Select Your Finish Time
+                </Typography>
+                <DatePicker
+                  selected={formVenueData.finish_time}
+                  onChange={(x) => setFormVenueData({...formVenueData, finish_time: x})}
+                  name="finish_time"
+                  showTimeSelect
+                  showTimeSelectOnly
+                  timeIntervals={15}
+                  timeCaption="Time"
+                  dateFormat="h:mm aa"
+                  minDate={new Date()}
                 />
                 {/* <LocalizationProvider dateAdapter={AdapterMoment}>
                 <Stack spacing={3}>
@@ -268,140 +287,6 @@ function EventForm() {
           </Container>
         </ThemeProvider>
       </div>
-
-      {/* <div>
-        <ThemeProvider theme={theme}>
-          <Container component="main" maxWidth="xs">
-            <CssBaseline />
-            <Box
-              sx={{
-                marginTop: 8,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center'
-              }}
-            >
-              <Typography component="h1" variant="h5">
-                Submit Your Unavailable Date
-              </Typography>
-              <Box component="form" noValidate onSubmit={handleTruckSubmit} sx={{mt: 3}}>
-                <Grid container spacing={2}>
-                  <Grid item xs={12}>
-                    <TextField
-                      required
-                      fullWidth
-                      id="name"
-                      label="Event Name"
-                      name="name"
-                      autoComplete="name"
-                      value={formTruckData.name}
-                      onChange={handleTruckFormData}
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      id="description"
-                      name="description"
-                      label="Describe you event"
-                      onChange={handleTruckFormData}
-                      value={formTruckData.description}
-                      multiline
-                      rows={2}
-                      fullWidth
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <FormControl fullWidth>
-                      <InputLabel>Unavailable Venue</InputLabel>
-                      <>
-                        <Select
-                          required
-                          label="Food Truck"
-                          name="truck"
-                          value={formTruckData.truck_id}
-                          onChange={(x) =>
-                            setFormTruckData({...formTruckData, venue_id: x.target.value})
-                          }
-                          // onChange={handleFormData}
-                        >
-                          {venues.map((venue) => {
-                            return (
-                              <MenuItem key={venue.id} value={venue.id} name={venue.name}>
-                                {venue.name}
-                              </MenuItem>
-                            );
-                          })}
-                        </Select>
-                      </>
-                    </FormControl>
-                  </Grid>
-                </Grid>
-                <Typography component="h3" variant="h5">
-                  Select Your Start Date and Time
-                </Typography>
-                <DatePicker
-                  selected={formTruckData.start}
-                  onChange={(x) => setFormTruckData({...formTruckData, start: x})}
-                  name="start"
-                  showTimeSelect
-                  timeFormat="HH:mm"
-                  timeIntervals={15}
-                  timeCaption="time"
-                  dateFormat="MMMM d, yyyy h:mm aa"
-                />
-                <Typography component="h3" variant="h5">
-                  Select Your Finish Date and Time
-                </Typography>
-                <DatePicker
-                  selected={formTruckData.finish}
-                  onChange={(x) => setFormTruckData({...formTruckData, finish: x})}
-                  name="end"
-                  showTimeSelect
-                  timeFormat="HH:mm"
-                  timeIntervals={15}
-                  timeCaption="time"
-                  dateFormat="MMMM d, yyyy h:mm aa"
-                /> */}
-      {/* <LocalizationProvider dateAdapter={AdapterMoment}>
-               <Stack spacing={3}>
-                 <Typography variant="h5">Choose your Event Start Date and Time</Typography>
-                 <MobileDateTimePicker
-                   label="Start Date and Time"
-                   inputFormat="DD/MM/yyyy hh:mm a"
-                   name="start"
-                   value={startDate}
-                   onChange={(newValue) => {
-                     setStartDate(newValue);
-                   }}
-                   renderInput={(params) => <TextField {...params} />}
-                 />
-                 <Typography variant="h5">Choose your Event End Date and Time</Typography>
-                 <MobileDateTimePicker
-                   label="End Date and Time"
-                   inputFormat="DD/MM/yyyy hh:mm a"
-                   name="end"
-                   value={endDate}
-                   onChange={(newValue) => {
-                     setEndDate(newValue);
-                   }}
-                   renderInput={(params) => <TextField {...params} />}
-                 />
-               </Stack>
-             </LocalizationProvider> */}
-      {/* <Button
-                  type="submit"
-                  value="Login"
-                  fullWidth
-                  variant="contained"
-                  sx={{mt: 3, mb: 2}}
-                >
-                  Add Event
-                </Button>
-              </Box>
-            </Box>
-          </Container>
-        </ThemeProvider>
-      </div>*/}
     </>
   );
 }
