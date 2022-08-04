@@ -28,17 +28,18 @@ function VenuePendingEvents() {
             item={event}
             routePath={'/events/venues/'}
           >
-            <Typography component="div" variant="h6" className="h6">
+            <Typography component="div" variant="h6">
               {event.name}
             </Typography>
             <Typography variant="subtitle1" color="text.secondary" component="div">
-              {event.description}
+              {event.venue}
             </Typography>
-            {event.location && (
-              <Typography variant="body2" color="text.secondary">
-                {event.location.address1}, {event.location.city}
-              </Typography>
-            )}
+            <Typography variant="body2" color="text.secondary">
+              Featuring {event.truck}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {event.date} at {event.start_time}
+            </Typography>
             {/* <Typography variant="body2" color="text.secondary">
                 {event.facebook}
               </Typography> */}

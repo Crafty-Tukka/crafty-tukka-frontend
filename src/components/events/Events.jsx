@@ -30,17 +30,17 @@ function Events() {
                 {event.name}
               </Typography>
               <Typography variant="subtitle1" color="text.secondary" component="div">
-                at {event.venue}
+                {event.venue}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                featuring {event.truck}
+                Featuring {event.truck}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                on {event.date}
+                {event.date} at {event.start_time}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              {/* <Typography variant="body2" color="text.secondary">
                 at {event.start_time}
-              </Typography>
+              </Typography> */}
               {/* <Typography variant="body2" color="text.secondary">
                 {event.venue.name}
               </Typography> */}
