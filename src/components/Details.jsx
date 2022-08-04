@@ -12,7 +12,12 @@ import {
   Link,
   Chip,
   CardHeader,
-  Tab
+  Tab,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -20,6 +25,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import LinkedCard from './LinkedCard';
 import {useGlobalState} from 'utils/stateContext';
 import {useNavigate} from 'react-router';
+import {deleteEvent} from 'services/eventsServices';
 
 const style = {
   position: 'absolute',
@@ -37,9 +43,18 @@ const style = {
 };
 
 function Details({item, imgPath, handleClose}) {
-  const {store} = useGlobalState();
+  const {store, dispatch} = useGlobalState();
   const navigate = useNavigate();
   const {confirmedEvents, loggedInUserId} = store;
+
+  // State for delete alert
+  const [open, setOpen] = React.useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleAlertClose = () => {
+    setOpen(false);
+  };
 
   const handleEdit = (e) => {
     e.preventDefault();
@@ -48,6 +63,14 @@ function Details({item, imgPath, handleClose}) {
 
   const handleDelete = (e) => {
     e.preventDefault();
+    deleteEvent(item.id).then((data) => {
+      alert(data.message);
+      dispatch({
+        type: 'deleteEvent',
+        data: item
+      });
+    });
+    navigate(`/events`);
   };
 
   return (
@@ -168,12 +191,42 @@ function Details({item, imgPath, handleClose}) {
               <Button
                 size="medium"
                 color="error"
-                onClick={handleDelete}
+                onClick={handleClickOpen}
                 variant="outlined"
                 startIcon={<DeleteIcon />}
               >
                 Delete
               </Button>
+              <Dialog
+                open={open}
+                onClose={handleAlertClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+              >
+                <DialogTitle id="alert-dialog-title">
+                  {'Are you sure you want to delete this event?'}
+                </DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-description">
+                    This action can not be undone.
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button size="medium" variant="outlined" onClick={handleAlertClose}>
+                    Cancel
+                  </Button>
+                  <Button
+                    size="medium"
+                    color="error"
+                    variant="outlined"
+                    startIcon={<DeleteIcon />}
+                    onClick={handleDelete}
+                    autoFocus
+                  >
+                    Confirm Delete
+                  </Button>
+                </DialogActions>
+              </Dialog>
             </>
           ) : null}
           <Button
