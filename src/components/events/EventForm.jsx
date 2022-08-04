@@ -67,11 +67,22 @@ function EventForm() {
   };
 
   const getDate = (date) => {
-    return confirmedEvents.find((event) => event.date === date);
+    let confirmedDate = confirmedEvents.find((event) => event.date === date);
+    if (confirmedDate) {
+      return confirmedDate;
+    } else {
+      return console.log('Date Valid');
+    }
+    // return confirmedEvents.find((event) => event.date === date);
   };
 
   const getTruck = (truckid) => {
-    return foodTrucks.find((truck) => truck.id === truckid);
+    let confirmedTruck = getDate.find((event) => event.truck_id === truckid);
+    if (confirmedTruck) {
+      return confirmedTruck;
+    } else {
+      return console.log('Truck Valid');
+    }
   };
 
   // const checkDates = (confirmedEvents, pendingEvent, isUnion = false) =>
@@ -91,13 +102,13 @@ function EventForm() {
   const addVenueEvent = (data) => {
     createVenueEvent(data).then((pendingEvent) => {
       let errorMessage = '';
-      if (pendingEvent.error) {
+      if (getDate(pendingEvent.date) && getTruck(pendingEvent.truck_id)) {
+        errorMessage = 'Sorry. Truck unavailable';
+        setError(errorMessage);
+      } else if (pendingEvent.error) {
         Object.keys(pendingEvent.error).forEach((key) => {
           errorMessage = errorMessage.concat(' | ', `${key} ${pendingEvent.error[key]}`);
         });
-        setError(errorMessage);
-      } else if (getDate(pendingEvent.date) && getTruck(pendingEvent.truck_id)) {
-        errorMessage = 'Sorry. Truck unavailable';
         setError(errorMessage);
       } else {
         dispatch({
