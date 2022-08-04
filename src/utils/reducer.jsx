@@ -73,6 +73,14 @@ export const reducer = (state, action) => {
       };
     }
 
+    case 'deleteEvent': {
+      const events = state.confirmedEvents.filter((event) => event.id !== action.data.id);
+      return {
+        ...state,
+        confirmedEvents: [...events]
+      };
+    }
+
     case 'addTruckEvent': {
       return {
         ...state,
