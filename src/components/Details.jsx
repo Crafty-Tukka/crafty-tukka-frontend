@@ -15,8 +15,11 @@ import {
   Tab
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import LinkedCard from './LinkedCard';
 import {useGlobalState} from 'utils/stateContext';
+import {useNavigate} from 'react-router';
 
 const style = {
   position: 'absolute',
@@ -24,7 +27,7 @@ const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 640,
-  height: 720,
+  height: '75%',
   overflow: 'auto',
   // bgcolor: 'background.paper',
   // border: '2px solid #000',
@@ -35,11 +38,17 @@ const style = {
 
 function Details({item, imgPath, handleClose}) {
   const {store} = useGlobalState();
-  const {confirmedEvents, loggedInUserId} = store; // this will need to be changed to item.events
-  console.log(confirmedEvents);
-  console.log(item);
+  const navigate = useNavigate();
+  const {confirmedEvents, loggedInUserId} = store;
 
-  const handleEdit = (event) => {};
+  const handleEdit = (e) => {
+    e.preventDefault();
+    navigate(`/events/${item.id}`);
+  };
+
+  const handleDelete = (e) => {
+    e.preventDefault();
+  };
 
   return (
     <>
@@ -95,28 +104,22 @@ function Details({item, imgPath, handleClose}) {
           </CardActions>
         ) : null}
         <CardContent sx={{mt: 0, pt: 0}}>
-          {/* <Typography variant="body" color="text.secondary">
-            {item.description}
-          </Typography> */}
           {item.date ? (
             <>
               <Typography variant="subtitle1" color="text.secondary">
                 Date: {item.date}
               </Typography>
               <Typography variant="subtitle1" color="text.secondary">
-                at {item.start_time}
+                Time: {item.start_time} - {item.finish_time}
               </Typography>
               <Typography variant="subtitle1" color="text.secondary">
-                until {item.finish_time}
+                Host: {item.venue}
               </Typography>
               <Typography variant="subtitle1" color="text.secondary">
-                hosted by {item.venue}
+                Address: {item.address}
               </Typography>
               <Typography variant="subtitle1" color="text.secondary">
-                at {item.address}
-              </Typography>
-              <Typography variant="subtitle1" color="text.secondary">
-                with {item.truck}
+                Featuring {item.truck}
               </Typography>
             </>
           ) : null}
@@ -134,53 +137,51 @@ function Details({item, imgPath, handleClose}) {
                     <Typography component="div" variant="h6">
                       {event.name}
                     </Typography>
-                    <Typography variant="subtitle1" color="text.secondary">
-                      {event.date}
-                    </Typography>
-                    <Typography variant="subtitle1" color="text.secondary">
+                    <Typography variant="subtitle1" color="text.secondary" component="div">
                       {event.venue}
                     </Typography>
-                    <Typography variant="subtitle1" color="text.secondary">
-                      {event.truck}
+                    <Typography variant="body2" color="text.secondary">
+                      Featuring {event.truck}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary" component="div">
-                      {event.description}
+                    <Typography variant="body2" color="text.secondary">
+                      {event.date} at {event.start_time}
                     </Typography>
-                    {/* <Typography variant="body2" color="text.secondary">
-                  {event.finish}
-                </Typography> */}
                   </LinkedCard>
                 ) : null;
               })}
             </>
           ) : null}
         </CardContent>
-        <CardActions>
-          {item.date && item.venue_id === loggedInUserId ? (
+        <CardActions sx={{mb: 2, ml: 1}}>
+          {item.date && item.venue_id === Number(loggedInUserId) ? (
             <>
-              <Button size="small" onClick={handleEdit}>
-                <Tab label="Edit" value={`/events/${item.id}`} component={Link} to="/events/new" />
-              </Button>
-              <Link to={`/events/${item.id}`} value="Edit">
-                Edit Event
-              </Link>
-              <a href={`/events/${item.id}`}>Editing event</a>
+              {console.log(item.date)}
               <Button
-                onClick={handleClose}
-                sx={{my: 2, color: 'text.primary', display: 'block'}}
+                size="medium"
+                color="secondary"
+                variant="outlined"
+                onClick={handleEdit}
+                startIcon={<EditIcon />}
+              >
+                Edit
+              </Button>
+              <Button
+                size="medium"
+                color="error"
+                onClick={handleDelete}
                 variant="outlined"
                 startIcon={<DeleteIcon />}
               >
-                <Tab
-                  label="Delete"
-                  value={`/events/${item.id}`}
-                  component={Link}
-                  to={`/events/${item.id}`}
-                />
+                Delete
               </Button>
             </>
           ) : null}
-          <Button size="small" onClick={handleClose}>
+          <Button
+            size="medium"
+            variant="outlined"
+            onClick={handleClose}
+            startIcon={<ArrowBackIcon />}
+          >
             Back
           </Button>
         </CardActions>
