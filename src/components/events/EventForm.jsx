@@ -39,10 +39,10 @@ function EventForm() {
 
   const [formVenueData, setFormVenueData] = useState(initialVenueFormData);
   const [error, setError] = useState(null);
-  console.log(formVenueData);
+  // console.log(formVenueData);
 
   useEffect(() => {
-    console.log(eventid);
+    // console.log(eventid);
     if (eventid) {
       getEvent(eventid).then((event) => {
         console.log(event);
@@ -66,24 +66,26 @@ function EventForm() {
     });
   };
 
+  console.log(typeof confirmedEvents[0].date);
+
   const getDate = (date) => {
-    let confirmedDate = confirmedEvents.find((event) => event.date === date);
-    if (confirmedDate) {
-      return confirmedDate;
-    } else {
-      return console.log('Date Valid');
-    }
+    return confirmedEvents.filter((event) => event.date === date);
     // return confirmedEvents.find((event) => event.date === date);
   };
 
+  let b = getDate('09/08/2022');
+
   const getTruck = (truckid) => {
-    let confirmedTruck = getDate.find((event) => event.truck_id === truckid);
-    if (confirmedTruck) {
-      return confirmedTruck;
-    } else {
-      return console.log('Truck Valid');
-    }
+    return confirmedEvents.filter((event) => event.truck_id === parseInt(truckid));
   };
+
+  let a = getTruck('1');
+
+  const intersect = (o1, o2) => {
+    return Object.keys(o1).filter((k) => k in o2);
+  };
+
+  console.log(intersect(a, b));
 
   // const checkDates = (confirmedEvents, pendingEvent, isUnion = false) =>
   //   confirmedEvents.filter((a) => isUnion === pendingEvent.some((b) => a.date === b.date));
@@ -102,10 +104,7 @@ function EventForm() {
   const addVenueEvent = (data) => {
     createVenueEvent(data).then((pendingEvent) => {
       let errorMessage = '';
-      if (getDate(pendingEvent.date) && getTruck(pendingEvent.truck_id)) {
-        errorMessage = 'Sorry. Truck unavailable';
-        setError(errorMessage);
-      } else if (pendingEvent.error) {
+      if (pendingEvent.error) {
         Object.keys(pendingEvent.error).forEach((key) => {
           errorMessage = errorMessage.concat(' | ', `${key} ${pendingEvent.error[key]}`);
         });
