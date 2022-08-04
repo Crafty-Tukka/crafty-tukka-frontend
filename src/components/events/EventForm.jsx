@@ -66,28 +66,28 @@ function EventForm() {
     });
   };
 
-  console.log(typeof confirmedEvents[0].date);
+  // console.log(typeof confirmedEvents[0].date);
 
-  const getDate = (date) => {
-    return confirmedEvents.filter((event) => event.date === date);
-    // return confirmedEvents.find((event) => event.date === date);
-  };
+  // const getDate = (date) => {
+  //   return confirmedEvents.filter((event) => event.date === date);
+  //   // return confirmedEvents.find((event) => event.date === date);
+  // };
 
-  let b = getDate(formVenueData.date);
-  console.log(getDate(formVenueData.date));
+  // let b = getDate(formVenueData.date);
+  // console.log(getDate(formVenueData.date));
 
-  const getTruck = (truckid) => {
-    return confirmedEvents.filter((event) => event.truck === truckid);
-  };
+  // const getTruck = (truckid) => {
+  //   return confirmedEvents.filter((event) => event.truck === truckid);
+  // };
 
-  let a = getTruck(formVenueData.truck);
-  console.log(getTruck(formVenueData.truck));
+  // let a = getTruck(formVenueData.truck);
+  // console.log(getTruck(formVenueData.truck));
 
-  const intersect = (o1, o2) => {
-    return Object.keys(o1).filter((k) => k in o2);
-  };
+  // const intersect = (o1, o2) => {
+  //   return Object.keys(o1).filter((k) => k in o2);
+  // };
 
-  console.log(intersect(a, b));
+  // console.log(intersect(a, b));
 
   // const checkDates = (confirmedEvents, pendingEvent, isUnion = false) =>
   //   confirmedEvents.filter((a) => isUnion === pendingEvent.some((b) => a.date === b.date));
