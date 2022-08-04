@@ -39,10 +39,10 @@ function EventForm() {
 
   const [formVenueData, setFormVenueData] = useState(initialVenueFormData);
   const [error, setError] = useState(null);
-  console.log(formVenueData);
+  // console.log(formVenueData);
 
   useEffect(() => {
-    console.log(eventid);
+    // console.log(eventid);
     if (eventid) {
       getEvent(eventid).then((event) => {
         console.log(event);
@@ -66,14 +66,64 @@ function EventForm() {
     });
   };
 
+  // console.log(typeof confirmedEvents[0].date);
+
+  // const getDate = (date) => {
+  //   return confirmedEvents.filter((event) => event.date === date);
+  //   // return confirmedEvents.find((event) => event.date === date);
+  // };
+
+  // let b = getDate(formVenueData.date);
+  // console.log(getDate(formVenueData.date));
+
+  // const getTruck = (truckid) => {
+  //   return confirmedEvents.filter((event) => event.truck === truckid);
+  // };
+
+  // let a = getTruck(formVenueData.truck);
+  // console.log(getTruck(formVenueData.truck));
+
+  // const intersect = (o1, o2) => {
+  //   return Object.keys(o1).filter((k) => k in o2);
+  // };
+
+  // console.log(intersect(a, b));
+
+  // const checkDates = (confirmedEvents, pendingEvent, isUnion = false) =>
+  //   confirmedEvents.filter((a) => isUnion === pendingEvent.some((b) => a.date === b.date));
+
+  // const checkTrucks = (confirmedEvents, pendingEvent, isUnion = false) =>
+  //   confirmedEvents.filter((a) => isUnion === pendingEvent.some((b) => a.truck_id === b.truck_id));
+
+  // const inBothDates = (confirmedEvents, pendingEvent) =>
+  //   checkDates(confirmedEvents, pendingEvent, true);
+
+  // const inBothTrucks = (confirmedEvents, pendingEvent) =>
+  //   checkTrucks(confirmedEvents, pendingEvent, true);
+
+  // console.log(inBothTrucks(confirmedEvents.truck_id, foodTrucks.id));
+
   const addVenueEvent = (data) => {
     createVenueEvent(data).then((pendingEvent) => {
       let errorMessage = '';
+      const getDate = (date) => {
+        return confirmedEvents.filter((event) => event.date === date);
+      };
+      const getTruck = (truckid) => {
+        return confirmedEvents.filter((event) => event.truck === truckid);
+      };
+      const intersect = (o1, o2) => {
+        return Object.keys(o1).filter((k) => k in o2);
+      };
+      let a = getDate(pendingEvent.date);
+      let b = getTruck(pendingEvent.truck_id);
       if (pendingEvent.error) {
         Object.keys(pendingEvent.error).forEach((key) => {
           errorMessage = errorMessage.concat(' | ', `${key} ${pendingEvent.error[key]}`);
         });
         setError(errorMessage);
+      } else if (intersect(a, b).length !== 0) {
+        Promise.reject({error: 'Not Allowed'});
       } else {
         dispatch({
           type: 'addVenueEvent',
