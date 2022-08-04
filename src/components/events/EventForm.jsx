@@ -73,7 +73,7 @@ function EventForm() {
     // return confirmedEvents.find((event) => event.date === date);
   };
 
-  let b = getDate('09/08/2022');
+  let b = getDate('10/08/2022');
 
   const getTruck = (truckid) => {
     return confirmedEvents.filter((event) => event.truck_id === parseInt(truckid));
