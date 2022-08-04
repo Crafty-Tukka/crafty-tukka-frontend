@@ -73,13 +73,15 @@ function EventForm() {
     // return confirmedEvents.find((event) => event.date === date);
   };
 
-  let b = getDate('10/08/2022');
+  let b = getDate(formVenueData.date);
+  console.log(getDate(formVenueData.date));
 
   const getTruck = (truckid) => {
-    return confirmedEvents.filter((event) => event.truck_id === parseInt(truckid));
+    return confirmedEvents.filter((event) => event.truck === truckid);
   };
 
-  let a = getTruck('1');
+  let a = getTruck(formVenueData.truck);
+  console.log(getTruck(formVenueData.truck));
 
   const intersect = (o1, o2) => {
     return Object.keys(o1).filter((k) => k in o2);
@@ -104,11 +106,24 @@ function EventForm() {
   const addVenueEvent = (data) => {
     createVenueEvent(data).then((pendingEvent) => {
       let errorMessage = '';
+      const getDate = (date) => {
+        return confirmedEvents.filter((event) => event.date === date);
+      };
+      const getTruck = (truckid) => {
+        return confirmedEvents.filter((event) => event.truck === truckid);
+      };
+      const intersect = (o1, o2) => {
+        return Object.keys(o1).filter((k) => k in o2);
+      };
+      let a = getDate(pendingEvent.date);
+      let b = getTruck(pendingEvent.truck_id);
       if (pendingEvent.error) {
         Object.keys(pendingEvent.error).forEach((key) => {
           errorMessage = errorMessage.concat(' | ', `${key} ${pendingEvent.error[key]}`);
         });
         setError(errorMessage);
+      } else if (intersect(a, b).length !== 0) {
+        Promise.reject({error: 'Not Allowed'});
       } else {
         dispatch({
           type: 'addVenueEvent',
