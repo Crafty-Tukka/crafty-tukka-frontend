@@ -34,7 +34,18 @@ function Copyright(props) {
   );
 }
 
-const theme = createTheme();
+const theme = createTheme({
+  palette: {
+    primary: {
+      // Purple and green play nicely together.
+      main: '#041F60'
+    },
+    secondary: {
+      // This is green.A700 as hex.
+      main: '#4BE4FF'
+    }
+  }
+});
 
 function SignupVenue() {
   const {dispatch} = useGlobalState();

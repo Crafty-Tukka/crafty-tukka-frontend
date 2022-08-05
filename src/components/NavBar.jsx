@@ -17,6 +17,20 @@ import {Link, useNavigate} from 'react-router-dom';
 import AdbIcon from '@mui/icons-material/Adb';
 import MenuIcon from '@mui/icons-material/Menu';
 import {useGlobalState} from 'utils/stateContext';
+import {createTheme, ThemeProvider} from '@mui/material/styles';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      // Purple and green play nicely together.
+      main: '#041F60'
+    },
+    secondary: {
+      // This is green.A700 as hex.
+      main: '#4BE4FF'
+    }
+  }
+});
 
 function NavBar() {
   const {store, dispatch} = useGlobalState();
@@ -59,29 +73,18 @@ function NavBar() {
   };
 
   return (
-    <>
-      <AppBar position="sticky">
+    <ThemeProvider theme={theme}>
+      <AppBar
+        position="sticky"
+        sx={{
+          color: 'red'
+        }}
+      >
         <Container maxWidth="xl">
           <Toolbar disableGutters>
-            <AdbIcon sx={{display: {xs: 'none', md: 'flex'}, mr: 1}} />
-            <Typography
-              variant="h6"
-              noWrap
-              component="a"
-              href="/"
-              sx={{
-                mr: 2,
-                display: {xs: 'none', md: 'flex'},
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none'
-              }}
-            >
-              LOGO
-            </Typography>
-
+            <Box sx={{display: {xs: 'none', md: 'flex'}, mr: 1, height: '80px'}}>
+              <img src="2.png" alt="logo" />
+            </Box>
             <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
               <IconButton
                 size="large"
@@ -272,7 +275,7 @@ function NavBar() {
           </Toolbar>
         </Container>
       </AppBar>
-    </>
+    </ThemeProvider>
   );
 }
 
