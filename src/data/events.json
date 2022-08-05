@@ -1,29 +1,35 @@
 [
   {
-    "name": "Twisted Ice Cream",
-    "description": "Twisted Ice Cream - Fri 19 Aug",
+    "id": 10,
+    "name": "Burger Night",
+    "description": "Come down for some moo free burgers and some local ales.",
     "truck_id": 100,
     "venue_id": 1000,
     "start": "2022-08-19T11:30:00+10:00",
     "finish": "2022-08-19T14:30:00+10:00",
-    "confirmed_status": "confirmed"
+    "confirmed_status": "confirmed",
+    "date": "27th Aug, 5pm - 10pm"
   },
   {
+    "id": 11,
     "name": "Hot Dog City",
     "description": "Hot Dog City - Sat 20 Aug",
     "truck_id": 101,
     "venue_id": 1001,
     "start": "2022-08-20T11:30:00+10:00",
     "finish": "2022-08-20T14:30:00+10:00",
-    "confirmed_status": "confirmed"
+    "confirmed_status": "confirmed",
+    "date": "6th Aug, 6pm - 9pm"
   },
   {
+    "id": 12,
     "name": "Bob's Burgers",
     "description": "Bob's Burgers - Sat 20 Aug",
     "truck_id": 102,
     "venue_id": 1002,
     "start": "2022-07-14T11:30:00+10:00",
     "finish": "2022-07-14T14:30:00+10:00",
-    "confirmed_status": "pending"
+    "confirmed_status": "pending",
+    "date": "15th Aug, 730pm - 930pm"
   }
 ]
