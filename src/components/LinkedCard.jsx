@@ -11,8 +11,6 @@ function LinkedCard({imgPath, item, routePath, children}) {
   const handleClose = () => setOpen(false);
 
   return (
-    // this routes to Event page and may not be needed anymore as we are using a pop-up modal
-    // <Link to={`/${routePath}/${item.id}`} style={{textDecoration: 'none', margin: '4px'}}>
     <>
       <Link to="" onClick={handleOpen} style={{textDecoration: 'none', margin: '4px'}}>
         {item.date ? (

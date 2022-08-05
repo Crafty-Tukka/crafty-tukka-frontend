@@ -145,57 +145,6 @@ function NavBar() {
                     </MenuItem>
                   </>
                 )}
-                {/* {!loggedInUser && (
-                  <MenuItem onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">
-                      <Tab
-                        label="Sign Up"
-                        value="/auth/signup"
-                        component={Link}
-                        to="/auth/signup"
-                      />
-                    </Typography>
-                  </MenuItem>
-                )} */}
-                {/* {loggedInUser && (
-                  <MenuItem onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">
-                      <Tab label="My Events" />{' '}
-                    </Typography>
-                  </MenuItem>
-                )}
-                {loggedInUser && (
-                  <MenuItem onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">
-                      <Tab
-                        label="Book an Event"
-                        value="/events/new"
-                        component={Link}
-                        to="/events/new"
-                      />
-                    </Typography>
-                  </MenuItem>
-                )}
-                {loggedInUser && (
-                  <MenuItem onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">
-                      <Tab
-                        label="Edit Profile"
-                        value="auth/editprofile"
-                        component={Link}
-                        to="auth/editprofile"
-                      />
-                    </Typography>
-                  </MenuItem>
-                )}
-                {loggedInUser}
-                {loggedInUser && (
-                  <MenuItem onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">
-                      <Tab label="Log Out" component={Link} to="/events" onClick={logOut} />
-                    </Typography>
-                  </MenuItem>
-                )} */}
               </Menu>
             </Box>
             <AdbIcon sx={{display: {xs: 'flex', md: 'none'}, mr: 1}} />
@@ -232,49 +181,6 @@ function NavBar() {
                   <Tab label="Sign In" value="/auth/signin" component={Link} to="/auth/signin" />
                 </Button>
               )}
-              {/* {!loggedInUser && (
-                <Button onClick={handleCloseNavMenu} sx={{my: 2, color: 'white', display: 'block'}}>
-                  <Tab label="Sign Up" value="/auth/signup" component={Link} to="/auth/signup" />
-                </Button>
-              )} */}
-              {/* {loggedInUser && (
-                <>
-                  <Button
-                    onClick={handleCloseNavMenu}
-                    sx={{my: 2, color: 'white', display: 'block'}}
-                  >
-                    <Tab label="My Events" />
-                  </Button>
-                  <Button
-                    onClick={handleCloseNavMenu}
-                    sx={{my: 2, color: 'white', display: 'block'}}
-                  >
-                    <Tab
-                      label="Book an Event"
-                      value="/events/new"
-                      component={Link}
-                      to="/events/new"
-                    />
-                  </Button>
-                  <Button
-                    onClick={handleCloseNavMenu}
-                    sx={{my: 2, color: 'white', display: 'block'}}
-                  >
-                    <Tab
-                      label="Edit Profile"
-                      value="auth/editprofile"
-                      component={Link}
-                      to="auth/editprofile"
-                    />
-                  </Button>
-                  <Button
-                    onClick={handleCloseNavMenu}
-                    sx={{my: 2, color: 'white', display: 'block'}}
-                  >
-                    <Tab label="Log Out" component={Link} to="/events" onClick={logOut} />
-                  </Button>
-                </>
-              )} */}
             </Box>
             {loggedInUser && (
               <Box sx={{flexGrow: 0}}>
@@ -366,56 +272,7 @@ function NavBar() {
           </Toolbar>
         </Container>
       </AppBar>
-      {/* <AppBar position="sticky">
-        <Container maxWidth="xl">
-          <Typography variant="h2">
-            <Toolbar disableGutters>
-              <Tabs value={false}>
-                <Tab label="Home" value="/events" component={Link} to="/events" />
-                <Tab label="Food Trucks" value="/foodtrucks" component={Link} to="/foodtrucks" />
-                <Tab label="Breweries" value="/venues" component={Link} to="/venues" />
-                {!loggedInUser && (
-                  <Tab label="Sign In" value="/auth/signin" component={Link} to="/auth/signin" />
-                )}
-                {!loggedInUser && (
-                  <Tab label="Sign Up" value="/auth/signup" component={Link} to="/auth/signup" />
-                )}
-                {loggedInUser && <Tab label="My Events" />}
-                {loggedInUser && (
-                  <Tab
-                    label="Book an Event"
-                    value="/events/new"
-                    component={Link}
-                    to="/events/new"
-                  />
-                )}
-                {loggedInUser && (
-                  <Tab
-                    label="Edit Profile"
-                    value="auth/editprofile"
-                    component={Link}
-                    to="auth/editprofile"
-                  />
-                )}
-                {loggedInUser}
-                {loggedInUser && (
-                  <Tab label="Log Out" component={Link} to="/events" onClick={logOut} />
-                )}
-              </Tabs>
-            </Toolbar>
-          </Typography>
-        </Container>
-      </AppBar> */}
     </>
-
-    // <nav>
-    //   <Link to="/events">Home</Link>
-    //   <Link to="/foodtrucks">Food Trucks</Link>
-    //   <Link to="/breweries">Breweries</Link>
-    //   <Link to="/auth/signin">Sign In</Link>
-    //   <Link to="/auth/signup">Sign Up</Link>
-    //   <Link to="/events">Logout</Link>
-    // </nav>
   );
 }
 

@@ -37,9 +37,6 @@ function VenuePendingEvents() {
             <Typography variant="body2" color="text.secondary">
               {event.date} at {event.start_time}
             </Typography>
-            {/* <Typography variant="body2" color="text.secondary">
-                {event.facebook}
-              </Typography> */}
           </LinkedCard>
         );
       })}
