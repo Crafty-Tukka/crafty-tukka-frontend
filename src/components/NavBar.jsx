@@ -145,7 +145,7 @@ function NavBar() {
                     </MenuItem>
                   </>
                 )}
-                {!loggedInUser && (
+                {/* {!loggedInUser && (
                   <MenuItem onClick={handleCloseNavMenu}>
                     <Typography textAlign="center">
                       <Tab
@@ -156,7 +156,7 @@ function NavBar() {
                       />
                     </Typography>
                   </MenuItem>
-                )}
+                )} */}
                 {/* {loggedInUser && (
                   <MenuItem onClick={handleCloseNavMenu}>
                     <Typography textAlign="center">
