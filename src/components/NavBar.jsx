@@ -317,7 +317,7 @@ function NavBar() {
                               to={`/events/venues/${loggedInUserId}`}
                             />
                           </Button>
-                          <Button
+                          {/* <Button
                             onClick={handleCloseNavMenu}
                             sx={{my: 2, color: 'text.primary', display: 'block'}}
                           >
@@ -327,7 +327,7 @@ function NavBar() {
                               component={Link}
                               to={`/events/venues/${loggedInUserId}/pending`}
                             />
-                          </Button>
+                          </Button> */}
                           <Button
                             onClick={handleCloseNavMenu}
                             sx={{my: 2, color: 'text.primary', display: 'block'}}
@@ -339,7 +339,7 @@ function NavBar() {
                               to="/events/new"
                             />
                           </Button>
-                          <Button
+                          {/* <Button
                             onClick={handleCloseNavMenu}
                             sx={{my: 2, color: 'text.primary', display: 'block'}}
                           >
@@ -349,7 +349,7 @@ function NavBar() {
                               component={Link}
                               to="auth/editprofile"
                             />
-                          </Button>
+                          </Button> */}
                           <Button
                             onClick={handleCloseNavMenu}
                             sx={{my: 2, color: 'text.primary', display: 'block'}}
