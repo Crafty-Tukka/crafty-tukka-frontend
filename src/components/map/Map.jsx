@@ -62,20 +62,18 @@ function Map() {
           >
             <div>
               <LinkedCard item={event}>
+                {/* this can be refactored into preview card component */}
                 <Typography component="div" variant="h6">
                   {event.name}
                 </Typography>
                 <Typography variant="subtitle1" color="text.secondary" component="div">
-                  at {event.venue}
+                  {event.venue}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  featuring {event.truck}
+                  Featuring {event.truck}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  on {event.date}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  at {event.start_time}
+                  {event.date} at {event.start_time}
                 </Typography>
               </LinkedCard>
             </div>
