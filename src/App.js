@@ -11,14 +11,10 @@ import EventForm from 'components/events/EventForm';
 import Events from 'components/events/Events';
 import FoodTruck from 'components/food-trucks/FoodTruck';
 import FoodTrucks from 'components/food-trucks/FoodTrucks';
-// import Map from 'components/map/Map';
 import Venue from 'components/venues/Venue';
 import Venues from 'components/venues/Venues';
 import {reducer} from 'utils/reducer';
 import {StateContext} from 'utils/stateContext';
-// import venuesList from './data/breweries.json';
-// import eventsList from './data/events.json';
-// import foodTrucksList from './data/food-trucks.json';
 import SignupFoodTruck from 'components/auth/SignupFoodTruck';
 import SignupVenue from 'components/auth/SignupVenue';
 import {getEvents} from 'services/eventsServices';
@@ -40,16 +36,12 @@ function App() {
   };
 
   const [store, dispatch] = useReducer(reducer, initialState);
-  // const [events, setEvents] = useState(initialState.confirmedEvents);
   const {loggedInUser, confirmedEvents, venues, foodTrucks} = store;
   const {isLoaded} = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries: ['places']
   });
 
-  // const [loggedInUser, setLoggedInUser] = useState('');
-
-  // we need to figure out how to keep updating this everytime a new venue/foodtruck/event is added without creating an infinite loop
   useEffect(() => {
     getEvents().then((events) => {
       dispatch({
@@ -85,17 +77,10 @@ function App() {
         <NavBar loggedInUser={loggedInUser} />
         <Routes>
           <Route path="/" element={<Navigate to="events" replace />} />
-          {/* <Route path="/" element={<Navigate to="map" replace />} /> */}
-          {/* <Route path="map" element={<Map />} /> */}
           <Route path="events">
             <Route index element={<Events events={confirmedEvents} />} />
-            <Route
-              path="new"
-              element={loggedInUser ? <EventForm /> : <Signin />} //addEvent={addEvent}
-            />
-            {/* Event page will host search logic to locate event based on id. then it will render detail component using props.children as discussed with glen. */}
+            <Route path="new" element={loggedInUser ? <EventForm /> : <Signin />} />
             <Route path=":eventid" element={loggedInUser ? <EventForm /> : <Signin />} />
-            {/* <Route path="venues/:venueid" element={<Events />} /> */}
             <Route path="venues/:venueid" element={<VenueEvents />} />
             <Route path="venues/:venueid/pending" element={<VenuePendingEvents />} />
             <Route path="foodtrucks/:foodtruckid" element={<Events />} />
@@ -103,12 +88,10 @@ function App() {
           </Route>
           <Route path="venues">
             <Route index element={<Venues />} />
-            {/* Venue page will host search logic to locate venue based on id. then it will render detail component using props.children as discussed with glen. */}
             <Route path=":venueid" element={<Venue />} />
           </Route>
           <Route path="foodtrucks">
             <Route index element={<FoodTrucks />} />
-            {/* FoodTruck page will host search logic to locate food truck based on id. then it will render detail component using props.children as discussed with glen. */}
             <Route path=":foodtruckid" element={<FoodTruck />} />
           </Route>
           <Route path="auth/signin" element={<Signin />} />
