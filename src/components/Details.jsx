@@ -30,11 +30,14 @@ import {deleteEvent} from 'services/eventsServices';
 
 const style = {
   position: 'absolute',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-between',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  minWidth: '50%',
-  maxHeight: '80%',
+  maxWidth: '65%',
+  maxHeight: '65%',
   overflow: 'auto',
   // bgcolor: 'background.paper',
   // border: '2px solid #000',
@@ -85,7 +88,7 @@ function Details({item, imgPath, handleClose}) {
     <>
       <Container fixed>
         <Card sx={style}>
-          <CardMedia component="img" height="340" image={item.picture_url} alt={item.name} />
+          <CardMedia component="img" image={item.picture_url} alt={item.name} />
           <CardHeader
             title={item.name}
             subheader={item.description ? item.description : item.website}

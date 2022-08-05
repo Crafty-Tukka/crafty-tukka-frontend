@@ -4,7 +4,7 @@ import './MapContainer.css';
 
 function MapContainer({children}) {
   return (
-    <Box sx={{paddingLeft: {xs: '0px', md: '400px'}}}>
+    <Box color="secondary" sx={{paddingLeft: {xs: '0px', md: '400px'}}}>
       <Map className="map" />
       {children}
     </Box>

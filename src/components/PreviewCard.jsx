@@ -3,21 +3,8 @@ import React from 'react';
 
 function PreviewCard({imgPath, item, children}) {
   return (
-    <Card
-      sx={{
-        display: 'flex',
-        minHeight: 180,
-        flexDirection: {xs: 'column', md: 'row'},
-        alignItems: 'center'
-      }}
-    >
-      <CardMedia
-        component="img"
-        sx={{maxWidth: '50% '}}
-        display="flex"
-        image={imgPath}
-        alt="image"
-      />
+    <Card sx={{display: 'flex', maxHeight: 350}}>
+      <CardMedia component="img" sx={{width: 151}} image={imgPath} alt="image" />
       <Box sx={{display: 'flex', flexDirection: 'column'}}>
         <CardContent sx={{flex: '1 0 auto'}}>{children}</CardContent>
       </Box>
