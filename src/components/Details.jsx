@@ -73,6 +73,11 @@ function Details({item, imgPath, handleClose}) {
     navigate(`/events`);
   };
 
+  const upcomingEvents = confirmedEvents.filter(
+    (event) => event.confirmed === true && item.name === (event.truck || event.venue)
+  );
+  console.log(upcomingEvents);
+
   return (
     <>
       <Card sx={style}>
@@ -153,25 +158,31 @@ function Details({item, imgPath, handleClose}) {
               <Typography sx={{mt: 2}} variant="h6" component="div">
                 Upcoming Events
               </Typography>
-              {confirmedEvents.map((event) => {
-                return event.confirmed === true && item.name === (event.truck || event.venue) ? (
-                  <LinkedCard key={event.id} imgPath={event.picture_url} item={event}>
-                    {/* this can be refactored into preview card component */}
-                    <Typography component="div" variant="h6">
-                      {event.name}
-                    </Typography>
-                    <Typography variant="subtitle1" color="text.secondary" component="div">
-                      {event.venue}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      Featuring {event.truck}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      {event.date} at {event.start_time}
-                    </Typography>
-                  </LinkedCard>
-                ) : null;
-              })}
+              {upcomingEvents.length > 0 ? (
+                upcomingEvents.map((event) => {
+                  return (
+                    <LinkedCard key={event.id} imgPath={event.picture_url} item={event}>
+                      {/* this can be refactored into preview card component */}
+                      <Typography component="div" variant="h6">
+                        {event.name}
+                      </Typography>
+                      <Typography variant="subtitle1" color="text.secondary" component="div">
+                        {event.venue}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        Featuring {event.truck}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        {event.date} at {event.start_time}
+                      </Typography>
+                    </LinkedCard>
+                  );
+                })
+              ) : (
+                <Typography variant="body2" color="text.secondary">
+                  No upcoming events, please check back later.
+                </Typography>
+              )}
             </>
           ) : null}
         </CardContent>
