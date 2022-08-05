@@ -63,7 +63,6 @@ export const reducer = (state, action) => {
         confirmedEvents: [action.data, ...state.confirmedEvents]
       };
     }
-
     case 'updateVenueEvent': {
       const events = state.confirmedEvents.filter((event) => event.id !== action.data.id);
       return {
@@ -71,7 +70,6 @@ export const reducer = (state, action) => {
         confirmedEvents: [action.data, ...events]
       };
     }
-
     case 'deleteEvent': {
       const events = state.confirmedEvents.filter((event) => event.id !== action.data.id);
       return {
@@ -79,14 +77,12 @@ export const reducer = (state, action) => {
         confirmedEvents: [...events]
       };
     }
-
     case 'addTruckEvent': {
       return {
         ...state,
         pendingEvents: [action.data, ...state.confirmedEvents]
       };
     }
-
     default:
       return state;
   }

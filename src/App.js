@@ -5,13 +5,9 @@ import NavBar from 'components/NavBar';
 import NotFound from 'components/NotFound';
 import EditProfile from 'components/auth/EditProfile';
 import Signin from 'components/auth/Signin';
-import Signup from 'components/auth/Signup';
-import Event from 'components/events/Event';
 import EventForm from 'components/events/EventForm';
 import Events from 'components/events/Events';
-import FoodTruck from 'components/food-trucks/FoodTruck';
 import FoodTrucks from 'components/food-trucks/FoodTrucks';
-import Venue from 'components/venues/Venue';
 import Venues from 'components/venues/Venues';
 import {reducer} from 'utils/reducer';
 import {StateContext} from 'utils/stateContext';
@@ -88,15 +84,15 @@ function App() {
           </Route>
           <Route path="venues">
             <Route index element={<Venues />} />
-            <Route path=":venueid" element={<Venue />} />
+            {/* <Route path=":venueid" element={<Venue />} /> */}
           </Route>
           <Route path="foodtrucks">
             <Route index element={<FoodTrucks />} />
-            <Route path=":foodtruckid" element={<FoodTruck />} />
+            {/* <Route path=":foodtruckid" element={<FoodTruck />} /> */}
           </Route>
           <Route path="auth/signin" element={<Signin />} />
           <Route path="auth/signup">
-            <Route index element={<Signup />} />
+            {/* <Route index element={<Signup />} /> */}
             <Route path="foodtruck" element={<SignupFoodTruck />} />
             <Route path="venue" element={<SignupVenue />} />
           </Route>
