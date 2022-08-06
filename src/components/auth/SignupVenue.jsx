@@ -76,7 +76,6 @@ function SignupVenue() {
 
     signUpVenue(data)
       .then((user) => {
-        console.log(user);
         let errorMessage = '';
         if (user.error) {
           // convert the object into a string
@@ -111,7 +110,6 @@ function SignupVenue() {
         }
       })
       .catch((e) => {
-        console.log(e.response.data);
         setError(e.response.data.error);
       });
   };
@@ -125,7 +123,6 @@ function SignupVenue() {
   const handleAddressSelect = async (value) => {
     const results = await geocodeByAddress(value);
     const latLng = await getLatLng(results[0]);
-    console.log(results);
     setVenueAddress(value);
     setCoordinates(latLng);
     setFormData({
@@ -144,7 +141,6 @@ function SignupVenue() {
   };
 
   const pictureSelectedHandler = (e) => {
-    console.log(e.target.files[0]);
     setFormData({
       ...formData,
       picture: e.target.files[0]

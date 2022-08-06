@@ -6,7 +6,6 @@ import LinkedCard from 'components/LinkedCard';
 function Venues() {
   const {store} = useGlobalState();
   const {venues} = store;
-  console.log(venues);
 
   return (
     <PageContainer title="Breweries">

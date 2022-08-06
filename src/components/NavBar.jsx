@@ -35,8 +35,6 @@ const theme = createTheme({
 function NavBar() {
   const {store, dispatch} = useGlobalState();
   const {loggedInUser, loggedInUserId, venues} = store;
-  console.log(loggedInUserId);
-  console.log(venues);
   const navigate = useNavigate();
 
   const [anchorElNav, setAnchorElNav] = useState(null);

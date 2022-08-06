@@ -7,7 +7,6 @@ import LinkedCard from 'components/LinkedCard';
 function FoodTrucks() {
   const {store} = useGlobalState();
   const {foodTrucks} = store;
-  console.log(foodTrucks);
 
   return (
     <PageContainer title="Food Trucks">
