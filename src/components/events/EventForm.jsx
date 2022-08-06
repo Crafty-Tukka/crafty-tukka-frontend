@@ -24,7 +24,7 @@ function EventForm() {
   //eslint-ignore-next-line: true
   const navigate = useNavigate();
   const {store, dispatch} = useGlobalState();
-  const {foodTrucks, venues, loggedInUser, confirmedEvents} = store;
+  const {foodTrucks, venues, loggedInUserId, confirmedEvents} = store;
   const params = useParams();
   const {eventid} = params;
 
@@ -55,7 +55,8 @@ function EventForm() {
           date: null,
           start_time: null,
           finish_time: null,
-          truck_id: null
+          truck_id: null,
+          venue_id: event.venue_id
         });
       });
     }
@@ -146,24 +147,11 @@ function EventForm() {
   const addVenueEvent = (data) => {
     createVenueEvent(data).then((pendingEvent) => {
       let errorMessage = '';
-      const getDate = (date) => {
-        return confirmedEvents.filter((event) => event.date === date);
-      };
-      const getTruck = (truckid) => {
-        return confirmedEvents.filter((event) => event.truck === truckid);
-      };
-      const intersect = (o1, o2) => {
-        return Object.keys(o1).filter((k) => k in o2);
-      };
-      let a = getDate(pendingEvent.date);
-      let b = getTruck(pendingEvent.truck_id);
       if (pendingEvent.error) {
         Object.keys(pendingEvent.error).forEach((key) => {
           errorMessage = errorMessage.concat(' | ', `${key} ${pendingEvent.error[key]}`);
         });
         setError(errorMessage);
-      } else if (intersect(a, b).length !== 0) {
-        Promise.reject({error: 'Not Allowed'});
       } else {
         dispatch({
           type: 'addVenueEvent',
@@ -202,6 +190,9 @@ function EventForm() {
     }
   };
 
+  console.log(formVenueData.venue_id);
+  console.log({loggedInUserId});
+
   let title = '';
   let buttonText = '';
   if (eventid) {
@@ -232,102 +223,106 @@ function EventForm() {
                 alignItems: 'center'
               }}
             >
-              <Typography component="h1" variant="h5">
-                {title}
-              </Typography>
-              <Box component="form" noValidate onSubmit={handleSubmit} sx={{mt: 3}}>
-                <Grid container spacing={2}>
-                  <Grid item xs={12}>
-                    <TextField
-                      required
-                      fullWidth
-                      id="name"
-                      label="Event Name"
-                      name="name"
-                      autoComplete="name"
-                      value={formVenueData.name}
-                      onChange={handleFormData}
-                      inputProps={{maxLength: 25}}
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      id="description"
-                      name="description"
-                      label="Describe you event"
-                      onChange={handleFormData}
-                      value={formVenueData.description}
-                      multiline
-                      rows={2}
-                      fullWidth
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <FormControl fullWidth>
-                      <InputLabel>Food Truck</InputLabel>
-                      <>
-                        <Select
+              {formVenueData.venue_id !== Number(loggedInUserId) && formVenueData.venue_id ? (
+                <h1>You Don't Own This Event. Access Denied</h1>
+              ) : (
+                <>
+                  <Typography component="h1" variant="h5">
+                    {title}
+                  </Typography>
+                  <Box component="form" noValidate onSubmit={handleSubmit} sx={{mt: 3}}>
+                    <Grid container spacing={2}>
+                      <Grid item xs={12}>
+                        <TextField
                           required
-                          label="Food Truck"
-                          name="truck"
-                          value={formVenueData.truck_id}
-                          onChange={(x) =>
-                            setFormVenueData({...formVenueData, truck_id: x.target.value})
-                          }
-                          // onChange={handleFormData}
-                        >
-                          {trucks &&
-                            trucks.map((truck) => {
-                              return (
-                                <MenuItem key={truck.id} value={truck.id} name={truck.name}>
-                                  {truck.name}
-                                </MenuItem>
-                              );
-                            })}
-                        </Select>
-                      </>
-                    </FormControl>
-                  </Grid>
-                </Grid>
-                <Typography component="h3" variant="h5">
-                  Select Your Event Date
-                </Typography>
-                <DatePicker
-                  selected={formVenueData.date}
-                  onChange={(x) => setFormVenueData({...formVenueData, date: x})}
-                  name="date"
-                  dateFormat="MMMM d, yyyy"
-                  minDate={new Date()}
-                />
-                <Typography component="h3" variant="h5">
-                  Select Your Start Time
-                </Typography>
-                <DatePicker
-                  selected={formVenueData.start_time}
-                  onChange={(x) => setFormVenueData({...formVenueData, start_time: x})}
-                  name="start_time"
-                  showTimeSelect
-                  showTimeSelectOnly
-                  timeIntervals={15}
-                  timeCaption="Time"
-                  dateFormat="h:mm aa"
-                  minDate={new Date()}
-                />
-                <Typography component="h3" variant="h5">
-                  Select Your Finish Time
-                </Typography>
-                <DatePicker
-                  selected={formVenueData.finish_time}
-                  onChange={(x) => setFormVenueData({...formVenueData, finish_time: x})}
-                  name="finish_time"
-                  showTimeSelect
-                  showTimeSelectOnly
-                  timeIntervals={15}
-                  timeCaption="Time"
-                  dateFormat="h:mm aa"
-                  minDate={new Date()}
-                />
-                {/* <LocalizationProvider dateAdapter={AdapterMoment}>
+                          fullWidth
+                          id="name"
+                          label="Event Name"
+                          name="name"
+                          autoComplete="name"
+                          value={formVenueData.name}
+                          onChange={handleFormData}
+                          inputProps={{maxLength: 25}}
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <TextField
+                          id="description"
+                          name="description"
+                          label="Describe you event"
+                          onChange={handleFormData}
+                          value={formVenueData.description}
+                          multiline
+                          rows={2}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <FormControl fullWidth>
+                          <InputLabel>Food Truck</InputLabel>
+                          <>
+                            <Select
+                              required
+                              label="Food Truck"
+                              name="truck"
+                              value={formVenueData.truck_id}
+                              onChange={(x) =>
+                                setFormVenueData({...formVenueData, truck_id: x.target.value})
+                              }
+                              // onChange={handleFormData}
+                            >
+                              {trucks &&
+                                trucks.map((truck) => {
+                                  return (
+                                    <MenuItem key={truck.id} value={truck.id} name={truck.name}>
+                                      {truck.name}
+                                    </MenuItem>
+                                  );
+                                })}
+                            </Select>
+                          </>
+                        </FormControl>
+                      </Grid>
+                    </Grid>
+                    <Typography component="h3" variant="h5">
+                      Select Your Event Date
+                    </Typography>
+                    <DatePicker
+                      selected={formVenueData.date}
+                      onChange={(x) => setFormVenueData({...formVenueData, date: x})}
+                      name="date"
+                      dateFormat="dd/MM/yyyy"
+                      minDate={new Date()}
+                    />
+                    <Typography component="h3" variant="h5">
+                      Select Your Start Time
+                    </Typography>
+                    <DatePicker
+                      selected={formVenueData.start_time}
+                      onChange={(x) => setFormVenueData({...formVenueData, start_time: x})}
+                      name="start_time"
+                      showTimeSelect
+                      showTimeSelectOnly
+                      timeIntervals={15}
+                      timeCaption="Time"
+                      dateFormat="h:mm aa"
+                      minDate={new Date()}
+                    />
+                    <Typography component="h3" variant="h5">
+                      Select Your Finish Time
+                    </Typography>
+                    <DatePicker
+                      selected={formVenueData.finish_time}
+                      onChange={(x) => setFormVenueData({...formVenueData, finish_time: x})}
+                      name="finish_time"
+                      showTimeSelect
+                      showTimeSelectOnly
+                      timeIntervals={15}
+                      timeCaption="Time"
+                      dateFormat="h:mm aa"
+                      minDate={new Date()}
+                    />
+                    {/* <LocalizationProvider dateAdapter={AdapterMoment}>
                 <Stack spacing={3}>
                   <Typography variant="h5">Choose your Event Start Date and Time</Typography>
                   <MobileDateTimePicker
@@ -353,16 +348,18 @@ function EventForm() {
                   />
                 </Stack>
               </LocalizationProvider> */}
-                <Button
-                  type="submit"
-                  value="Login"
-                  fullWidth
-                  variant="contained"
-                  sx={{mt: 3, mb: 2}}
-                >
-                  {buttonText}
-                </Button>
-              </Box>
+                    <Button
+                      type="submit"
+                      value="Login"
+                      fullWidth
+                      variant="contained"
+                      sx={{mt: 3, mb: 2}}
+                    >
+                      {buttonText}
+                    </Button>
+                  </Box>
+                </>
+              )}
             </Box>
           </Container>
         </ThemeProvider>

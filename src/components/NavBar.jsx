@@ -18,15 +18,15 @@ import AdbIcon from '@mui/icons-material/Adb';
 import MenuIcon from '@mui/icons-material/Menu';
 import {useGlobalState} from 'utils/stateContext';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
+import lgLogo from './2.png';
+import smLogo from './logo-small.png';
 
 const theme = createTheme({
   palette: {
     primary: {
-      // Purple and green play nicely together.
       main: '#050404'
     },
     secondary: {
-      // This is green.A700 as hex.
       main: '#FAF3F3'
     }
   }
@@ -83,7 +83,7 @@ function NavBar() {
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <Box sx={{display: {xs: 'none', md: 'flex'}, mr: 1, height: '80px'}}>
-              <img src="2.png" alt="logo" />
+              <img src={lgLogo} alt="logo" />
             </Box>
             <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
               <IconButton
@@ -151,7 +151,7 @@ function NavBar() {
               </Menu>
             </Box>
             <Box sx={{display: {xs: 'flex', md: 'none'}, mr: 2, justifyContent: 'center'}}>
-              <img src="logo-small.png" alt="logo" height="40px" display="flex" />
+              <img src={smLogo} alt="logo" height="40px" display="flex" />
             </Box>
             <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
               <Button onClick={handleCloseNavMenu} sx={{my: 2, color: 'white', display: 'block'}}>
