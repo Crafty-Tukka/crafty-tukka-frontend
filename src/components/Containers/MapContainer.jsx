@@ -13,7 +13,7 @@ function MapContainer({children}) {
   const [state, setState] = React.useState({
     open: true,
     vertical: 'bottom',
-    horizontal: 'center'
+    horizontal: 'right'
   });
 
   const {vertical, horizontal, open} = state;
