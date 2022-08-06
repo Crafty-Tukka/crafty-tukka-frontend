@@ -4,7 +4,7 @@ import {useGlobalState} from 'utils/stateContext';
 import './Map.css';
 import mapStyles from './mapStyles';
 import LinkedCard from 'components/LinkedCard';
-import {Typography} from '@mui/material';
+import {Container, Typography} from '@mui/material';
 
 function Map() {
   const initialMapPosition = {position: {lat: -27.4705, lng: 153.026}};

@@ -4,6 +4,7 @@ import Modal from '@mui/material/Modal';
 import Details from './Details';
 import TileCard from './TileCard';
 import PreviewCard from './PreviewCard';
+import {Container} from '@mui/material';
 
 function LinkedCard({imgPath, item, routePath, children}) {
   const [open, setOpen] = React.useState(false);
