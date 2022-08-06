@@ -10,19 +10,21 @@
 
 ---
 
-### **Production Deployment Client [https://crafty-tukka-frontend-staging.vercel.app](https://crafty-tukka-frontend-staging.vercel.app)**
+### **Production Deployment Client [https://crafty-tukka.vercel.app](https://crafty-tukka.vercel.app)**
 
 ### **Production Deployment API [https://crafty-tukka-api.herokuapp.com](https://crafty-tukka-api.herokuapp.com)**
 
-### **Staging Deployment Client [https://crafty-tukka.vercel.app](https://crafty-tukka.vercel.app)**
-
+### **Staging Deployment Client [https://crafty-tukka-frontend-staging.vercel.app](https://crafty-tukka-frontend-staging.vercel.app)**
 
 ## Table of Contents
 
 - [**Crafty Tukka**](#crafty-tukka)
   - [**T3A2-A - Full Stack App (Part A)**](#t3a2-a---full-stack-app-part-a)
     - [An application created by Simon Tanna and Jason Sandeman](#an-application-created-by-simon-tanna-and-jason-sandeman)
-    - [**Click here** to access the GitHub Repository for this file](#click-here-to-access-the-github-repository-for-this-file)
+    - [**Click here** to access the GitHub Repository for this project](#click-here-to-access-the-github-repository-for-this-project)
+    - [**Production Deployment Client https://crafty-tukka.vercel.app**](#production-deployment-client-httpscrafty-tukkavercelapp)
+    - [**Production Deployment API https://crafty-tukka-api.herokuapp.com**](#production-deployment-api-httpscrafty-tukka-apiherokuappcom)
+    - [**Staging Deployment Client https://crafty-tukka-frontend-staging.vercel.app**](#staging-deployment-client-httpscrafty-tukka-frontend-stagingvercelapp)
   - [Table of Contents](#table-of-contents)
     - [**1. Purpose**](#1-purpose)
     - [**2. Functionality and Features**](#2-functionality-and-features)
@@ -114,14 +116,15 @@ The Crafty Tukka application was created for use by food truck and brewery busin
 
 ### **4. Tech Stack**
 
-| Front-End   | Back-End      | Tools     | Dev-Ops | Deployment | Testing     |
-| ----------- | ------------- | --------- | ------- | ---------- | ----------- |
-| React.js    | Ruby on Rails | Draw.io   | Git     | Heroku     | Jest        |
-| HTML5       | Ruby          | Whimsical | GitHub  | Netlify    | Rspec Rails |
-| CSS3        | Postgresql    | Notion    | VS Code | Vercel     |             |
-| JSX         | Bcrypt        | Discord   |         |            |             |
-| Axios       | Knock         | Google Maps API         |         |            |             |
-| Material UI |               |           |         |            |             |
+| Front-End | Back-End | Front-End Libraries | Tools | Dev-Ops | Deployment | Testing |
+| --- | --- | --- | --- | --- | --- | --- |
+| React.js | Ruby on Rails | Axios | Draw.io | Git | Heroku | Jest |
+| HTML5 | Ruby | Material UI | Whimsical | GitHub | Netlify | Rspec Rails |
+| CSS3 | Postgresql | Google Maps API | Notion | VS Code |  |  |
+| JSX | Bcrypt | Dotenv | Discord |  |  |  |
+|  | Knock | Date Picker |  |  |  |  |
+|  | AWS SDK S3  | Places Autocomplete |  |  |  |  |
+|  |  | EsLint |  |  |  |  |
 
 Axios: We used Axios to make all of our React frontend API calls to our rails backend.
 
