@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -10,16 +10,13 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
-// import {FormControl, InputLabel, Select} from '@mui/material';
-// import MenuItem from '@mui/material/MenuItem';
 import {useGlobalState} from 'utils/stateContext';
 import {useNavigate} from 'react-router';
 import {signUpVenue} from 'services/authServices';
-// import IconButton from '@mui/material/IconButton';
-// import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import PlacesAutocomplete, {geocodeByAddress, getLatLng} from 'react-places-autocomplete';
 import {Alert, AlertTitle, IconButton, InputBase, Paper} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import {getVenues} from 'services/venuesServices';
 
 function Copyright(props) {
   return (
@@ -34,7 +31,18 @@ function Copyright(props) {
   );
 }
 
-const theme = createTheme();
+const theme = createTheme({
+  palette: {
+    primary: {
+      // Purple and green play nicely together.
+      main: '#050404'
+    },
+    secondary: {
+      // This is green.A700 as hex.
+      main: '#4BE4FF'
+    }
+  }
+});
 
 function SignupVenue() {
   const {dispatch} = useGlobalState();
@@ -58,14 +66,6 @@ function SignupVenue() {
 
   const [formData, setFormData] = useState(initialFormData);
   const [error, setError] = useState(null);
-
-  console.log(formData);
-
-  // const searchOptions = {
-  //   location: new (-27.4705, 153.026),
-  //   radius: 2000,
-  //   types: ['address']
-  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -100,6 +100,12 @@ function SignupVenue() {
             type: 'setId',
             data: user.id
           });
+          getVenues().then((venues) => {
+            dispatch({
+              type: 'setVenues',
+              data: venues
+            });
+          });
           setFormData(initialFormData);
           navigate('/events');
         }
@@ -130,14 +136,11 @@ function SignupVenue() {
     });
   };
 
-  // const venueCoordinates = {lat: coordinates.lat, lng: coordinates.lng};
-
   const handleFormData = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
-    console.log(formData);
   };
 
   const pictureSelectedHandler = (e) => {
@@ -200,23 +203,17 @@ function SignupVenue() {
                 />
               </Grid>
               {/* This is the address form */}
-              {/* <Grid item xs={12}>
-                <AutoComplete name="address" required id="address" />
-              </Grid> */}
               <Grid item xs={12}>
                 <PlacesAutocomplete
                   required
                   value={venueAddress}
                   onChange={setVenueAddress}
                   onSelect={handleAddressSelect}
-                  // venueCoordinates={venueCoordinates}
                   venueAddress={venueAddress}
                   name="address"
-                  // searchOptions={searchOptions}
                 >
                   {({getInputProps, suggestions, getSuggestionItemProps, loading}) => (
                     <div>
-                      {/* <input {...getInputProps({placeholder: 'Type address'})} /> */}
                       <Paper
                         component="form"
                         sx={{p: '2px 4px', display: 'flex', alignItems: 'center', width: 400}}
@@ -225,7 +222,6 @@ function SignupVenue() {
                           sx={{ml: 1, flex: 1}}
                           placeholder="Search Google Maps"
                           autofocus
-                          // inputProps={{'aria-label': 'search google maps'}}
                           {...getInputProps({placeholder: 'Enter your address'})}
                         />
                         <IconButton type="submit" sx={{p: '10px'}} aria-label="search">
@@ -278,17 +274,6 @@ function SignupVenue() {
                   autoComplete="website"
                 />
               </Grid>
-              {/* <Grid item xs={12} sm={6}>
-                <TextField
-                  autoComplete="google-maps"
-                  name="google_maps"
-                  fullWidth
-                  id="google_maps"
-                  onChange={handleFormData}
-                  value={formData.google_maps}
-                  label="Google Places"
-                />
-              </Grid> */}
               <Grid item xs={12} sm={6}>
                 <TextField
                   fullWidth
@@ -300,17 +285,6 @@ function SignupVenue() {
                   value={formData.facebook}
                 />
               </Grid>
-              {/* <Grid item xs={12} sm={6}>
-                <TextField
-                  fullWidth
-                  id="picture"
-                  label="Choose File"
-                  name="picture"
-                  autoComplete="facebook"
-                  onChange={handleFormData}
-                  value={formData.facebook}
-                />
-              </Grid> */}
               <Grid item xs={12} sm={6}>
                 <input
                   required
@@ -332,16 +306,6 @@ function SignupVenue() {
                   value={formData.email}
                 />
               </Grid>
-              {/* <Grid item xs={12} sm={6}>
-                <Button variant="contained" component="label">
-                  Upload
-                  <input hidden accept="image/*" multiple="false" type="file" />
-                </Button>
-                <IconButton color="primary" aria-label="upload picture" component="label">
-                  <input hidden accept="image/*" type="file" name="picture" id="picture" />
-                  <PhotoCamera />
-                </IconButton>
-              </Grid> */}
               <Grid item xs={12}>
                 <TextField
                   required

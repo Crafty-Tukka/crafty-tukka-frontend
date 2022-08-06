@@ -23,7 +23,7 @@ a {
   min-width: 400px;
   height: 100%;
   padding: 1rem;
-  background: transparent;
+  background: #050404;
   color: #fff;
   overflow-y: scroll;
 }

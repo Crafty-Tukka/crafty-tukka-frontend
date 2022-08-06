@@ -30,7 +30,22 @@ function Copyright(props) {
   );
 }
 
-const theme = createTheme();
+// const theme = createTheme();
+
+// import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      // Purple and green play nicely together.
+      main: '#050404'
+    },
+    secondary: {
+      // This is green.A700 as hex.
+      main: '#4BE4FF'
+    }
+  }
+});
 
 function Signin() {
   const {store, dispatch} = useGlobalState(); //to be implemented with reducer

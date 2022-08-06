@@ -40,6 +40,7 @@ function EventForm() {
   const [formVenueData, setFormVenueData] = useState(initialVenueFormData);
   const [error, setError] = useState(null);
   const [availableFoodTrucks, setAvailableFoodTrucks] = useState(null);
+  // const [truckz, setTruckz] = useState(foodTrucks);
   // console.log(formVenueData);
 
   useEffect(() => {
@@ -93,9 +94,17 @@ function EventForm() {
         trucks.push(foodTrucks.find((truck) => truck.id !== Number(id)));
       }
     });
+    // setTruckz(trucks);
   } else {
     trucks = foodTrucks;
   }
+
+  // useEffect(() => {
+  //   setFormVenueData({
+  //     ...formVenueData, // previous state
+  //     truck_id: null // new state
+  //   });
+  // }, [truckz]);
 
   // console.log(typeof confirmedEvents[0].date);
 
@@ -175,9 +184,8 @@ function EventForm() {
         setError(errorMessage);
       } else {
         dispatch({
-          type: '',
-          // type: 'updateVenueEvent',
-          action: pendingEvent
+          type: 'updateVenueEvent',
+          data: pendingEvent
         });
         navigate('/events');
       }

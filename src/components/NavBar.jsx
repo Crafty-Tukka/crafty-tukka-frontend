@@ -17,6 +17,20 @@ import {Link, useNavigate} from 'react-router-dom';
 import AdbIcon from '@mui/icons-material/Adb';
 import MenuIcon from '@mui/icons-material/Menu';
 import {useGlobalState} from 'utils/stateContext';
+import {createTheme, ThemeProvider} from '@mui/material/styles';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      // Purple and green play nicely together.
+      main: '#050404'
+    },
+    secondary: {
+      // This is green.A700 as hex.
+      main: '#FAF3F3'
+    }
+  }
+});
 
 function NavBar() {
   const {store, dispatch} = useGlobalState();
@@ -59,29 +73,18 @@ function NavBar() {
   };
 
   return (
-    <>
-      <AppBar position="sticky">
+    <ThemeProvider theme={theme}>
+      <AppBar
+        position="sticky"
+        sx={{
+          color: '#FAF3F3'
+        }}
+      >
         <Container maxWidth="xl">
           <Toolbar disableGutters>
-            <AdbIcon sx={{display: {xs: 'none', md: 'flex'}, mr: 1}} />
-            <Typography
-              variant="h6"
-              noWrap
-              component="a"
-              href="/"
-              sx={{
-                mr: 2,
-                display: {xs: 'none', md: 'flex'},
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none'
-              }}
-            >
-              LOGO
-            </Typography>
-
+            <Box sx={{display: {xs: 'none', md: 'flex'}, mr: 1, height: '80px'}}>
+              <img src="2.png" alt="logo" />
+            </Box>
             <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
               <IconButton
                 size="large"
@@ -147,25 +150,9 @@ function NavBar() {
                 )}
               </Menu>
             </Box>
-            <AdbIcon sx={{display: {xs: 'flex', md: 'none'}, mr: 1}} />
-            <Typography
-              variant="h5"
-              noWrap
-              component="a"
-              href=""
-              sx={{
-                mr: 2,
-                display: {xs: 'flex', md: 'none'},
-                flexGrow: 1,
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none'
-              }}
-            >
-              LOGO
-            </Typography>
+            <Box sx={{display: {xs: 'flex', md: 'none'}, mr: 2, justifyContent: 'center'}}>
+              <img src="logo-small.png" alt="logo" height="40px" display="flex" />
+            </Box>
             <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
               <Button onClick={handleCloseNavMenu} sx={{my: 2, color: 'white', display: 'block'}}>
                 <Tab label="Home" value="/events" component={Link} to="/events" />
@@ -272,7 +259,7 @@ function NavBar() {
           </Toolbar>
         </Container>
       </AppBar>
-    </>
+    </ThemeProvider>
   );
 }
 
