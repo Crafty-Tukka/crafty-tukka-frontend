@@ -291,7 +291,7 @@ function EventForm() {
                       selected={formVenueData.date}
                       onChange={(x) => setFormVenueData({...formVenueData, date: x})}
                       name="date"
-                      dateFormat="MMMM d, yyyy"
+                      dateFormat="dd/MM/yyyy"
                       minDate={new Date()}
                     />
                     <Typography component="h3" variant="h5">
