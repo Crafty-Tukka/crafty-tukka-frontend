@@ -52,6 +52,9 @@
     - [9.4.2 07/07/2022](#942-07072022)
     - [9.4.3 08/07/2022](#943-08072022)
     - [9.4.4 09/07/2022](#944-09072022)
+- [10. Testing](#10-testing)
+  - [10.1 Development Tests](#101-development-tests)
+  - [10.2 Production Tests](#102-production-tests)
 
 ---
 
@@ -69,13 +72,13 @@ Crafty Tukka is a web application that aims to solve these problems by facilitat
 
 ### **2. Functionality and Features**
 
-Crafty Tukka features 2 types of user accounts that require an initial sign-up and secure login credentials: _Venue and Food Truck_.
+Crafty Tukka initially featured 2 types of user accounts that require an initial sign-up and secure login credentials: _Venue and Food Truck_. However due to time constraints, the developers have given booking functionality to only the Venue operator with Food Truck authentication to be implemented in the future.
 
-Upon creating a new account, both brewery venues and food truck operators will be required to enter general information such as the _business name, description, email and phone number_ with an option to include a _website and social media links_. Unique fields exist for each type of account with breweries being required to provide an _address_ and food trucks a _cuisine category_.
+Upon creating a new account, a brewery venue will be required to enter general information such as the _business name, description, email and phone number_ with an option to include a _website and social media links_. Unique fields exist for each type of account with breweries being required to provide an _address_.
 
-Once registered and logged in, a brewery venue will be able to search for food trucks that are available on a given day while having the option to filter the list of food trucks by cuisine type. When the venue has found a food truck that they wish to book, they will be able to send a booking request to the truck operator who will be alerted of the request and then able to either accept or reject the request. Both user types are able to view, edit and cancel bookings.
+Once registered and logged in, a brewery venue will be able to search for food trucks that are available on a given day . When the venue has found a food truck that they wish to book, they will be able to create an event. Venues are able to view, edit and cancel bookings.
 
-When a booking between a venue and a food truck is confirmed, the details of the booking are added to the Crafty Tukka main page. This page features a map with pins showing the location of food truck events happening today with a list of upcoming events displayed adjacent to the map.
+When a booking is created, the details of the booking are added to the Crafty Tukka main page. This page features a map with pins showing the location of food truck events happening today with a list of upcoming events displayed adjacent to the map.
 
 Any member of the public can view the map and event list. They also have the ability to view the individual details of all food trucks and venues.
 
@@ -93,9 +96,9 @@ The Crafty Tukka application was created for use by food truck and brewery busin
 | ----------- | ------------- | --------- | ------- | ---------- | ----------- |
 | React.js    | Ruby on Rails | Draw.io   | Git     | Heroku     | Jest        |
 | HTML5       | Ruby          | Whimsical | GitHub  | Netlify    | Rspec Rails |
-| CSS3        | Postgresql    | Notion    | VS Code |            |             |
+| CSS3        | Postgresql    | Notion    | VS Code | Vercel     |             |
 | JSX         | Bcrypt        | Discord   |         |            |             |
-| Axios       | Knock         |           |         |            |             |
+| Axios       | Knock         | Google Maps API         |         |            |             |
 | Material UI |               |           |         |            |             |
 
 ---
@@ -379,3 +382,17 @@ User Stories Development
 ![9-7-22-user2](./docs/project-management/9-7-22-user2.png)
 
 ![9-7-22-user3](./docs/project-management/9-7-22-user3.png)
+
+### **10. Testing**
+
+The Crafty Tukka Project used a combination of both automated and manual testing. In the backend, rspec-rails was used to test models and routing. Jest was to be used for front-end tests but was ultimately shelved due to errors implementing tests in this framework while using global state.
+
+Manual testing of the application in development and production was performed by a third-party. Testing was performed at regular intervals during development and at the point of deployment to production.
+
+#### 10.1 Development Tests
+
+![Development Tests](./docs/manual-testing/development-testing.png)
+
+#### 10.2 Production Tests
+
+![Production Tests](./docs/manual-testing/production-testing.png)
