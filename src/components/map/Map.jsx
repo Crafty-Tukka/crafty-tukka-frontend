@@ -17,20 +17,21 @@ function Map() {
     []
   );
   const {store} = useGlobalState();
-  const {confirmedEvents} = store;
+  const {venues} = store;
   const [markers, setMarkers] = useState([]);
-  const [event, setEvent] = useState([]);
+  const [venue, setVenue] = useState([]);
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [center, setCenter] = useState(initialMapPosition.position);
 
   useEffect(() => {
-    setMarkers(confirmedEvents);
-  }, [confirmedEvents]);
+    // setMarkers(confirmedEvents);
+    setMarkers(venues);
+  }, [venues]);
 
   const onClick = (e, item) => {
     setCenter(e.latLng);
     setSelectedMarker(e);
-    setEvent(item);
+    setVenue(item);
   };
 
   // This is the alternative syntax for zoom change
@@ -61,20 +62,20 @@ function Map() {
             }}
           >
             <div>
-              <LinkedCard item={event}>
+              <LinkedCard item={venue}>
                 {/* this can be refactored into preview card component */}
-                <Typography component="div" variant="h6">
-                  {event.name}
+                {/* <Typography component="div" variant="h6">
+                  {venue.name}
                 </Typography>
                 <Typography variant="subtitle1" color="text.secondary" component="div">
-                  {event.venue}
+                  {venue.description}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Featuring {event.truck}
+                  Featuring {venue.truck}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  {event.date} at {event.start_time}
-                </Typography>
+                  {venue.date} at {venue.start_time}
+                </Typography> */}
               </LinkedCard>
             </div>
           </InfoWindow>
