@@ -61,6 +61,12 @@
       - [9.4.2 07/07/2022](#942-07072022)
       - [9.4.3 08/07/2022](#943-08072022)
       - [9.4.4 09/07/2022](#944-09072022)
+      - [9.4.5 14/07/2022](#945-14072022)
+      - [9.4.6 20/07/2022](#946-20072022)
+      - [9.4.7 22/07/2022](#947-22072022)
+      - [9.4.8 25/07/2022](#948-25072022)
+      - [9.4.9 01/08/2022](#949-01082022)
+      - [9.4.10 06/08/2022](#9410-06082022)
     - [**10. Testing**](#10-testing)
       - [10.1 Development Tests](#101-development-tests)
       - [10.2 Production Tests](#102-production-tests)
@@ -409,6 +415,30 @@ User Stories Development
 ![9-7-22-user2](./docs/project-management/9-7-22-user2.png)
 
 ![9-7-22-user3](./docs/project-management/9-7-22-user3.png)
+
+#### 9.4.5 14/07/2022
+
+![14-7-22-tasks](./docs/project-management/2022-07-14-132948.png)
+
+#### 9.4.6 20/07/2022
+
+![20-7-22-tasks](./docs/project-management/2022-07-20-093641.png)
+
+#### 9.4.7 22/07/2022
+
+![22-7-22-tasks](./docs/project-management/2022-07-224.png)
+
+#### 9.4.8 25/07/2022
+
+![25-7-22-tasks](./docs/project-management/2022-07-25.png)
+
+#### 9.4.9 01/08/2022
+
+![01-8-22-tasks](./docs/project-management/2022-08-01.png)
+
+#### 9.4.10 06/08/2022
+
+![06-8-22-tasks](./docs/project-management/2022-08-06.png)
 
 ### **10. Testing**
 
