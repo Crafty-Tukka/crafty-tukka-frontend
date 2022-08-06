@@ -1,74 +1,15 @@
 const mapStyles = [
   {
-    featureType: 'water',
-    stylers: [
-      {
-        saturation: 43
-      },
-      {
-        lightness: -11
-      },
-      {
-        hue: '#0088ff'
-      }
-    ]
-  },
-  {
-    featureType: 'road',
-    elementType: 'geometry.fill',
-    stylers: [
-      {
-        hue: '#ff0000'
-      },
-      {
-        saturation: -100
-      },
-      {
-        lightness: 99
-      }
-    ]
-  },
-  {
-    featureType: 'road',
-    elementType: 'geometry.stroke',
-    stylers: [
-      {
-        color: '#808080'
-      },
-      {
-        lightness: 54
-      }
-    ]
-  },
-  {
-    featureType: 'landscape.man_made',
-    elementType: 'geometry.fill',
-    stylers: [
-      {
-        color: '#ece2d9'
-      }
-    ]
-  },
-  {
-    featureType: 'poi.park',
-    elementType: 'geometry.fill',
-    stylers: [
-      {
-        color: '#ccdca1'
-      }
-    ]
-  },
-  {
-    featureType: 'road',
+    featureType: 'all',
     elementType: 'labels.text.fill',
     stylers: [
       {
-        color: '#767676'
+        color: '#626262'
       }
     ]
   },
   {
-    featureType: 'road',
+    featureType: 'all',
     elementType: 'labels.text.stroke',
     stylers: [
       {
@@ -77,57 +18,49 @@ const mapStyles = [
     ]
   },
   {
-    featureType: 'poi',
-    stylers: [
-      {
-        visibility: 'off'
-      }
-    ]
-  },
-  {
-    featureType: 'landscape.natural',
+    featureType: 'landscape',
     elementType: 'geometry.fill',
     stylers: [
       {
-        visibility: 'on'
-      },
-      {
-        color: '#b8cb93'
+        color: '#ffffff'
       }
     ]
   },
   {
-    featureType: 'poi.park',
+    featureType: 'road',
+    elementType: 'geometry.fill',
     stylers: [
       {
-        visibility: 'on'
+        color: '#92d5df'
       }
     ]
   },
   {
-    featureType: 'poi.sports_complex',
+    featureType: 'road',
+    elementType: 'geometry.stroke',
     stylers: [
       {
-        visibility: 'on'
+        color: '#e8e8e8'
       }
     ]
   },
   {
-    featureType: 'poi.medical',
+    featureType: 'road.local',
+    elementType: 'geometry.fill',
     stylers: [
       {
-        visibility: 'on'
+        color: '#e8e8e8'
       }
     ]
   },
   {
-    featureType: 'poi.business',
+    featureType: 'water',
+    elementType: 'geometry.fill',
     stylers: [
       {
-        visibility: 'simplified'
+        color: '#19b6cc'
       }
     ]
   }
 ];
-
 export default mapStyles;
