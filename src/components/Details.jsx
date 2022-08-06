@@ -77,12 +77,16 @@ function Details({item, imgPath, handleClose}) {
     navigate(`/events`);
   };
 
-  console.log(item);
-  console.log(confirmedEvents);
-  const upcomingEvents = confirmedEvents.filter(
-    (event) => event.confirmed === true && item.name === (event.truck || event.venue)
-  );
-  console.log(upcomingEvents);
+  let upcomingEvents = [];
+  if (item.address) {
+    upcomingEvents = confirmedEvents.filter(
+      (event) => event.confirmed === true && item.name === event.venue
+    );
+  } else if (item.category) {
+    upcomingEvents = confirmedEvents.filter(
+      (event) => event.confirmed === true && item.name === event.truck
+    );
+  }
 
   return (
     <>
