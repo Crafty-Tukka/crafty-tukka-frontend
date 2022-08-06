@@ -1,103 +1,91 @@
 const mapStyles = [
   {
-    featureType: 'landscape',
+    featureType: 'all',
+    elementType: 'labels',
     stylers: [
       {
-        hue: '#FFB000'
-      },
+        visibility: 'off'
+      }
+    ]
+  },
+  {
+    featureType: 'administrative',
+    elementType: 'labels.text',
+    stylers: [
       {
-        saturation: 71.66666666666669
-      },
+        visibility: 'on'
+      }
+    ]
+  },
+  {
+    featureType: 'landscape.natural',
+    elementType: 'labels.text',
+    stylers: [
       {
-        lightness: -28.400000000000006
-      },
+        visibility: 'on'
+      }
+    ]
+  },
+  {
+    featureType: 'poi.park',
+    elementType: 'geometry.fill',
+    stylers: [
       {
-        gamma: 1
+        color: '#aadd55'
+      }
+    ]
+  },
+  {
+    featureType: 'road',
+    elementType: 'all',
+    stylers: [
+      {
+        visibility: 'off'
+      }
+    ]
+  },
+  {
+    featureType: 'road',
+    elementType: 'labels',
+    stylers: [
+      {
+        visibility: 'off'
       }
     ]
   },
   {
     featureType: 'road.highway',
+    elementType: 'labels',
     stylers: [
       {
-        hue: '#E8FF00'
-      },
-      {
-        saturation: -76.6
-      },
-      {
-        lightness: 113
-      },
-      {
-        gamma: 1
+        visibility: 'on'
       }
     ]
   },
   {
     featureType: 'road.arterial',
+    elementType: 'labels.text',
     stylers: [
       {
-        hue: '#FF8300'
-      },
-      {
-        saturation: -77
-      },
-      {
-        lightness: 27.400000000000006
-      },
-      {
-        gamma: 1
+        visibility: 'on'
       }
     ]
   },
   {
     featureType: 'road.local',
+    elementType: 'labels.text',
     stylers: [
       {
-        hue: '#FF8C00'
-      },
-      {
-        saturation: -66.6
-      },
-      {
-        lightness: 34.400000000000006
-      },
-      {
-        gamma: 1
+        visibility: 'on'
       }
     ]
   },
   {
     featureType: 'water',
+    elementType: 'geometry.fill',
     stylers: [
       {
-        hue: '#00C4FF'
-      },
-      {
-        saturation: 22.799999999999997
-      },
-      {
-        lightness: -11.399999999999991
-      },
-      {
-        gamma: 1
-      }
-    ]
-  },
-  {
-    featureType: 'poi',
-    stylers: [
-      {
-        hue: '#9FFF00'
-      },
-      {
-        saturation: 0
-      },
-      {
-        lightness: -23.200000000000003
-      },
-      {
-        gamma: 1
+        color: '#0099dd'
       }
     ]
   }
