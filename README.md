@@ -6,52 +6,77 @@
 
 ---
 
-### **[Click here](https://github.com/Crafty-Tukka/CraftyTukkaDocs)** to access the GitHub Repository for this file
+### **[Click here](https://github.com/Crafty-Tukka)** to access the GitHub Repository for this project
 
 ---
 
+### **Production Deployment Client [https://crafty-tukka-frontend-staging.vercel.app](https://crafty-tukka-frontend-staging.vercel.app)**
+
+### **Production Deployment API [https://crafty-tukka-api.herokuapp.com](https://crafty-tukka-api.herokuapp.com)**
+
+### **Staging Deployment Client [https://crafty-tukka.vercel.app](https://crafty-tukka.vercel.app)**
+
+
 ## Table of Contents
 
-- [1. Purpose](#1-purpose)
-- [2. Functionality and Features](#2-functionality-and-features)
-- [3. Target Audience](#3-target-audience)
-- [4. Tech Stack](#4-tech-stack)
-- [5. User Stories](#5-user-stories)
-  - [5.1 Concept Personas](#51-concept-personas)
-  - [5.2 User Story Development](#52-user-story-development)
-  - [5.3 User Story Management](#53-user-story-management)
-  - [5.4 Final User Stories](#54-final-user-stories)
-    - [5.4.1 General Public User](#541-general-public-user)
-    - [5.4.2 Food Truck Operator](#542-food-truck-operator)
-    - [5.4.3 Venue](#543-venue)
-- [6. Application Architecture Diagram](#6-application-architecture-diagram)
-- [7. Dataflow Diagrams](#7-dataflow-diagrams)
-  - [7.1 Application Overview](#71-application-overview)
-  - [7.2 Venue Dataflow Layer](#72-venue-dataflow-layer)
-  - [7.3 Food Truck Dataflow Layer](#73-food-truck-dataflow-layer)
-- [8. Wireframes](#8-wireframes)
-  - [8.1 Planning and Implementation](#81-planning-and-implementation)
-  - [8.2 Wireframe Images](#82-wireframe-images)
-    - [8.2.1 Landing Page Views](#821-landing-page-views)
-    - [8.2.2 Map View With Event Details](#822-map-view-with-event-details)
-    - [8.2.3 Food Truck List and Details Views](#823-food-truck-list-and-details-views)
-    - [8.2.4 Venue List and Details Views](#824-venue-list-and-details-views)
-    - [8.2.5 Venue and Food Truck Filter Views](#825-venue-and-food-truck-filter-views)
-    - [8.2.6 Registered User Sign In Views](#826-registered-user-sign-in-views)
-    - [8.2.7 Food Truck and Venue Sign Up Views](#827-food-truck-and-venue-sign-up-views)
-    - [8.2.8 Food Truck Booking Request and Prior Booking Screens](#828-food-truck-booking-request-and-prior-booking-screens)
-    - [8.2.9 Registered User Dashboard and Existing Booking Screen](#829-registered-user-dashboard-and-existing-booking-screen)
-- [9. Project Management](#9-project-management)
-  - [9.1 Methodology](#91-methodology)
-  - [9.2 Workflow](#92-workflow)
-  - [9.3 Task Management](#93-task-management)
-    - [9.3.1 General Tasks](#931-general-tasks)
-    - [9.3.2 User Story Tasks](#932-user-story-tasks)
-  - [9.4 Screenshots](#94-screenshots)
-    - [9.4.1 01/07/2022](#941-01072022)
-    - [9.4.2 07/07/2022](#942-07072022)
-    - [9.4.3 08/07/2022](#943-08072022)
-    - [9.4.4 09/07/2022](#944-09072022)
+- [**Crafty Tukka**](#crafty-tukka)
+  - [**T3A2-A - Full Stack App (Part A)**](#t3a2-a---full-stack-app-part-a)
+    - [An application created by Simon Tanna and Jason Sandeman](#an-application-created-by-simon-tanna-and-jason-sandeman)
+    - [**Click here** to access the GitHub Repository for this file](#click-here-to-access-the-github-repository-for-this-file)
+  - [Table of Contents](#table-of-contents)
+    - [**1. Purpose**](#1-purpose)
+    - [**2. Functionality and Features**](#2-functionality-and-features)
+    - [**3. Target Audience**](#3-target-audience)
+    - [**4. Tech Stack**](#4-tech-stack)
+    - [**5. User Stories**](#5-user-stories)
+      - [**Link to User Stories Kanban Board**](#link-to-user-stories-kanban-board)
+      - [**5.1 Concept Personas**](#51-concept-personas)
+      - [**5.2 User Story Development**](#52-user-story-development)
+      - [**5.3 User Story Management**](#53-user-story-management)
+      - [**5.4 Final User Stories**](#54-final-user-stories)
+      - [**5.4.1 General Public User**](#541-general-public-user)
+      - [**5.4.2 Food Truck Operator**](#542-food-truck-operator)
+      - [**5.4.3 Venue**](#543-venue)
+    - [**6. Application Architecture Diagram**](#6-application-architecture-diagram)
+  - [!Crafty Tukka Application Architecture Diagram](#)
+    - [**7. Dataflow Diagrams**](#7-dataflow-diagrams)
+      - [7.1 Application Overview](#71-application-overview)
+      - [7.2 Venue Dataflow Layer](#72-venue-dataflow-layer)
+      - [7.3 Food Truck Dataflow Layer](#73-food-truck-dataflow-layer)
+    - [**8. Wireframes**](#8-wireframes)
+      - [Link to all wireframes](#link-to-all-wireframes)
+      - [Link to annotated wireframes](#link-to-annotated-wireframes)
+      - [8.1 Planning and Implementation](#81-planning-and-implementation)
+      - [**8.2 Wireframe Images**](#82-wireframe-images)
+      - [8.2.1 Landing Page Views](#821-landing-page-views)
+      - [8.2.2 Map View With Event Details](#822-map-view-with-event-details)
+      - [8.2.3 Food Truck List and Details Views](#823-food-truck-list-and-details-views)
+      - [8.2.4 Venue List and Details Views](#824-venue-list-and-details-views)
+      - [8.2.5 Venue and Food Truck Filter Views](#825-venue-and-food-truck-filter-views)
+      - [8.2.6 Registered User Sign In Views](#826-registered-user-sign-in-views)
+      - [8.2.7 Food Truck and Venue Sign Up Views](#827-food-truck-and-venue-sign-up-views)
+      - [8.2.8 Food Truck Booking Request and Prior Booking Screens](#828-food-truck-booking-request-and-prior-booking-screens)
+      - [8.2.9 Registered User Dashboard and Existing Booking Screen](#829-registered-user-dashboard-and-existing-booking-screen)
+    - [**9. Project Management**](#9-project-management)
+      - [9.1 Methodology](#91-methodology)
+      - [9.2 Workflow](#92-workflow)
+      - [9.3 Task Management](#93-task-management)
+      - [9.3.1 General Tasks](#931-general-tasks)
+      - [9.3.2 User Story Tasks](#932-user-story-tasks)
+      - [9.4 Screenshots](#94-screenshots)
+      - [9.4.1 01/07/2022](#941-01072022)
+      - [9.4.2 07/07/2022](#942-07072022)
+      - [9.4.3 08/07/2022](#943-08072022)
+      - [9.4.4 09/07/2022](#944-09072022)
+      - [9.4.5 14/07/2022](#945-14072022)
+      - [9.4.6 20/07/2022](#946-20072022)
+      - [9.4.7 22/07/2022](#947-22072022)
+      - [9.4.8 25/07/2022](#948-25072022)
+      - [9.4.9 01/08/2022](#949-01082022)
+      - [9.4.10 06/08/2022](#9410-06082022)
+    - [**10. Testing**](#10-testing)
+      - [10.1 Development Tests](#101-development-tests)
+      - [10.2 Production Tests](#102-production-tests)
 
 ---
 
@@ -69,13 +94,13 @@ Crafty Tukka is a web application that aims to solve these problems by facilitat
 
 ### **2. Functionality and Features**
 
-Crafty Tukka features 2 types of user accounts that require an initial sign-up and secure login credentials: _Venue and Food Truck_.
+Crafty Tukka initially featured 2 types of user accounts that require an initial sign-up and secure login credentials: _Venue and Food Truck_. However due to time constraints, the developers have given booking functionality to only the Venue operator with Food Truck authentication to be implemented in the future.
 
-Upon creating a new account, both brewery venues and food truck operators will be required to enter general information such as the _business name, description, email and phone number_ with an option to include a _website and social media links_. Unique fields exist for each type of account with breweries being required to provide an _address_ and food trucks a _cuisine category_.
+Upon creating a new account, a brewery venue will be required to enter general information such as the _business name, description, email and phone number_ with an option to include a _website and social media links_. Unique fields exist for each type of account with breweries being required to provide an _address_.
 
-Once registered and logged in, a brewery venue will be able to search for food trucks that are available on a given day while having the option to filter the list of food trucks by cuisine type. When the venue has found a food truck that they wish to book, they will be able to send a booking request to the truck operator who will be alerted of the request and then able to either accept or reject the request. Both user types are able to view, edit and cancel bookings.
+Once registered and logged in, a brewery venue will be able to search for food trucks that are available on a given day . When the venue has found a food truck that they wish to book, they will be able to create an event. Venues are able to view, edit and cancel bookings.
 
-When a booking between a venue and a food truck is confirmed, the details of the booking are added to the Crafty Tukka main page. This page features a map with pins showing the location of food truck events happening today with a list of upcoming events displayed adjacent to the map.
+When a booking is created, the details of the booking are added to the Crafty Tukka main page. This page features a map with pins showing the location of food truck events happening today with a list of upcoming events displayed adjacent to the map.
 
 Any member of the public can view the map and event list. They also have the ability to view the individual details of all food trucks and venues.
 
@@ -93,10 +118,28 @@ The Crafty Tukka application was created for use by food truck and brewery busin
 | ----------- | ------------- | --------- | ------- | ---------- | ----------- |
 | React.js    | Ruby on Rails | Draw.io   | Git     | Heroku     | Jest        |
 | HTML5       | Ruby          | Whimsical | GitHub  | Netlify    | Rspec Rails |
-| CSS3        | Postgresql    | Notion    | VS Code |            |             |
+| CSS3        | Postgresql    | Notion    | VS Code | Vercel     |             |
 | JSX         | Bcrypt        | Discord   |         |            |             |
-| Axios       | Knock         |           |         |            |             |
+| Axios       | Knock         | Google Maps API         |         |            |             |
 | Material UI |               |           |         |            |             |
+
+Axios: We used Axios to make all of our React frontend API calls to our rails backend.
+
+Material UI: We used the material UI styling library in our app to help keep a consistent styling theme throughout the application.
+
+Google Maps API: The google maps API was required to render a map for our users to view upcoming events on a map.
+
+Dotenv: We used Dotenv to store our environment variables such as our Google Maps API key.
+
+Date Picker: We used the React date picker to enable users to select a date for their event.
+
+Places Autocomplete: We implemented this feature to try and eliminate user error when entering addresses and this way once the user chooses the correct address we know we will have the correct lat and long coordinates.
+
+EsLint: This came pre-bundled in our React template and helped keep a consistent codebase.   
+
+Bcrypt: We used Bcrypt to assist with password hashing so that users passwords are kept secret even from our servers.
+
+Knock: Knock handled our user authentication in the back-end
 
 ---
 
@@ -379,3 +422,41 @@ User Stories Development
 ![9-7-22-user2](./docs/project-management/9-7-22-user2.png)
 
 ![9-7-22-user3](./docs/project-management/9-7-22-user3.png)
+
+#### 9.4.5 14/07/2022
+
+![14-7-22-tasks](./docs/project-management/2022-07-14-132948.png)
+
+#### 9.4.6 20/07/2022
+
+![20-7-22-tasks](./docs/project-management/2022-07-20-093641.png)
+
+#### 9.4.7 22/07/2022
+
+![22-7-22-tasks](./docs/project-management/2022-07-224.png)
+
+#### 9.4.8 25/07/2022
+
+![25-7-22-tasks](./docs/project-management/2022-07-25.png)
+
+#### 9.4.9 01/08/2022
+
+![01-8-22-tasks](./docs/project-management/2022-08-01.png)
+
+#### 9.4.10 06/08/2022
+
+![06-8-22-tasks](./docs/project-management/2022-08-06.png)
+
+### **10. Testing**
+
+The Crafty Tukka Project used a combination of both automated and manual testing. In the backend, rspec-rails was used to test models and routing. Jest was to be used for front-end tests but was ultimately shelved due to errors implementing tests in this framework while using global state.
+
+Manual testing of the application in development and production was performed by a third-party. Testing was performed at regular intervals during development and at the point of deployment to production.
+
+#### 10.1 Development Tests
+
+![Development Tests](./docs/manual-testing/development-testing.png)
+
+#### 10.2 Production Tests
+
+![Production Tests](./docs/manual-testing/production-testing.png)

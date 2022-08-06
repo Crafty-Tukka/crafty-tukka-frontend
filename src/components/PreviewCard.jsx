@@ -7,7 +7,7 @@ function PreviewCard({imgPath, item, children}) {
       sx={{
         display: 'flex',
         maxHeight: '50%',
-        flexDirection: {xs: 'column', md: 'row'},
+        // flexDirection: {xs: 'column', md: 'row'},
         alignItems: 'center'
       }}
     >
