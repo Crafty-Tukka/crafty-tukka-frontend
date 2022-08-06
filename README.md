@@ -6,9 +6,16 @@
 
 ---
 
-### **[Click here](https://github.com/Crafty-Tukka/CraftyTukkaDocs)** to access the GitHub Repository for this file
+### **[Click here](https://github.com/Crafty-Tukka)** to access the GitHub Repository for this project
 
 ---
+
+### **Production Deployment Client [https://crafty-tukka-frontend-staging.vercel.app](https://crafty-tukka-frontend-staging.vercel.app)**
+
+### **Production Deployment API [https://crafty-tukka-api.herokuapp.com](https://crafty-tukka-api.herokuapp.com)**
+
+### **Staging Deployment Client [https://crafty-tukka.vercel.app](https://crafty-tukka.vercel.app)**
+
 
 ## Table of Contents
 
