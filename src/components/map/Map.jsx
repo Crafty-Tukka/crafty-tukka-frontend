@@ -7,7 +7,7 @@ import LinkedCard from 'components/LinkedCard';
 import {Typography} from '@mui/material';
 
 function Map() {
-  const initialMapPosition = {position: {lat: -27.4705, lng: 153.026}};
+  const initialMapPosition = {position: {lat: -27.470224565118833, lng: 153.08898586247327}};
   const options = useMemo(
     () => ({
       disableDefaultUI: true,
