@@ -184,9 +184,8 @@ function EventForm() {
         setError(errorMessage);
       } else {
         dispatch({
-          type: '',
-          // type: 'updateVenueEvent',
-          action: pendingEvent
+          type: 'updateVenueEvent',
+          data: pendingEvent
         });
         navigate('/events');
       }

@@ -13,7 +13,10 @@ const mapStyles = [
     elementType: 'labels.text.stroke',
     stylers: [
       {
-        color: '#ffffff'
+        visibility: 'off'
+      },
+      {
+        hue: '#ff000a'
       }
     ]
   },
