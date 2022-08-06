@@ -3,8 +3,8 @@ import {Card, CardActions, CardHeader, CardMedia, Chip} from '@mui/material';
 
 function TileCard({imgPath, item, children}) {
   return (
-    <Card sx={{width: 310, m: 2}}>
-      <CardMedia component="img" alt="image" height="240" image={imgPath} />
+    <Card sx={{width: 200, m: 2}}>
+      <CardMedia component="img" alt="image" height="200" image={imgPath} />
       <CardHeader title={item.name} subheader={item.website && item.website} />
       <CardActions sx={{marginBottom: 1, pt: 0, pl: 2}}>
         {item.category ? (

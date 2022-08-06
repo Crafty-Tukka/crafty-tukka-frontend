@@ -6,7 +6,7 @@ function PreviewCard({imgPath, item, children}) {
     <Card
       sx={{
         display: 'flex',
-        maxHeight: '60%',
+        maxHeight: '50%',
         // flexDirection: {xs: 'column', md: 'row'},
         alignItems: 'center'
       }}
