@@ -206,7 +206,6 @@ function Details({item, imgPath, handleClose}) {
         <CardActions sx={{mb: 2, ml: 1}}>
           {item.date && item.venue_id === Number(loggedInUserId) ? (
             <>
-              {console.log(item.date)}
               <Button
                 size="medium"
                 color="secondary"

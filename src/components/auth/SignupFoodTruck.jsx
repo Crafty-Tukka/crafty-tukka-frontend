@@ -61,10 +61,8 @@ function SignupFoodTruck() {
         console.log(user);
         let errorMessage = '';
         if (user.error) {
-          // console.log(user.error)
           // convert the object into a string
           Object.keys(user.error).forEach((key) => {
-            //console.log(key, user.error[key])
             errorMessage = errorMessage.concat('', `${key} ${user.error[key]}`);
           });
           setError(errorMessage);
@@ -84,10 +82,6 @@ function SignupFoodTruck() {
             type: 'setId',
             data: user.id
           });
-          // dispatch({
-          //   type: 'setPicture',
-          //   data: user.picture
-          // });
           setFormData(initialFormData);
           navigate('/events');
         }
@@ -109,11 +103,6 @@ function SignupFoodTruck() {
     {id: 2, type: 'Wings'},
     {id: 3, type: 'Yummy Sweets'}
   ];
-  // const [categoryType, setCategoryType] = useState('');
-
-  // const handleChange = (event) => {
-  //   setCategoryType(event.target.value);
-  // };
 
   return (
     <ThemeProvider theme={theme}>
@@ -228,16 +217,6 @@ function SignupFoodTruck() {
                   value={formData.facebook}
                 />
               </Grid>
-              {/* <Grid item xs={12} sm={6}>
-                <Button variant="contained" component="label">
-                  Upload
-                  <input hidden accept="image/*" multiple="false" type="file" />
-                </Button>
-                <IconButton color="primary" aria-label="upload picture" component="label">
-                  <input hidden accept="image/*" type="file" name="picture" id="picture" />
-                  <PhotoCamera />
-                </IconButton>
-              </Grid> */}
               <Grid item xs={12}>
                 <TextField
                   required
