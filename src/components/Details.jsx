@@ -86,9 +86,14 @@ function Details({item, imgPath, handleClose}) {
 
   return (
     <>
-      <Container fixed>
-        <Card sx={style}>
-          <CardMedia component="img" image={item.picture_url} alt={item.name} />
+      <Container sx={{display: 'flex', width: {xs: '100%', md: '500px'}}}>
+        <Card sx={{display: 'flex', flexDirection: 'column', height: {xs: '90%', md: '100%'}}}>
+          <CardMedia
+            component="img"
+            image={item.picture_url}
+            alt={item.name}
+            sx={{display: 'flex', width: {xs: '60%', md: '80%'}, alignSelf: 'center'}}
+          />
           <CardHeader
             title={item.name}
             subheader={item.description ? item.description : item.website}
@@ -138,7 +143,7 @@ function Details({item, imgPath, handleClose}) {
               />
             </CardActions>
           ) : null}
-          <CardContent sx={{mt: 0, pt: 0}}>
+          <CardContent sx={{mt: 0, pt: 0, display: 'flex', flexDirection: 'column'}}>
             {item.date ? (
               <>
                 <Typography variant="subtitle1" color="text.secondary">
