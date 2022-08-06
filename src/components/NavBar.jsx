@@ -27,7 +27,7 @@ const theme = createTheme({
     },
     secondary: {
       // This is green.A700 as hex.
-      main: '#4BE4FF'
+      main: '#FAF3F3'
     }
   }
 });
@@ -77,7 +77,7 @@ function NavBar() {
       <AppBar
         position="sticky"
         sx={{
-          color: 'red'
+          color: '#FAF3F3'
         }}
       >
         <Container maxWidth="xl">
@@ -150,25 +150,9 @@ function NavBar() {
                 )}
               </Menu>
             </Box>
-            <AdbIcon sx={{display: {xs: 'flex', md: 'none'}, mr: 1}} />
-            <Typography
-              variant="h5"
-              noWrap
-              component="a"
-              href=""
-              sx={{
-                mr: 2,
-                display: {xs: 'flex', md: 'none'},
-                flexGrow: 1,
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none'
-              }}
-            >
-              LOGO
-            </Typography>
+            <Box sx={{display: {xs: 'flex', md: 'none'}, mr: 2, justifyContent: 'center'}}>
+              <img src="logo-small.png" alt="logo" height="40px" display="flex" />
+            </Box>
             <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
               <Button onClick={handleCloseNavMenu} sx={{my: 2, color: 'white', display: 'block'}}>
                 <Tab label="Home" value="/events" component={Link} to="/events" />
