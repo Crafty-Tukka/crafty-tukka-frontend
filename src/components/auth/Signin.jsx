@@ -37,11 +37,9 @@ function Copyright(props) {
 const theme = createTheme({
   palette: {
     primary: {
-      // Purple and green play nicely together.
       main: '#050404'
     },
     secondary: {
-      // This is green.A700 as hex.
       main: '#4BE4FF'
     }
   }
@@ -59,7 +57,6 @@ function Signin() {
 
   const [formData, setFormData] = useState(initialFormData);
   const [error, setError] = useState(null);
-  // const [error, setError] = useState(null); //to be implemented with reducer
 
   const handleFormData = (event) => {
     setFormData({
@@ -70,18 +67,12 @@ function Signin() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // console.log(formData);
     if (venues.find((venue) => venue.email === formData.email)) {
       // venue sign in
       signInVenue(formData)
         .then((user) => {
-          console.log(user);
           let errorMessage = '';
           if (user.error) {
-            // convert the object into a string
-            // Object.keys(user.error).forEach((key) => {
-            //   errorMessage = errorMessage.concat(' | ', `${key} ${user.error[key]}`);
-            // });
             errorMessage = user.error;
             setError(errorMessage);
           } else {
@@ -106,14 +97,12 @@ function Signin() {
           }
         })
         .catch((e) => {
-          console.log(e.response.data);
           setError(e.response.data.error);
         });
     } else if (foodTrucks.find((foodTruck) => foodTruck.email === formData.email)) {
       // food truck sign in
       signInFoodTruck(formData)
         .then((user) => {
-          console.log(user);
           let errorMessage = '';
           if (user.error) {
             errorMessage = user.error;
@@ -140,7 +129,6 @@ function Signin() {
           }
         })
         .catch((e) => {
-          console.log(e.response.data);
           setError(e.response.data.error);
         });
     } else {

@@ -16,8 +16,6 @@ function VenueEvents() {
     });
   }, []);
 
-  console.log(venueEvents);
-
   return (
     <PageContainer title="My Events">
       {venueEvents.map((event) => {

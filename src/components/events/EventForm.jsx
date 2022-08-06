@@ -1,12 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {useGlobalState} from 'utils/stateContext';
 import {useNavigate, useParams} from 'react-router-dom';
-// import Stack from '@mui/material/Stack';
-// import TextField from '@mui/material/TextField';
-// import {AdapterMoment} from '@mui/x-date-pickers/AdapterMoment';
-// import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
 import {Typography, Button, TextField, Alert, AlertTitle} from '@mui/material';
-// import {MobileDateTimePicker} from '@mui/x-date-pickers/MobileDateTimePicker';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
@@ -44,10 +39,8 @@ function EventForm() {
   // console.log(formVenueData);
 
   useEffect(() => {
-    // console.log(eventid);
     if (eventid) {
       getEvent(eventid).then((event) => {
-        console.log(event);
         setFormVenueData({
           name: event.name,
           description: event.description,
@@ -100,50 +93,6 @@ function EventForm() {
     trucks = foodTrucks;
   }
 
-  // useEffect(() => {
-  //   setFormVenueData({
-  //     ...formVenueData, // previous state
-  //     truck_id: null // new state
-  //   });
-  // }, [truckz]);
-
-  // console.log(typeof confirmedEvents[0].date);
-
-  // const getDate = (date) => {
-  //   return confirmedEvents.filter((event) => event.date === date);
-  //   // return confirmedEvents.find((event) => event.date === date);
-  // };
-
-  // let b = getDate(formVenueData.date);
-  // console.log(getDate(formVenueData.date));
-
-  // const getTruck = (truckid) => {
-  //   return confirmedEvents.filter((event) => event.truck === truckid);
-  // };
-
-  // let a = getTruck(formVenueData.truck);
-  // console.log(getTruck(formVenueData.truck));
-
-  // const intersect = (o1, o2) => {
-  //   return Object.keys(o1).filter((k) => k in o2);
-  // };
-
-  // console.log(intersect(a, b));
-
-  // const checkDates = (confirmedEvents, pendingEvent, isUnion = false) =>
-  //   confirmedEvents.filter((a) => isUnion === pendingEvent.some((b) => a.date === b.date));
-
-  // const checkTrucks = (confirmedEvents, pendingEvent, isUnion = false) =>
-  //   confirmedEvents.filter((a) => isUnion === pendingEvent.some((b) => a.truck_id === b.truck_id));
-
-  // const inBothDates = (confirmedEvents, pendingEvent) =>
-  //   checkDates(confirmedEvents, pendingEvent, true);
-
-  // const inBothTrucks = (confirmedEvents, pendingEvent) =>
-  //   checkTrucks(confirmedEvents, pendingEvent, true);
-
-  // console.log(inBothTrucks(confirmedEvents.truck_id, foodTrucks.id));
-
   const addVenueEvent = (data) => {
     createVenueEvent(data).then((pendingEvent) => {
       let errorMessage = '';
@@ -185,13 +134,9 @@ function EventForm() {
     if (eventid) {
       updateEvent({...formVenueData}, eventid);
     } else {
-      console.log(formVenueData);
       addVenueEvent(formVenueData);
     }
   };
-
-  console.log(formVenueData.venue_id);
-  console.log({loggedInUserId});
 
   let title = '';
   let buttonText = '';
@@ -322,32 +267,6 @@ function EventForm() {
                       dateFormat="h:mm aa"
                       minDate={new Date()}
                     />
-                    {/* <LocalizationProvider dateAdapter={AdapterMoment}>
-                <Stack spacing={3}>
-                  <Typography variant="h5">Choose your Event Start Date and Time</Typography>
-                  <MobileDateTimePicker
-                    label="Start Date and Time"
-                    inputFormat="DD/MM/yyyy hh:mm a"
-                    name="start"
-                    value={startDate}
-                    onChange={(newValue) => {
-                      setStartDate(newValue);
-                    }}
-                    renderInput={(params) => <TextField {...params} />}
-                  />
-                  <Typography variant="h5">Choose your Event End Date and Time</Typography>
-                  <MobileDateTimePicker
-                    label="End Date and Time"
-                    inputFormat="DD/MM/yyyy hh:mm a"
-                    name="end"
-                    value={endDate}
-                    onChange={(newValue) => {
-                      setEndDate(newValue);
-                    }}
-                    renderInput={(params) => <TextField {...params} />}
-                  />
-                </Stack>
-              </LocalizationProvider> */}
                     <Button
                       type="submit"
                       value="Login"

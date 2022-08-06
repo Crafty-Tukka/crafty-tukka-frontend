@@ -7,7 +7,6 @@ import LinkedCard from 'components/LinkedCard';
 function Events() {
   const {store} = useGlobalState();
   const {confirmedEvents} = store;
-  console.log(confirmedEvents);
 
   return (
     <MapContainer>

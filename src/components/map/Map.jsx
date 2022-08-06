@@ -41,7 +41,7 @@ function Map() {
   return (
     <div>
       <GoogleMap
-        zoom={12.1}
+        zoom={12}
         center={center}
         mapContainerClassName="map-container"
         options={options}
