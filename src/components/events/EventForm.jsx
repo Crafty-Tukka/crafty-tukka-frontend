@@ -40,7 +40,7 @@ function EventForm() {
   const [formVenueData, setFormVenueData] = useState(initialVenueFormData);
   const [error, setError] = useState(null);
   const [availableFoodTrucks, setAvailableFoodTrucks] = useState(null);
-  const [truckz, setTruckz] = useState(foodTrucks);
+  // const [truckz, setTruckz] = useState(foodTrucks);
   // console.log(formVenueData);
 
   useEffect(() => {
@@ -70,79 +70,79 @@ function EventForm() {
   };
 
   // Available food truck logic
-  useEffect(() => {
-    // map through each event and grab the foodtruck id and the converted date as key value pairs
-    const dates = {};
-    confirmedEvents.map((event) => {
-      dates[event.truck_id] = Date.parse(event.date);
-      console.log(Date.parse(event.date));
-    });
-    console.log(dates);
-    console.log(confirmedEvents);
-    console.log(Date.parse(formVenueData.date));
+  // map through each event and grab the foodtruck id and the converted date as key value pairs
+  const dates = {};
+  confirmedEvents.map((event) => {
+    dates[event.truck_id] = Date.parse(event.date);
+  });
 
-    // get the unavailable food truck ids by mapping through the dates object and check if the value(date) === user selected date and if it does push the key(foodtruck id) into an array
-    let unavailableFoodTrucks = [];
-    Object.keys(dates).map((key) => {
-      if (dates[key] === Date.parse(formVenueData.date)) {
-        unavailableFoodTrucks.push(key);
+  // get the unavailable food truck ids by mapping through the dates object and check if the value(date) === user selected date and if it does push the key(foodtruck id) into an array
+  let unavailableFoodTrucks = [];
+  Object.keys(dates).map((key) => {
+    if (dates[key] === Date.parse(formVenueData.date)) {
+      unavailableFoodTrucks.push(key);
+    }
+  });
+
+  // filter out the trucks using the unavailable food truck ids
+  let trucks = [];
+  // check if unavailable food trucks is empty
+  if (unavailableFoodTrucks.length > 0) {
+    unavailableFoodTrucks.forEach((id) => {
+      // make sure the truck is not already in the trucks array
+      if (!trucks.includes(foodTrucks.find((truck) => truck.id !== Number(id)))) {
+        // find the truck that doesnt match the unavailable truck id and push to the trucks array
+        trucks.push(foodTrucks.find((truck) => truck.id !== Number(id)));
       }
     });
-    console.log(unavailableFoodTrucks);
+    // setTruckz(trucks);
+  } else {
+    trucks = foodTrucks;
+  }
 
-    // filter out the trucks using the unavailable food truck ids
-    let trucks = [];
-    // check if unavailable food trucks is empty
-    if (unavailableFoodTrucks.length > 0) {
-      unavailableFoodTrucks.forEach((id) => {
-        // make sure the truck is not already in the trucks array
-        if (!trucks.includes(foodTrucks.find((truck) => truck.id !== Number(id)))) {
-          // find the truck that doesnt match the unavailable truck id and push to the trucks array
-          trucks.push(foodTrucks.find((truck) => truck.id !== Number(id)));
-        }
-      });
-      console.log(trucks);
-      console.log(truckz);
-      setTruckz(trucks);
-      console.log(truckz);
-    } else {
-      console.log(truckz);
-      // trucks = foodTrucks;
-      setTruckz(foodTrucks);
-      console.log(truckz);
-    }
-  }, [formVenueData.date, truckz]);
-
-  // // Available food truck logic
-  // // map through each event and grab the foodtruck id and the converted date as key value pairs
-  // const dates = {};
-  // confirmedEvents.map((event) => {
-  //   dates[event.truck_id] = Date.parse(event.date);
-  // });
-
-  // // get the unavailable food truck ids by mapping through the dates object and check if the value(date) === user selected date and if it does push the key(foodtruck id) into an array
-  // let unavailableFoodTrucks = [];
-  // Object.keys(dates).map((key) => {
-  //   if (dates[key] === Date.parse(formVenueData.date)) {
-  //     unavailableFoodTrucks.push(key);
-  //   }
-  // });
-
-  // // filter out the trucks using the unavailable food truck ids
-  // let trucks = [];
-  // // check if unavailable food trucks is empty
-  // if (unavailableFoodTrucks.length > 0) {
-  //   unavailableFoodTrucks.forEach((id) => {
-  //     // make sure the truck is not already in the trucks array
-  //     if (!trucks.includes(foodTrucks.find((truck) => truck.id !== Number(id)))) {
-  //       // find the truck that doesnt match the unavailable truck id and push to the trucks array
-  //       trucks.push(foodTrucks.find((truck) => truck.id !== Number(id)));
-  //     }
+  // useEffect(() => {
+  //   setFormVenueData({
+  //     ...formVenueData, // previous state
+  //     truck_id: null // new state
   //   });
-  //   // setTruckz(trucks);
-  // } else {
-  //   trucks = foodTrucks;
-  // }
+  // }, [truckz]);
+
+  // console.log(typeof confirmedEvents[0].date);
+
+  // const getDate = (date) => {
+  //   return confirmedEvents.filter((event) => event.date === date);
+  //   // return confirmedEvents.find((event) => event.date === date);
+  // };
+
+  // let b = getDate(formVenueData.date);
+  // console.log(getDate(formVenueData.date));
+
+  // const getTruck = (truckid) => {
+  //   return confirmedEvents.filter((event) => event.truck === truckid);
+  // };
+
+  // let a = getTruck(formVenueData.truck);
+  // console.log(getTruck(formVenueData.truck));
+
+  // const intersect = (o1, o2) => {
+  //   return Object.keys(o1).filter((k) => k in o2);
+  // };
+
+  // console.log(intersect(a, b));
+
+  // const checkDates = (confirmedEvents, pendingEvent, isUnion = false) =>
+  //   confirmedEvents.filter((a) => isUnion === pendingEvent.some((b) => a.date === b.date));
+
+  // const checkTrucks = (confirmedEvents, pendingEvent, isUnion = false) =>
+  //   confirmedEvents.filter((a) => isUnion === pendingEvent.some((b) => a.truck_id === b.truck_id));
+
+  // const inBothDates = (confirmedEvents, pendingEvent) =>
+  //   checkDates(confirmedEvents, pendingEvent, true);
+
+  // const inBothTrucks = (confirmedEvents, pendingEvent) =>
+  //   checkTrucks(confirmedEvents, pendingEvent, true);
+
+  // console.log(inBothTrucks(confirmedEvents.truck_id, foodTrucks.id));
 
   const addVenueEvent = (data) => {
     createVenueEvent(data).then((pendingEvent) => {
@@ -271,10 +271,8 @@ function EventForm() {
                               }
                               // onChange={handleFormData}
                             >
-                              {/* {trucks && */}
-                              {truckz &&
-                                // trucks.map((truck) => {
-                                truckz.map((truck) => {
+                              {trucks &&
+                                trucks.map((truck) => {
                                   return (
                                     <MenuItem key={truck.id} value={truck.id} name={truck.name}>
                                       {truck.name}
@@ -293,7 +291,7 @@ function EventForm() {
                       selected={formVenueData.date}
                       onChange={(x) => setFormVenueData({...formVenueData, date: x})}
                       name="date"
-                      dateFormat="dd/MM/yyyy"
+                      dateFormat="MMMM d, yyyy"
                       minDate={new Date()}
                     />
                     <Typography component="h3" variant="h5">
