@@ -35,7 +35,10 @@ function App() {
   const {loggedInUser, confirmedEvents, venues, foodTrucks} = store;
   const {isLoaded} = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-    libraries: ['places']
+    libraries: ['places'],
+    getEvents,
+    getVenues,
+    getFoodTrucks
   });
 
   useEffect(() => {
