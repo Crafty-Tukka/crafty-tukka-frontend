@@ -37,6 +37,11 @@ function App() {
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries: ['places']
   });
+  const iEvent = () => {
+    if (confirmedEvents === []) {
+      return false;
+    }
+  };
 
   useEffect(() => {
     getEvents().then((events) => {
@@ -65,7 +70,7 @@ function App() {
     });
   }, []);
 
-  if (foodTrucks === [] || !isLoaded) return <div>Loading...</div>;
+  if (!isLoaded && !iEvent()) return <div>Loading...</div>;
 
   return (
     <StateContext.Provider value={{store, dispatch}}>
