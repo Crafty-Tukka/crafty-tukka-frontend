@@ -65,7 +65,7 @@ function App() {
     });
   }, []);
 
-  if (!getEvents || !isLoaded) return <div>Loading...</div>;
+  if (foodTrucks === [] || !isLoaded) return <div>Loading...</div>;
 
   return (
     <StateContext.Provider value={{store, dispatch}}>
