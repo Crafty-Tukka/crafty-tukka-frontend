@@ -1,4 +1,4 @@
-import React, {useReducer, useEffect} from 'react';
+import React, {useReducer, useEffect, useCallback} from 'react';
 import {useLoadScript} from '@react-google-maps/api';
 import {BrowserRouter as Router, Navigate, Route, Routes} from 'react-router-dom';
 import NavBar from 'components/NavBar';
@@ -35,14 +35,11 @@ function App() {
   const {loggedInUser, confirmedEvents, venues, foodTrucks} = store;
   const {isLoaded} = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-    libraries: ['places'],
-    getEvents,
-    getVenues,
-    getFoodTrucks
+    libraries: ['places']
   });
 
-  useEffect(() => {
-    getEvents().then((events) => {
+  const loadEvents = useCallback(async () => {
+    await getEvents().then((events) => {
       dispatch({
         type: 'setEvents',
         data: events
@@ -50,8 +47,8 @@ function App() {
     });
   }, []);
 
-  useEffect(() => {
-    getVenues().then((venues) => {
+  const loadVenues = useCallback(async () => {
+    await getVenues().then((venues) => {
       dispatch({
         type: 'setVenues',
         data: venues
@@ -59,13 +56,25 @@ function App() {
     });
   }, []);
 
-  useEffect(() => {
-    getFoodTrucks().then((foodTrucks) => {
+  const loadTrucks = useCallback(async () => {
+    await getFoodTrucks().then((foodTrucks) => {
       dispatch({
         type: 'setFoodTrucks',
         data: foodTrucks
       });
     });
+  }, []);
+
+  useEffect(() => {
+    loadEvents();
+  }, []);
+
+  useEffect(() => {
+    loadVenues();
+  }, []);
+
+  useEffect(() => {
+    loadTrucks();
   }, []);
 
   if (!isLoaded) return <div>Loading...</div>;
