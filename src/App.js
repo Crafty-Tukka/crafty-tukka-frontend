@@ -77,10 +77,10 @@ function App() {
     loadTrucks();
   }, [loadTrucks]);
 
-  if (confirmedEvents === []) return <div>Loading...</div>;
+  if (!loadEvents) return <div>Loading...</div>;
 
   return (
-    <StateContext.Provider value={{store, dispatch}}>
+    <StateContext.Provider value={{store, dispatch: loadTrucks, loadVenues, loadEvents}}>
       <Router>
         <NavBar loggedInUser={loggedInUser} />
         <Routes>
