@@ -65,7 +65,7 @@ function App() {
     });
   }, []);
 
-  if (!isLoaded && confirmedEvents === []) return <div>Loading...</div>;
+  if (!isLoaded && !confirmedEvents) return <div>Loading...</div>;
 
   return (
     <StateContext.Provider value={{store, dispatch}}>
