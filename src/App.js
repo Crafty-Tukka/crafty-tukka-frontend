@@ -77,7 +77,7 @@ function App() {
     loadTrucks();
   }, []);
 
-  if (!isLoaded) return <div>Loading...</div>;
+  if (!isLoaded || !loadEvents) return <div>Loading...</div>;
 
   return (
     <StateContext.Provider value={{store, dispatch}}>
