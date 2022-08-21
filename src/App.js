@@ -1,4 +1,4 @@
-import React, {useReducer, useEffect, useCallback} from 'react';
+import React, {useReducer, useEffect} from 'react';
 import {useLoadScript} from '@react-google-maps/api';
 import {BrowserRouter as Router, Navigate, Route, Routes} from 'react-router-dom';
 import NavBar from 'components/NavBar';
@@ -38,8 +38,8 @@ function App() {
     libraries: ['places']
   });
 
-  const loadEvents = useCallback(async () => {
-    await getEvents().then((events) => {
+  useEffect(() => {
+    getEvents().then((events) => {
       dispatch({
         type: 'setEvents',
         data: events
@@ -47,8 +47,8 @@ function App() {
     });
   }, []);
 
-  const loadVenues = useCallback(async () => {
-    await getVenues().then((venues) => {
+  useEffect(() => {
+    getVenues().then((venues) => {
       dispatch({
         type: 'setVenues',
         data: venues
@@ -56,25 +56,13 @@ function App() {
     });
   }, []);
 
-  const loadTrucks = useCallback(async () => {
-    await getFoodTrucks().then((foodTrucks) => {
+  useEffect(() => {
+    getFoodTrucks().then((foodTrucks) => {
       dispatch({
         type: 'setFoodTrucks',
         data: foodTrucks
       });
     });
-  }, []);
-
-  useEffect(() => {
-    loadEvents();
-  }, []);
-
-  useEffect(() => {
-    loadVenues();
-  }, []);
-
-  useEffect(() => {
-    loadTrucks();
   }, []);
 
   if (!isLoaded && confirmedEvents === []) return <div>Loading...</div>;
